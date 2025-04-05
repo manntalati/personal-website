@@ -1,7 +1,13 @@
 import './About.css'
 
 function About() {
-    return ()
+    return (
+        <>
+            <div>
+                <p>About</p>
+            </div>
+        </>
+    )
 }
 
 export default About;
