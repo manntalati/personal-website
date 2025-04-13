@@ -5,7 +5,9 @@
     top: 0;
     background-color: black;
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
 }
 
 .link {
@@ -14,13 +16,36 @@
 
 .navbar-item {
     display: inline-block;
-    margin-right: 2rem;
+    margin-right: 1rem;
     font-size: larger;
     align-items: center;
 }
 
+.navbar-left {
+    justify-content: left;
+}
+
+.navbar-right {
+    justify-content: right;
+}
+
+.navbar-image {
+    display: block;
+    max-width: 30px;
+    max-height: 30px;
+    object-fit: contain;
+    background-color: transparent;
+}
+
+.navbar-image-item {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
 .list {
     list-style: none;
-    padding: 25px;
+    padding: 15px;
     margin: 0;
+    display: flex;
 }
