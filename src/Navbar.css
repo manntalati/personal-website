@@ -8,6 +8,10 @@
     justify-content: right;
 }
 
+.link {
+    color: white;
+}
+
 .navbar-item {
     display: inline-block;
     margin-right: 2rem;

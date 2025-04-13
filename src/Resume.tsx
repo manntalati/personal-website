@@ -1,6 +1,6 @@
-import './About.css'
+import './Resume.css'
 
-function About() {
+function Resume() {
     return (
         <>
             <div>   
@@ -9,4 +9,4 @@ function About() {
     )
 }
 
-export default About;
+export default Resume;
