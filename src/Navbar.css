@@ -1,0 +1,22 @@
+.navbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: black;
+    display: flex;
+    justify-content: right;
+}
+
+.navbar-item {
+    display: inline-block;
+    margin-right: 2rem;
+    font-size: larger;
+    align-items: center;
+}
+
+.list {
+    list-style: none;
+    padding: 25px;
+    margin: 0;
+}
