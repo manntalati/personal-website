@@ -1,5 +1,4 @@
 import './Navbar.css'
-import { Link } from 'react-router-dom';
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
@@ -47,13 +46,13 @@ function Navbar() {
                 <div className="navbar-right">
                     <ul className="list">
                         <li className="navbar-item">
-                            <Link className="link" to={"./about"}> About </Link>
+                            <a className="link" href="#about">About</a>
                         </li>
                         <li className="navbar-item">
-                            <Link className="link" to={"./projects"}> Projects </Link>
+                            <a className="link" href="#projects">Projects</a>
                         </li>
                         <li className="navbar-item">
-                            <Link className="link" to={"./resume"}> Resume </Link>
+                            <a className="link" href="#resume">Resume</a>
                         </li>
                     </ul>
                 </div>
