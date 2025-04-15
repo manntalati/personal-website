@@ -1,7 +1,5 @@
 import './Resume.css'
-import { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import pdf from '../src/assets/talati_mann_resume.pdf'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `${import.meta.env.BASE_URL}pdf.worker.min.js`;
 
