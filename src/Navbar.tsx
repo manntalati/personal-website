@@ -4,6 +4,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 
 function Navbar() {
+    // implement dynamic scrolling with the navbar to disappear and come back when scrolling
 
     const linkedinLink = () => {
         window.open("https://www.linkedin.com/in/mann-talati-017gvffgh")
