@@ -15,7 +15,7 @@ export default function Projects() {
     {
         id: "1",
         title: "AI Recycling Assistant",
-        imageUrl: "../public/recycling.heic",
+        imageUrl: "public/recycling.HEIC",
         summary: "Developing an AI recycling assistant featuring a custom CNN and deployment on AWS SageMaker to classify waste materials with ≥ 70% target accuracy",
         githubUrl: "https://github.com/manntalati/ai_recycling_assistant",
         year: "June 2025-Present",
@@ -23,7 +23,7 @@ export default function Projects() {
     {
         id: "2",
         title: "UIUC Lifestyle",
-        imageUrl: "../public/uiuc.png",
+        imageUrl: "public/uiuc.png",
         summary: "Developing full-stack platform delivering ideal campus lifestyle: study spots, transit, deals",
         githubUrl: "https://github.com/manntalati/uiuc-lifestyle",
         year: "May 2025-Present",
@@ -31,7 +31,7 @@ export default function Projects() {
     {
         id: "3",
         title: "Drainiacs",
-        imageUrl: "../public/lidar.jpg",
+        imageUrl: "public/lidar.jpg",
         summary: "Constructed a solution to detect drain blockages with the LIDAR technology to alert the Stormwater Management Department",
         githubUrl: "https://github.com/manntalati/drainiacs_machine_learning",
         year: "Sep 2020-Nov 2021",
