@@ -1,10 +1,22 @@
 import './Navbar.css'
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useState, useEffect } from 'react';
 
 
-function Navbar() {
+export default function Navbar() {
+    const [top, setTop] = useState(false);
     // implement dynamic scrolling with the navbar to disappear and come back when scrolling
+    useEffect (() => {
+        document.addEventListener("scroll", e => {
+            const scrolled = document.scrollingElement ? document.scrollingElement.scrollTop : 0;
+            if (scrolled >= 2) {
+                setTop(true);
+            } else {
+                setTop(false);
+            }
+        })
+    }, []);
 
     const linkedinLink = () => {
         window.open("https://www.linkedin.com/in/mann-talati-017gvffgh")
@@ -20,7 +32,8 @@ function Navbar() {
 
     return (
         <>
-            <div className="navbar">
+            {!top && (
+                <div className="navbar">
                 <div className="navbar-left">
                     <ul className="list">
                         <li className="navbar-item">
@@ -50,16 +63,16 @@ function Navbar() {
                             <a className="link" href="#about">About</a>
                         </li>
                         <li className="navbar-item">
-                            <a className="link" href="#projects">Projects</a>
+                            <a className="link" href="#experience">Experience</a>
                         </li>
                         <li className="navbar-item">
-                            <a className="link" href="#resume">Resume</a>
+                            <a className="link" href="#projects">Projects</a>
                         </li>
+                        
                     </ul>
                 </div>
-            </div>
+                </div>
+            )}
         </>
     )
 }
-
-export default Navbar;

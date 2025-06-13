@@ -1,7 +1,8 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import { createRoot } from 'react-dom/client'
 import About from './About.tsx'
 import Navbar from './Navbar.tsx'
-import Resume from './Resume.tsx'
+import Experience from './Experience.tsx'
 import Projects from './Projects.tsx'
 import './index.css'
 import { BrowserRouter as Router} from 'react-router-dom';
@@ -10,7 +11,7 @@ createRoot(document.getElementById('root')!).render(
   <Router>
     <Navbar />
     <About/>
+    <Experience />
     <Projects />
-    <Resume />
   </Router>
 )

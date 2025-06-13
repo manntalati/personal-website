@@ -1,10 +1,9 @@
 import './About.css'
-
-function About() {
+ 
+export default function About() {
     return (
-        <>
+        <div>
             <div className="top">
-                <p className="heading">About Me</p>
                 <p className="description">Hey! I am a student at the University of Illinois Urbana-Champaign 
                     studying statistics and computer science, specifically interested in machine learning and 
                     artificial intelligence. Growing up I was always fascinated with technology and its
@@ -19,11 +18,8 @@ function About() {
                 - Libraries: Pandas, NumPy, Tensorflow, BeautifulSoup, OpenCV, Spotipy, PIL
                 - Other Tools: Git, Databricks, Github, Visual Studio, IntelliJ, PyCharm, Jupyter Notebook, RStudio, 
                 Microsft Word, Microsoft Excel
-
-</p>
+                </p>
             </div>
-        </>
+        </div>
     )
 }
-
-export default About;

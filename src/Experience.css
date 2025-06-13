@@ -1,0 +1,33 @@
+.heading {
+    position: relative;
+    font-size: 30px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.title_header {
+    position: relative;
+    padding-left: 20px;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.company {
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 20px;
+}
+
+.pdf {
+    position: relative;
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+}
+
+.background {
+    background-color: grey;
+}
