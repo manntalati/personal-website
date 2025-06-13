@@ -8,7 +8,7 @@ export default function Navbar() {
     const [top, setTop] = useState(false);
     // implement dynamic scrolling with the navbar to disappear and come back when scrolling
     useEffect (() => {
-        document.addEventListener("scroll", e => {
+        document.addEventListener("scroll", () => {
             const scrolled = document.scrollingElement ? document.scrollingElement.scrollTop : 0;
             if (scrolled >= 2) {
                 setTop(true);
