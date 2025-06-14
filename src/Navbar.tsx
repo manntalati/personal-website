@@ -2,21 +2,30 @@ import './Navbar.css'
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useState, useEffect } from 'react';
+import { HashLink } from 'react-router-hash-link';
 
 
 export default function Navbar() {
-    const [top, setTop] = useState(false);
+    const [showNav, setShowNav] = useState(false);
+    const [scrollY, setScrollY] = useState(0);
     // implement dynamic scrolling with the navbar to disappear and come back when scrolling
+
+    const handleScrolling = () => {
+        const currY = window.scrollY;
+        if (currY > scrollY) {
+            setShowNav(true);
+        } else {
+            setShowNav(false);
+        }
+        setScrollY(currY);
+    };
+
     useEffect (() => {
-        document.addEventListener("scroll", () => {
-            const scrolled = document.scrollingElement ? document.scrollingElement.scrollTop : 0;
-            if (scrolled >= 2) {
-                setTop(true);
-            } else {
-                setTop(false);
-            }
-        })
-    }, []);
+        window.addEventListener("scroll", handleScrolling);
+        return () => {
+            window.removeEventListener("scroll", handleScrolling);
+        };
+    }, [scrollY]);
 
     const linkedinLink = () => {
         window.open("https://www.linkedin.com/in/mann-talati-017gvffgh")
@@ -32,7 +41,7 @@ export default function Navbar() {
 
     return (
         <>
-            {!top && (
+            {!showNav && (
                 <div className="navbar">
                 <div className="navbar-left">
                     <ul className="list">
@@ -60,13 +69,13 @@ export default function Navbar() {
                 <div className="navbar-right">
                     <ul className="list">
                         <li className="navbar-item">
-                            <a className="link" href="#about">About</a>
+                            <HashLink className="link" smooth to="/#About">About</HashLink>
                         </li>
                         <li className="navbar-item">
-                            <a className="link" href="#experience">Experience</a>
+                            <HashLink className="link" smooth to="/#Experience">Experience</HashLink>
                         </li>
                         <li className="navbar-item">
-                            <a className="link" href="#projects">Projects</a>
+                            <HashLink className="link" smooth to="/#Projects">Projects</HashLink>
                         </li>
                         
                     </ul>
