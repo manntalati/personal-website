@@ -1,0 +1,16 @@
+.tech {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    box-sizing: border-box;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.tech-heading {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-align: left;
+    padding-top: 0px;
+    margin-top: 0px;
+}

@@ -2,8 +2,8 @@ import './Tech.css'
 
 export default function Tech() {
     return (
-        <div className="tech">
-            <p className="heading">Tech Stack: </p>
+        <section className="tech">
+            <p className="tech-heading">Technology Stack: </p>
             <div className="stack">
                 <a href="https://www.python.org" target="_blank" rel="noreferrer"> 
                     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="50" height="50"/> 
@@ -45,6 +45,6 @@ export default function Tech() {
                     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" alt="git" width="50" height="50"/> 
                 </a>
             </div>
-        </div>
+        </section>
     )
 }
