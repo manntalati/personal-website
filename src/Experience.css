@@ -49,6 +49,10 @@ ul.dashed li {
     margin-bottom: 12px;
 }
 
+li:hover {
+    color: #fff;
+}
+
 ul.dashed li:before {
     content: "-";
     position: absolute;

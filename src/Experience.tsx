@@ -65,7 +65,6 @@ export default function Experience() {
             key={idx}
             className={`experience-row ${idx % 2 === 1 ? 'reverse' : ''}`}
             >
-            
             <div className="experience-text">
                 <h5 className="title_header">{exp.title}</h5>
                 <ul className="dashed">
@@ -74,8 +73,6 @@ export default function Experience() {
                 ))}
                 </ul>
             </div>
-
-            
             <div className="experience-image">
                 <a href={exp.urlLink} target="_blank" rel="noreferrer">
                 <img src={exp.imageUrl} alt={exp.title} />
