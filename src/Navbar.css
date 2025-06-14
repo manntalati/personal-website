@@ -30,6 +30,10 @@ a:hover {
     color: #880808;
 }
 
+.navbar-item:hover {
+    color: #880808;
+}
+
 .navbar-item {
     display: inline-block;
     margin-right: 1rem;
