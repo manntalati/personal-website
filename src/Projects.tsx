@@ -25,7 +25,7 @@ export default function Projects() {
     };
 
 
-    const token = process.env.REACT_APP_GITHUB_KEY;
+    const token = import.meta.env.VITE_GITHUB_KEY;
     const headers = {
         Accept: 'application/vnd.github.v3+json',
         Authorization: `token ${token}`,
