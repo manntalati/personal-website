@@ -22,8 +22,8 @@ export default function Experience() {
         {
             title: "Senior Consultant @ CUBE Consulting",
             bullets: [
-                "Developed 10+ data science tutorials from R for Data Science (2e) by collaborating with Harvard preceptor to enhance educational resources for students",
-                "Drafted and contributed to fundamental chapters on statistical methods, predictive models, and mathematical expressions in the book (Preceptor’s Primer) offered in Kane’s Data Science Course through R and RStudio",
+                "Implemented a Framer-driven website redesign and category plan that boosts user engagement by 25%, and developed a spectrometry algorithm to extract spectral information",
+                "Contacted 20+ potential clients weekly to facilitate projects and led a team of 4+ consultants",
             ],
             imageUrl: "cube.png",
             urlLink: "https://www.cubeconsulting.org/",
