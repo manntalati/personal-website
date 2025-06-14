@@ -2,7 +2,7 @@ import './About.css'
  
 export default function About() {
     return (
-        <section className="about">
+        <section id="About" className="about">
             <div className="about-text">
                 <p className="description">Hey! I am a student at the University of Illinois Urbana-Champaign 
                     studying statistics and computer science, specifically interested in machine learning and 

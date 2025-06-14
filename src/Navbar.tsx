@@ -69,15 +69,17 @@ export default function Navbar() {
                 <div className="navbar-right">
                     <ul className="list">
                         <li className="navbar-item">
-                            <HashLink className="link" smooth to="/#About">About</HashLink>
+                            <HashLink className="link" smooth to="#About">About</HashLink>
                         </li>
                         <li className="navbar-item">
-                            <HashLink className="link" smooth to="/#Experience">Experience</HashLink>
+                            <HashLink className="link" smooth to="#Experience">Experience</HashLink>
                         </li>
                         <li className="navbar-item">
-                            <HashLink className="link" smooth to="/#Projects">Projects</HashLink>
+                            <HashLink className="link" smooth to="#Projects">Projects</HashLink>
                         </li>
-                        
+                        <li className="navbar-item">
+                            <HashLink className="link" smooth to="#Technologies">Technologies</HashLink>
+                        </li>
                     </ul>
                 </div>
                 </div>

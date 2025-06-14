@@ -140,7 +140,7 @@ export default function Projects() {
     }, []);
 
     return (
-        <section className="project">
+        <section id="Projects" className="project">
             <p className="project-heading">Projects</p>
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <button className="btn btn-outline-light" onClick={onPrev} disabled={startIndex === 0}>&larr;</button>

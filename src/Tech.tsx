@@ -2,7 +2,7 @@ import './Tech.css'
 
 export default function Tech() {
     return (
-        <section className="tech">
+        <section id="Technologies" className="tech">
             <p className="tech-heading">Technology Stack: </p>
             <div className="stack">
                 <a href="https://www.python.org" target="_blank" rel="noreferrer"> 

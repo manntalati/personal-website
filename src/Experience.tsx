@@ -52,13 +52,13 @@ export default function Experience() {
                 "Collaborated with the Oppti team and COO on UI/UX projects, contributing to the development of several frontend pages alongside other interns",
                 "Assisted in designing pages for a new system revamp and gained exposure to UI/UX practices through mentorship from the team and COO",
             ],
-            imageUrl: "oppti.jpeg",
+            imageUrl: "oppti.png",
             urlLink: "https://getoppti.com/",
         },
     ]
 
     return (
-        <section className="experience">
+        <section id="Experience" className="experience">
         <h2 className="experience-heading">Experience</h2>
         {experiences.map((exp, idx) => (
             <div
