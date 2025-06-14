@@ -20,6 +20,15 @@ export default function Experience() {
             urlLink: "https://www.ameren.com/",
         },
         {
+            title: "Senior Consultant @ CUBE Consulting",
+            bullets: [
+                "Developed 10+ data science tutorials from R for Data Science (2e) by collaborating with Harvard preceptor to enhance educational resources for students",
+                "Drafted and contributed to fundamental chapters on statistical methods, predictive models, and mathematical expressions in the book (Preceptor’s Primer) offered in Kane’s Data Science Course through R and RStudio",
+            ],
+            imageUrl: "cube.png",
+            urlLink: "https://www.cubeconsulting.org/",
+        },
+        {
             title: "Data Science Intern @ Former Harvard Preceptor, David Kane",
             bullets: [
                 "Developed 10+ data science tutorials from R for Data Science (2e) by collaborating with Harvard preceptor to enhance educational resources for students",
@@ -49,30 +58,31 @@ export default function Experience() {
     ]
 
     return (
-        <div>
-            <div className="background">   
-                <h2 className="heading">Experience</h2>
-                    {experiences.map((experience, index) => (
-                    <div key={index} className={`experience-row ${index % 2 === 0 ? 'left' : 'right'}`}>
-                        <div className="experience-text">
-                        <h5 className="title_header">{experience.title}</h5>
-                        <ul className="dashed">
-                            {experience.bullets.map((b, i) => (
-                            <li key={i}>{b}</li>
-                            ))}
-                        </ul>
-                        </div>
-                        <div className="experience-box">
-                            {experience.urlLink && experience.imageUrl && (
-                            <a href={experience.urlLink} target="_blank" rel="noreferrer">
-                            <img src={experience.imageUrl} alt={experience.title} />
-                            </a>
-                        )}
-                        </div>
-                    </div>
-                    ))}
-                {/*<iframe className="pdf" src='../src/assets/talati_mann_resume.pdf' width={300} height={400}/>*/}
+        <section className="experience">
+        <h2 className="experience-heading">Experience</h2>
+        {experiences.map((exp, idx) => (
+            <div
+            key={idx}
+            className={`experience-row ${idx % 2 === 1 ? 'reverse' : ''}`}
+            >
+            
+            <div className="experience-text">
+                <h5 className="title_header">{exp.title}</h5>
+                <ul className="dashed">
+                {exp.bullets.map((b, i) => (
+                    <li key={i}>{b}</li>
+                ))}
+                </ul>
             </div>
-        </div>
-    )
+
+            
+            <div className="experience-image">
+                <a href={exp.urlLink} target="_blank" rel="noreferrer">
+                <img src={exp.imageUrl} alt={exp.title} />
+                </a>
+            </div>
+            </div>
+        ))}
+        </section>
+    );
 }

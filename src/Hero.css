@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 120px 20px 40px;
+  overflow: hidden;
+}
+
+.hero-name {
+  font-size: 5rem;
+  color: #fff;
+  text-shadow:
+    2px 2px 0   #FAF9F6,
+    4px 4px 0   #333,
+    6px 6px 0   #FAF9F6,
+    8px 8px 8px rgba(0,0,0,0.7);
+  margin: 0;
+}
+
+.rotating-text {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 1.5rem;
+  color: #fff;
+  margin-top: 16px;
+  min-height: 2rem;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  background-color: #fff;
+  margin-left: 2px;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 50%   { opacity: 1; }
+  50.01%,100% { opacity: 0; }
+}

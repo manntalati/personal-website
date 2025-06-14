@@ -1,20 +1,42 @@
-.heading {
-    padding-left: 20px;
-    position: relative;
-    font-size: 30px;
-    padding-bottom: 0;
-    margin-bottom: 0;
+.about {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.description {
-    padding-left: 20px;
-    position: relative;
-    margin-top: 0;
-    padding-top: 60px;
+.about-text {
+  flex: 1;
+  color: #fff;
+  line-height: 1.6;
 }
 
-.top {
-    padding-bottom: 0;
-    margin-bottom: 0;
-    padding-top: 60px;
+.about-text p {
+  margin-bottom: 24px;
+  font-size: 1.1rem;
+}
+
+.about-text ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-text li {
+  margin-bottom: 8px;
+}
+
+.about-image {
+  flex: 1;
+  text-align: center;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 300px;
+  height: 425px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
 }
