@@ -6,9 +6,9 @@ export default function Hero() {
         'is a student @ UIUC',
         'enjoys weightlifting',
         'loves creating new tech projects',
-        'drumming to a new song',
-        'watching new TV shows',
-        'learning new technologies'
+        'is drumming to a new song',
+        'is watching new TV shows',
+        'is learning new technologies'
     ];
 
     const [loopNum, setLoopNum] = useState(0);
