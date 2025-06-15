@@ -24,7 +24,6 @@ export default function Projects() {
     'Jupyter Notebook': 'EB860D',
     };
 
-
     const token = import.meta.env.VITE_GITHUB_KEY;
     const headers = {
         Accept: 'application/vnd.github.v3+json',
@@ -49,7 +48,7 @@ export default function Projects() {
     for (let repo of list) {
         console.log(repo.name, await getTopLanguages(repo.owner.login, repo.name));
     }
-    }fetchAll();
+    } fetchAll();
 
     const projects: Project[] = [
     {
@@ -152,11 +151,7 @@ export default function Projects() {
                     {visibleProjects.map((p) => (
                     <div key={p.id} className="col-sm-6 col-md-4">
                         <div className="card h-100">
-                            <img
-                                src={p.imageUrl}
-                                className="card-img-top"
-                                alt={p.title}
-                                style={{ height: 130, objectFit: "cover" }}/>
+                            <img src={p.imageUrl} className="card-img-top" alt={p.title} style={{ height: 130, objectFit: "cover" }}/>
                             <div className="card-body d-flex flex-column">
                                 <div className="year">
                                 <h5 className="card-title">{p.title}</h5>
@@ -167,25 +162,16 @@ export default function Projects() {
                                     {(languages[p.id] || []).map(lang => {
                                         const color = badgeColors[lang] || 'lightgrey';
                                         return (
-                                        <img
-                                            key={lang}
-                                            src={
-                                            `https://img.shields.io/badge/` +
-                                            `${encodeURIComponent(lang)}-${color}` +
-                                            `?style=for-the-badge&logo=${encodeURIComponent(lang)}&logoColor=white`
-                                            }
+                                        <img 
+                                            key={lang} 
+                                            src={`https://img.shields.io/badge/` + `${encodeURIComponent(lang)}-${color}` + `?style=for-the-badge&logo=${encodeURIComponent(lang)}&logoColor=white`}
                                             alt={lang}
                                             className="mx-1"
                                         />
                                         )
                                     })}
                                     </div>
-                                    <a
-                                        href={p.githubUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="btn btn-primary mt-auto"
-                                    > GitHub </a>
+                                    <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-auto"> GitHub </a>
                             </div>
                         </div>
                     </div>

@@ -61,10 +61,7 @@ export default function Experience() {
         <section id="Experience" className="experience">
         <h2 className="experience-heading">Experience</h2>
         {experiences.map((exp, idx) => (
-            <div
-            key={idx}
-            className={`experience-row ${idx % 2 === 1 ? 'reverse' : ''}`}
-            >
+            <div key={idx} className={`experience-row ${idx % 2 === 1 ? 'reverse' : ''}`}>
             <div className="experience-text">
                 <h5 className="title_header">{exp.title}</h5>
                 <ul className="dashed">

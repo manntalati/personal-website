@@ -13,12 +13,6 @@ export default function About() {
                     computer science, I love playing volleyball, learning a new song on the drums, strength
                     training, coin-collecting (specifically U.S. state quarters), and building with LEGO.
                 </p>
-                {/*<p className="description">
-                - Programming Languages: Python, Java, C++, R, HTML, CSS, SQL
-                - Libraries: Pandas, NumPy, Tensorflow, BeautifulSoup, OpenCV, Spotipy, PIL
-                - Other Tools: Git, Databricks, Github, Visual Studio, IntelliJ, PyCharm, Jupyter Notebook, RStudio, 
-                Microsft Word, Microsoft Excel
-                </p>*/}
             </div>
             <div className="about-image">
                 <img src={'headshot.jpg'} alt="Mann Talati" />

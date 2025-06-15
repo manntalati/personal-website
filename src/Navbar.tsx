@@ -4,11 +4,9 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useState, useEffect } from 'react';
 import { HashLink } from 'react-router-hash-link';
 
-
 export default function Navbar() {
     const [showNav, setShowNav] = useState(false);
     const [scrollY, setScrollY] = useState(0);
-    // implement dynamic scrolling with the navbar to disappear and come back when scrolling
 
     const handleScrolling = () => {
         const currY = window.scrollY;
@@ -40,29 +38,19 @@ export default function Navbar() {
     }
 
     return (
-        <>
+        <section>
             {!showNav && (
                 <div className="navbar">
                 <div className="navbar-left">
                     <ul className="list">
                         <li className="navbar-item">
-                            <FaLinkedin className="navbar-image"
-                            onClick={linkedinLink}
-                            size={30}
-                            />
+                            <FaLinkedin className="navbar-image" onClick={linkedinLink} size={30}/>
                         </li>
                         <li className="navbar-item">
-                            <FaGithub className="navbar-image"
-                            onClick={githubLink}
-                            size={30}
-                            />
+                            <FaGithub className="navbar-image" onClick={githubLink} size={30}/>
                         </li>
                         <li className="navbar-item">
-                            <MdOutlineEmail className="navbar-image"
-                                onClick={emailLink}
-                                size={30}
-                                
-                            />
+                            <MdOutlineEmail className="navbar-image" onClick={emailLink} size={30}/>
                         </li>
                     </ul>
                 </div>
@@ -84,6 +72,6 @@ export default function Navbar() {
                 </div>
                 </div>
             )}
-        </>
+        </section>
     )
 }
