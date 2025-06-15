@@ -13,8 +13,8 @@ export default function Projects() {
     };
 
     const badgeColors: Record<string,string> = {
-    'Javascript': 'F7DF1E',
-    'Typescript': '3178C6',
+    'JavaScript': 'F7DF1E',
+    'TypeScript': '3178C6',
     'Python':     '3776AB',
     cplusplus:  '00599C',
     html5:      'E34F26',
