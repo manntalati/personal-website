@@ -54,7 +54,7 @@ export default function Projects() {
     {
         id: "1",
         title: "Snap-Scout-Shop",
-        imageUrl: "/coming_soon.jpg",
+        imageUrl: "/coming_soon.png",
         summary: "Developing an easy way to shop the best prices by simply snapping a picture of the item",
         githubUrl: "https://github.com/manntalati/snap-scout-shop",
         year: "July 2025-Present",
