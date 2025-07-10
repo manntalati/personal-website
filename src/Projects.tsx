@@ -53,6 +53,14 @@ export default function Projects() {
     const projects: Project[] = [
     {
         id: "1",
+        title: "Snap-Scout-Shop",
+        imageUrl: "/coming_soon.jpg",
+        summary: "Developing an easy way to shop the best prices by simply snapping a picture of the item",
+        githubUrl: "https://github.com/manntalati/snap-scout-shop",
+        year: "July 2025-Present",
+    },
+    {
+        id: "2",
         title: "AI Recycling Assistant",
         imageUrl: "/recycling.HEIC",
         summary: "Developing an AI recycling assistant featuring a custom CNN and deployment on AWS SageMaker to classify waste materials with ≥ 70% target accuracy",
@@ -60,7 +68,7 @@ export default function Projects() {
         year: "Jun 2025-Present",
     },
     {
-        id: "2",
+        id: "3",
         title: "Personal Website",
         imageUrl: '/portfolio.png',
         summary: "This website!! 😝",
@@ -68,7 +76,7 @@ export default function Projects() {
         year: "Jun 2025",
     },
     {
-        id: "3",
+        id: "4",
         title: "UIUC Lifestyle",
         imageUrl: "/uiuc.png",
         summary: "Developing full-stack platform delivering ideal campus lifestyle: study spots, transit, deals",
@@ -76,7 +84,7 @@ export default function Projects() {
         year: "May 2025-Present",
     },
     {
-        id: "4",
+        id: "5",
         title: "Macro Masters",
         imageUrl: '/macro-master.jpg',
         summary: "Combat issues that users may face with tracking calories and staying on par with their nutrition goals",
@@ -84,7 +92,7 @@ export default function Projects() {
         year: "Jan 2025-May 2025",
     },
     {
-        id: "5",
+        id: "6",
         title: "Metea Hackathon",
         imageUrl: '/hackathon.png',
         summary: "Addressing the growing demand for secure data transfer in light of the increased prevalence of malicious intenders, we aimed to tackle this issue through encrypted file transfers",
@@ -92,7 +100,7 @@ export default function Projects() {
         year: "May 2023",
     },
     {
-        id: "6",
+        id: "7",
         title: "NCAA Women's Volleyball Project",
         imageUrl: '/ncaa.png',
         summary: "The project aims to analyze the statistics for all players and teams in hopes of establishing the leaders and stronger teams that exhibit power within their divisions",
@@ -100,7 +108,7 @@ export default function Projects() {
         year: "Aug 2022",
     },
     {
-        id: "7",
+        id: "8",
         title: "Drainiacs",
         imageUrl: "/lidar.jpg",
         summary: "Constructed a solution to detect drain blockages with the LIDAR technology to alert the Stormwater Management Department",
@@ -140,43 +148,55 @@ export default function Projects() {
 
     return (
         <section id="Projects" className="project">
-            <p className="project-heading">Projects</p>
-            <div className="d-flex justify-content-between align-items-center mb-3">
-                <button className="btn btn-outline-light" onClick={onPrev} disabled={startIndex === 0}>&larr;</button>
-                <small>{startIndex+1}–{endIndex} of {projects.length}</small>
-                <button className="btn btn-outline-light" onClick={onNext} disabled={endIndex >= projects.length}>&rarr;</button>
-                </div>
-                <div className="container py-4">
-                <div className="row g-4">
-                    {visibleProjects.map((p) => (
-                    <div key={p.id} className="col-sm-6 col-md-4">
-                        <div className="card h-100">
-                            <img src={p.imageUrl} className="card-img-top" alt={p.title} style={{ height: 130, objectFit: "cover" }}/>
-                            <div className="card-body d-flex flex-column">
-                                <div className="year">
-                                <h5 className="card-title">{p.title}</h5>
-                                <h6>{p.year}</h6>
-                                </div>
-                                    <p className="card-text flex-grow-1">{p.summary}</p>
-                                    <div className="d-flex justify-content-center flex-wrap mb-3">
-                                    {(languages[p.id] || []).map(lang => {
-                                        const color = badgeColors[lang] || 'lightgrey';
-                                        return (
+            <h2 className="project-heading">Projects</h2>
+            
+            <div className="project-navigation">
+                <button onClick={onPrev} disabled={startIndex === 0}>
+                    ← Previous
+                </button>
+                <small>{startIndex + 1}–{endIndex} of {projects.length}</small>
+                <button onClick={onNext} disabled={endIndex >= projects.length}>
+                    Next →
+                </button>
+            </div>
+            
+            <div className="project-grid">
+                {visibleProjects.map((p) => (
+                    <div key={p.id} className="project-card">
+                        <img 
+                            src={p.imageUrl} 
+                            className="project-card-image" 
+                            alt={p.title}
+                        />
+                        <div className="project-card-content">
+                            <h3 className="project-card-title">{p.title}</h3>
+                            <p className="project-card-year">{p.year}</p>
+                            <p className="project-card-summary">{p.summary}</p>
+                            
+                            <div className="project-card-languages">
+                                {(languages[p.id] || []).map(lang => {
+                                    const color = badgeColors[lang] || 'lightgrey';
+                                    return (
                                         <img 
                                             key={lang} 
-                                            src={`https://img.shields.io/badge/` + `${encodeURIComponent(lang)}-${color}` + `?style=for-the-badge&logo=${encodeURIComponent(lang)}&logoColor=white`}
+                                            src={`https://img.shields.io/badge/${encodeURIComponent(lang)}-${color}?style=for-the-badge&logo=${encodeURIComponent(lang)}&logoColor=white`}
                                             alt={lang}
-                                            className="mx-1"
                                         />
-                                        )
-                                    })}
-                                    </div>
-                                    <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-auto"> GitHub </a>
+                                    )
+                                })}
                             </div>
+                            
+                            <a 
+                                href={p.githubUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="project-card-button"
+                            >
+                                View on GitHub
+                            </a>
                         </div>
                     </div>
-                    ))}
-                </div>
+                ))}
             </div>
         </section>
     )
