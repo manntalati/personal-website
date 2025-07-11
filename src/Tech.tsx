@@ -44,6 +44,9 @@ export default function Tech() {
                 <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> 
                     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" alt="git" width="50" height="50"/> 
                 </a>
+                <a href="https://developer.hashicorp.com/terraform" target="_blank" rel="noreferrer"> 
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" alt="terraform" width="50" height="50"/> 
+                </a>
             </div>
         </section>
     )

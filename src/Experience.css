@@ -1,14 +1,30 @@
 .experience {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 80px 20px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .experience-heading {
     font-size: 2.5rem;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     text-align: left;
+    color: #fff;
+    font-weight: bold;
+    position: relative;
+    animation: fadeInUp 1s ease-out;
+}
+
+.experience-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #dc2626, #b91c1c);
+    border-radius: 2px;
 }
 
 .experience-row {
@@ -16,8 +32,18 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    margin-bottom: 60px;
+    gap: 60px;
+    margin-bottom: 80px;
+    position: relative;
+    animation: fadeInUp 1s ease-out;
+}
+
+.experience-row:nth-child(even) {
+    animation-delay: 0.2s;
+}
+
+.experience-row:nth-child(odd) {
+    animation-delay: 0.4s;
 }
 
 .experience-row.reverse {
@@ -27,14 +53,39 @@
 .experience-text {
     flex: 1;
     color: #fff;
-    line-height: 1.6;
+    line-height: 1.8;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.experience-text:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(220, 38, 38, 0.3);
 }
 
 .title_header {
     font-size: 1.5rem;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     font-weight: bold;
     color: #fff;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.title_header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #dc2626, #b91c1c);
+    border-radius: 1px;
 }
 
 ul.dashed {
@@ -45,31 +96,116 @@ ul.dashed {
 
 ul.dashed li {
     position: relative;
-    padding-left: 1.2em;
-    margin-bottom: 12px;
+    padding-left: 25px;
+    margin-bottom: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    transition: all 0.3s ease;
 }
 
-li:hover {
+ul.dashed li:hover {
     color: #fff;
+    transform: translateX(5px);
 }
 
-ul.dashed li:before {
-    content: "-";
+ul.dashed li::before {
+    content: "▸";
     position: absolute;
     left: 0;
     top: 0;
-    color: #fff;
+    color: #dc2626;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 .experience-image {
     flex: 1;
     text-align: center;
+    position: relative;
+}
+
+.experience-image::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, #dc2626, #b91c1c);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0.2;
+    filter: blur(10px);
 }
 
 .experience-image img {
     width: 475px;
     height: 320px;
-    border-radius: 12px;
+    border-radius: 16px;
     object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.experience-image img:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    border-color: rgba(220, 38, 38, 0.3);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .experience {
+        padding: 60px 20px;
+    }
+    
+    .experience-row {
+        flex-direction: column;
+        gap: 40px;
+        margin-bottom: 60px;
+    }
+    
+    .experience-row.reverse {
+        flex-direction: column;
+    }
+    
+    .experience-text {
+        padding: 25px;
+    }
+    
+    .experience-image img {
+        width: 100%;
+        max-width: 400px;
+        height: 250px;
+    }
+    
+    .experience-heading {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .experience {
+        padding: 40px 15px;
+    }
+    
+    .experience-text {
+        padding: 20px;
+    }
+    
+    .experience-image img {
+        height: 200px;
+    }
 }
