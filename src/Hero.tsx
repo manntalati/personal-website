@@ -5,10 +5,11 @@ export default function Hero() {
     const statements = [
         'is a student @ UIUC',
         'enjoys weightlifting',
-        'loves creating new tech projects',
-        'is drumming to a new song',
+        'loves building new tech projects',
+        'is drumming to a new rock song',
         'is watching new TV shows',
-        'is learning new technologies'
+        'is learning new technologies',
+        'is collecting new US state quarters'
     ];
 
     const [loopNum, setLoopNum] = useState(0);

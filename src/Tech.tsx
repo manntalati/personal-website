@@ -11,6 +11,9 @@ export default function Tech() {
                 <a href="https://cplusplus.com/" target="_blank" rel="noreferrer">
                     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="c++" width="50" height="50"/>
                 </a>
+                <a href="https://aws.amazon.com/" target="_blank" rel="noreferrer">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="aws" width="50" height="50"/>
+                </a>
                 <a href="https://www.java.com" target="_blank" rel="noreferrer"> 
                     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="50" height="50"/> 
                 </a>
@@ -46,6 +49,15 @@ export default function Tech() {
                 </a>
                 <a href="https://developer.hashicorp.com/terraform" target="_blank" rel="noreferrer"> 
                     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" alt="terraform" width="50" height="50"/> 
+                </a>
+                <a href="https://www.jenkins.io/" target="_blank" rel="noreferrer">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" alt="jenkins" width="50" height="50"/>
+                </a>
+                <a href="https://opencv.org/" target="_blank" rel="noreferrer">
+                    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg" alt="opencv" width="50" height="50"/>
+                </a>
+                 <a href="https://spark.apache.org/docs/latest/api/python/index.html" target="_blank" rel="noreferrer">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachespark/apachespark-original-wordmark.svg" alt="spark" width="50" height="50"/>
                 </a>
             </div>
         </section>
