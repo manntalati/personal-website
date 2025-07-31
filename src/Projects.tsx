@@ -62,7 +62,7 @@ export default function Projects() {
     {
         id: "2",
         title: "Resume Recommender 📄",
-        imageUrl: "/coming_soon.png",
+        imageUrl: "/resume_recommender.png",
         summary: "Constructing the best way to optimize resumes to apply to all jobs & internships 😁",
         githubUrl: "https://github.com/manntalati/resume-recommender",
         year: "July 2025-Present",
