@@ -12,9 +12,9 @@ export default function Experience() {
         {
             title: "Data Science Intern @ Ameren",
             bullets: [
-                "Implementing short-term electric load forecasting models to achieve ≤ 3% MAPE, projected to save $1000+ daily",
+                "Implementing short-term electric load forecasting models to achieve ≤ 4% MAPE, projected to save $50,000+",
                 "Hyperparameter tuning neural forecasting models to enhance model accuracy by ≥ 1% with Ray Tune",
-                "Utilizing statistical models to forecast 8+ companies’ electric load consumption"
+                "Developing a Jenkins CI/CD pipeline using Terraform to deploy code across several environments and productionize it",
             ],
             imageUrl: "ameren.png",
             urlLink: "https://www.ameren.com/",
@@ -31,8 +31,8 @@ export default function Experience() {
         {
             title: "Data Science Intern @ Former Harvard Preceptor, David Kane",
             bullets: [
-                "Developed 10+ data science tutorials from R for Data Science (2e) by collaborating with Harvard preceptor to enhance educational resources for students",
-                "Drafted and contributed to fundamental chapters on statistical methods, predictive models, and mathematical expressions in the book (Preceptor’s Primer) offered in Kane’s Data Science Course through R and RStudio",
+                "Developed 10+ data science tutorials from R for Data Science (2e) in RStudio by collaborating with Harvard preceptor to enhance educational resources for students",
+                "Drafted and contributed to fundamental chapters on statistical methods, predictive models, and mathematical expressions in the book (Preceptor’s Primer) offered in Kane’s Data Science Course to strengthen the course curriculum",
             ],
             imageUrl: "preceptor.jpg",
             urlLink: "https://ppbds.github.io/primer/",
@@ -40,8 +40,8 @@ export default function Experience() {
         {
             title: "SWE & Web Dev Intern @ Silverline Educational Advisory Services",
             bullets: [
-                "Assisted with the redesign of the website through React, Typescript, and CSS, improving engagement by 10%",
-                "Implemented bot functionalities with the CTO using Discord.py, enhancing support for 250+ members",
+                "Assisted with the redesign of the website through React, TypeScript, and CSS, improving engagement by 10%",
+                "Implemented bot functionalities with the CTO using Discord.py, enhancing support for 250+ members"
             ],
             imageUrl: "silverline.png",
             urlLink: "http://silverlineadvisory.org",

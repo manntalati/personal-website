@@ -10,7 +10,7 @@ export default function About() {
                     application in the real world setting, which has only continued to prosper at UIUC.
                     At UIUC, I am involved in the CUBE Consulting organization that aims to bridge technology
                     and business together to solve real-world problems for clients. Beyond my interests in
-                    computer science, I love playing volleyball, learning a new song on the drums, strength
+                    AI & ML & SWE, I love playing volleyball, learning a new song on the drums, strength
                     training, coin-collecting (specifically U.S. state quarters), and building with LEGO.
                 </p>
             </div>
