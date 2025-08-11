@@ -73,7 +73,7 @@ export default function Projects() {
         imageUrl: "/recycling.HEIC",
         summary: "Developing an AI recycling assistant featuring a custom CNN and deployment on AWS SageMaker to classify waste materials with ≥ 70% target accuracy",
         githubUrl: "https://github.com/manntalati/ai_recycling_assistant",
-        year: "Jun 2025-Present",
+        year: "Jun 2025-Aug 2025",
     },
     {
         id: "4",
