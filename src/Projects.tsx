@@ -53,6 +53,14 @@ export default function Projects() {
     const projects: Project[] = [
     {
         id: "1",
+        title: "Google Calendar Agent 📆",
+        imageUrl: "/coming_soon.png",
+        summary: "Developing an AI agent to easily handle google calendar events",
+        githubUrl: "https://github.com/manntalati/google-calendar-agent",
+        year: "Aug 2025-Present",
+    },
+    {
+        id: "2",
         title: "Trading Assistant 📈",
         imageUrl: "/coming_soon.png",
         summary: "Developing an stock trading assistant integrated with LangChain to make more informed decisions with voice commands",
@@ -60,7 +68,7 @@ export default function Projects() {
         year: "Aug 2025-Present",
     },
     {
-        id: "2",
+        id: "3",
         title: "Snap Scout Shop 🛍️",
         imageUrl: "/coming_soon.png",
         summary: "Developing an easy way to shop the best prices by simply snapping a picture of the item",
@@ -68,7 +76,7 @@ export default function Projects() {
         year: "Jul 2025-Present",
     },
     {
-        id: "3",
+        id: "4",
         title: "AI Recycling Assistant ♻️",
         imageUrl: "/recycling.HEIC",
         summary: "Developing an AI recycling assistant featuring a custom CNN and deployment on AWS SageMaker to classify waste materials with ≥ 70% target accuracy",
@@ -76,7 +84,7 @@ export default function Projects() {
         year: "Jun 2025-Aug 2025",
     },
     {
-        id: "4",
+        id: "5",
         title: "Resume Recommender 📄",
         imageUrl: "/resume_recommender.png",
         summary: "Constructing the best way to optimize resumes to apply to all jobs & internships 😁",
@@ -84,7 +92,7 @@ export default function Projects() {
         year: "Jul 2025",
     },
     {
-        id: "5",
+        id: "6",
         title: "Personal Website 👨🏽‍💻",
         imageUrl: '/portfolio.png',
         summary: "This website!! 😝",
@@ -92,7 +100,7 @@ export default function Projects() {
         year: "Jun 2025",
     },
     {
-        id: "6",
+        id: "7",
         title: "UIUC Lifestyle",
         imageUrl: "/uiuc.png",
         summary: "Developing full-stack platform delivering ideal campus lifestyle: study spots, transit, deals",
@@ -100,7 +108,7 @@ export default function Projects() {
         year: "May 2025-Present",
     },
     {
-        id: "7",
+        id: "8",
         title: "Macro Masters",
         imageUrl: '/macro-master.jpg',
         summary: "Combat issues that users may face with tracking calories and staying on par with their nutrition goals",
@@ -108,7 +116,7 @@ export default function Projects() {
         year: "Jan 2025-May 2025",
     },
     {
-        id: "8",
+        id: "9",
         title: "Metea Hackathon",
         imageUrl: '/hackathon.png',
         summary: "Addressing the growing demand for secure data transfer in light of the increased prevalence of malicious intenders, we aimed to tackle this issue through encrypted file transfers",
@@ -116,7 +124,7 @@ export default function Projects() {
         year: "May 2023",
     },
     {
-        id: "9",
+        id: "10",
         title: "NCAA Women's Volleyball Project",
         imageUrl: '/ncaa.png',
         summary: "The project aims to analyze the statistics for all players and teams in hopes of establishing the leaders and stronger teams that exhibit power within their divisions",
@@ -124,7 +132,7 @@ export default function Projects() {
         year: "Aug 2022",
     },
     {
-        id: "10",
+        id: "11",
         title: "Drainiacs",
         imageUrl: "/lidar.jpg",
         summary: "Constructed a solution to detect drain blockages with the LIDAR technology to alert the Stormwater Management Department",
