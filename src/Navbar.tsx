@@ -1,13 +1,15 @@
 import './Navbar.css'
 import { MdOutlineEmail } from "react-icons/md";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaSun, FaMoon } from "react-icons/fa";
 import { useState, useEffect } from 'react';
 import { HashLink } from 'react-router-hash-link';
+import { useTheme } from './ThemeContext';
 
 export default function Navbar() {
     const [showNav, setShowNav] = useState(false);
     const [scrollY, setScrollY] = useState(0);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const { isDark, toggleTheme } = useTheme();
 
     const handleScrolling = () => {
         const currY = window.scrollY;
@@ -89,6 +91,15 @@ export default function Navbar() {
                             </li>
                             <li className="navbar-item">
                                 <HashLink className="link" smooth to="#Technologies">Technologies</HashLink>
+                            </li>
+                            <li className="navbar-item">
+                                <button 
+                                    onClick={toggleTheme}
+                                    className="theme-toggle"
+                                    title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                                >
+                                    {isDark ? <FaSun /> : <FaMoon />}
+                                </button>
                             </li>
                         </ul>
                     </div>

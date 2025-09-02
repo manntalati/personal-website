@@ -1,21 +1,28 @@
 .about {
   display: flex;
   align-items: center;
-  gap: 40px;
-  padding: 60px 20px;
-  max-width: 1000px;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-6);
+  max-width: 1200px;
   margin: 0 auto;
+  background: var(--color-surface);
+  border-radius: var(--radius-2xl);
+  margin: var(--space-6) auto;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
 }
 
 .about-text {
   flex: 1;
-  color: #fff;
-  line-height: 1.6;
+  color: var(--color-text-primary);
+  line-height: 1.7;
 }
 
 .about-text p {
-  margin-bottom: 24px;
-  font-size: 1.1rem;
+  margin-bottom: var(--space-6);
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
 }
 
 .about-text ul {
@@ -24,19 +31,71 @@
 }
 
 .about-text li {
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2);
 }
 
 .about-image {
   flex: 1;
   text-align: center;
+  position: relative;
+}
+
+.about-image::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+  border-radius: var(--radius-2xl);
+  z-index: -1;
+  opacity: 0.1;
+  filter: blur(20px);
 }
 
 .about-image img {
   width: 100%;
-  max-width: 300px;
-  height: 425px;
-  border-radius: 12px;
+  max-width: 350px;
+  height: auto;
+  aspect-ratio: 3/4;
+  border-radius: var(--radius-xl);
   object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+  border: 3px solid var(--color-surface);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .about {
+    flex-direction: column;
+    gap: var(--space-8);
+    padding: var(--space-12) var(--space-4);
+    margin: var(--space-4) var(--space-4);
+  }
+  
+  .about-text p {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-4);
+  }
+  
+  .about-image img {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about {
+    padding: var(--space-8) var(--space-3);
+    gap: var(--space-6);
+  }
+  
+  .about-text p {
+    font-size: var(--text-sm);
+  }
+  
+  .about-image img {
+    max-width: 240px;
+  }
 }

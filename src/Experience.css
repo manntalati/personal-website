@@ -1,17 +1,17 @@
 .experience {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 80px 20px;
+    padding: var(--space-12) var(--space-6);
     box-sizing: border-box;
     position: relative;
 }
 
 .experience-heading {
-    font-size: 2.5rem;
-    margin-bottom: 60px;
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-12);
     text-align: left;
-    color: #fff;
-    font-weight: bold;
+    color: var(--color-text-primary);
+    font-weight: 700;
     position: relative;
     animation: fadeInUp 1s ease-out;
 }
@@ -19,12 +19,12 @@
 .experience-heading::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -var(--space-3);
     left: 0;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #dc2626, #b91c1c);
-    border-radius: 2px;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover));
+    border-radius: var(--radius-sm);
 }
 
 .experience-row {
@@ -32,10 +32,17 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    gap: 60px;
-    margin-bottom: 80px;
+    gap: var(--space-12);
+    margin-bottom: var(--space-12);
     position: relative;
-    animation: fadeInUp 1s ease-out;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all var(--transition-slow);
+}
+
+.experience-row.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .experience-row:nth-child(even) {
@@ -52,29 +59,40 @@
 
 .experience-text {
     flex: 1;
-    color: #fff;
+    color: var(--color-text-primary);
     line-height: 1.8;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 30px;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-surface);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
     backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
 }
 
-.experience-text:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border-color: rgba(220, 38, 38, 0.3);
+.experience-image img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    aspect-ratio: 16/10;
+    border-radius: var(--radius-xl);
+    object-fit: cover;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-normal);
+    border: 3px solid var(--color-surface);
+}
+
+.experience-header {
+    margin-bottom: var(--space-6);
 }
 
 .title_header {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #fff;
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+    font-weight: 600;
+    color: var(--color-text-primary);
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: var(--space-3);
 }
 
 .title_header::after {
@@ -82,10 +100,28 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 40px;
-    height: 2px;
-    background: linear-gradient(90deg, #dc2626, #b91c1c);
-    border-radius: 1px;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover));
+    border-radius: var(--radius-sm);
+}
+
+.experience-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.company {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.duration {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    font-weight: 500;
 }
 
 ul.dashed {
@@ -96,16 +132,12 @@ ul.dashed {
 
 ul.dashed li {
     position: relative;
-    padding-left: 25px;
-    margin-bottom: 16px;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.6;
-    transition: all 0.3s ease;
-}
-
-ul.dashed li:hover {
-    color: #fff;
-    transform: translateX(5px);
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-4);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    transition: all var(--transition-fast);
+    font-size: var(--text-base);
 }
 
 ul.dashed li::before {
@@ -113,7 +145,7 @@ ul.dashed li::before {
     position: absolute;
     left: 0;
     top: 0;
-    color: #dc2626;
+    color: var(--color-accent);
     font-weight: bold;
     font-size: 1.2em;
 }
@@ -127,31 +159,15 @@ ul.dashed li::before {
 .experience-image::before {
     content: '';
     position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(45deg, #dc2626, #b91c1c);
-    border-radius: 20px;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+    border-radius: var(--radius-2xl);
     z-index: -1;
-    opacity: 0.2;
-    filter: blur(10px);
-}
-
-.experience-image img {
-    width: 475px;
-    height: 320px;
-    border-radius: 16px;
-    object-fit: cover;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-}
-
-.experience-image img:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
-    border-color: rgba(220, 38, 38, 0.3);
+    opacity: 0.1;
+    filter: blur(20px);
 }
 
 @keyframes fadeInUp {
@@ -167,13 +183,13 @@ ul.dashed li::before {
 
 @media (max-width: 768px) {
     .experience {
-        padding: 60px 20px;
+        padding: var(--space-12) var(--space-4);
     }
     
     .experience-row {
         flex-direction: column;
-        gap: 40px;
-        margin-bottom: 60px;
+        gap: var(--space-8);
+        margin-bottom: var(--space-12);
     }
     
     .experience-row.reverse {
@@ -181,31 +197,34 @@ ul.dashed li::before {
     }
     
     .experience-text {
-        padding: 25px;
+        padding: var(--space-6);
     }
     
     .experience-image img {
-        width: 100%;
-        max-width: 400px;
-        height: 250px;
+        max-width: 100%;
+        aspect-ratio: 16/9;
     }
     
     .experience-heading {
-        font-size: 2rem;
-        margin-bottom: 40px;
+        font-size: var(--text-3xl);
+        margin-bottom: var(--space-8);
     }
 }
 
 @media (max-width: 480px) {
     .experience {
-        padding: 40px 15px;
+        padding: var(--space-8) var(--space-3);
     }
     
     .experience-text {
-        padding: 20px;
+        padding: var(--space-4);
     }
     
     .experience-image img {
-        height: 200px;
+        aspect-ratio: 4/3;
+    }
+    
+    .experience-heading {
+        font-size: var(--text-2xl);
     }
 }
