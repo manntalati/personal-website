@@ -27,6 +27,15 @@
     border-color: var(--color-border-hover);
 }
 
+/* Dark mode navbar styles */
+:root.dark .navbar {
+    background: rgba(26, 26, 26, 0.9);
+}
+
+:root.dark .navbar.scrolled {
+    background: rgba(26, 26, 26, 0.95);
+}
+
 .navbar-left {
     display: flex;
     align-items: center;
