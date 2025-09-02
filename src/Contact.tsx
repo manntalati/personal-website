@@ -74,14 +74,14 @@ export default function Contact() {
                             <span className="contact-icon">💼</span>
                             <div>
                                 <h4>LinkedIn</h4>
-                                <p>Connect with me professionally</p>
+                                <p>in/mann-talati</p>
                             </div>
                         </div>
                         <div className="contact-method">
                             <span className="contact-icon">🐙</span>
                             <div>
                                 <h4>GitHub</h4>
-                                <p>Check out my projects</p>
+                                <p>manntalati</p>
                             </div>
                         </div>
                     </div>
