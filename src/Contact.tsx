@@ -49,6 +49,18 @@ export default function Contact() {
         }
     };
 
+    const linkedinLink = () => {
+        window.open("https://www.linkedin.com/in/mann-talati-017gvffgh")
+    }
+
+    const githubLink = () => {
+        window.open("https://github.com/manntalati")
+    }
+
+    const emailLink = () => {
+        window.open("mailto: mann.talati@gmail.com")
+    }
+
     return (
         <section id="Contact" className="contact">
             <h2 className="contact-heading">Get In Touch</h2>
@@ -63,21 +75,21 @@ export default function Contact() {
                     have questions about my work, or just want to say hello!</p>
                     
                     <div className="contact-methods">
-                        <div className="contact-method">
+                        <div className="contact-method" onClick={emailLink}>
                             <span className="contact-icon">📧</span>
                             <div>
                                 <h4>Email</h4>
                                 <p>mann.talati@gmail.com</p>
                             </div>
                         </div>
-                        <div className="contact-method">
+                        <div className="contact-method" onClick={linkedinLink}>
                             <span className="contact-icon">💼</span>
                             <div>
                                 <h4>LinkedIn</h4>
                                 <p>in/mann-talati</p>
                             </div>
                         </div>
-                        <div className="contact-method">
+                        <div className="contact-method" onClick={githubLink}>
                             <span className="contact-icon">🐙</span>
                             <div>
                                 <h4>GitHub</h4>
