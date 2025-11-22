@@ -1,74 +1,54 @@
 import { useState, useEffect } from 'react';
+import { FaPlay, FaInfoCircle } from 'react-icons/fa';
 import './Hero.css';
 
 export default function Hero() {
-    const statements = [
-        'is a student @ UIUC',
-        'enjoys weightlifting',
-        'loves building new tech projects',
-        'is drumming to a new rock song',
-        'is watching new TV shows',
-        'is learning new technologies',
-        'is collecting new US state quarters'
-    ];
-
-    const [loopNum, setLoopNum] = useState(0);
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [text, setText] = useState('');
+    const [showBackground, setShowBackground] = useState(false);
 
     useEffect(() => {
-        const i = loopNum % statements.length;
-        const fullText = statements[i];
-        let ticker: ReturnType<typeof setTimeout>;
-
-        if (!isDeleting && text === fullText) {
-            ticker = setTimeout(() => setIsDeleting(true), 1500);
-        } else if (isDeleting && text === '') {
-            setIsDeleting(false);
-            setLoopNum(loopNum + 1);
-        } else {
-            const nextText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
-            ticker = setTimeout(
-                () => setText(nextText),
-                isDeleting ? 100 : 150
-            );
-        }
-
-        return () => clearTimeout(ticker);
-    }, [text, isDeleting, loopNum, statements]);
+        const timer = setTimeout(() => setShowBackground(true), 100);
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
-        <section className="hero">
-            {/* Subtle particle background */}
-            <div className="hero-particles">
-                {[...Array(20)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="particle"
-                        style={{
-                            '--delay': `${i * 0.1}s`,
-                            '--x': `${Math.random() * 100}%`,
-                            '--y': `${Math.random() * 100}%`,
-                        } as React.CSSProperties}
-                    />
-                ))}
+        <section className="hero" id="top">
+            <div className={`hero-background ${showBackground ? 'visible' : ''}`}>
+                <div className="hero-overlay"></div>
+                { }
+                <div className="hero-image-placeholder"></div>
             </div>
-            
-            <div className="hero-content">
-                <h1 className="hero-name">Mann Talati</h1>
-                <div className="rotating-text">
-                    {text}
-                    <span className="cursor"></span>
-                </div>
-                
-                {/* Quick action buttons */}
-                <div className="hero-actions">
-                    <a href="#Projects" className="hero-button primary">
-                        View My Work
-                    </a>
-                    <a href="#About" className="hero-button secondary">
-                        Learn More
-                    </a>
+
+            <div className="hero-overlay">
+                <div className="hero-content">
+                    <div className="hero-text-container">
+
+
+                        <h1 className="hero-title">MANN TALATI</h1>
+
+                        <div className="hero-meta">
+                            <span className="match-score">98% Match</span>
+                            <span className="year">2025</span>
+                            <span className="rating">U/A 13+</span>
+                            <span className="seasons">4 Seasons</span>
+                        </div>
+
+                        <p className="hero-synopsis">
+                            A computer science student's journey through the world of machine learning,
+                            artificial intelligence, and software engineering. Watch as I build innovative solutions
+                            and tackle complex problems in this gripping tech saga.
+                        </p>
+
+                        <div className="hero-actions">
+                            <a href="#Projects" className="hero-button primary">
+                                <FaPlay className="button-icon" />
+                                <span>Projects</span>
+                            </a>
+                            <a href="#About" className="hero-button secondary">
+                                <FaInfoCircle className="button-icon" />
+                                <span>More Info</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

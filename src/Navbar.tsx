@@ -1,110 +1,57 @@
 import './Navbar.css'
-import { MdOutlineEmail } from "react-icons/md";
-import { FaGithub, FaLinkedin, FaSun, FaMoon } from "react-icons/fa";
 import { useState, useEffect } from 'react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { MdOutlineEmail } from "react-icons/md";
 import { HashLink } from 'react-router-hash-link';
-import { useTheme } from './ThemeContext';
 
 export default function Navbar() {
-    const [showNav, setShowNav] = useState(false);
-    const [scrollY, setScrollY] = useState(0);
-    const [scrollProgress, setScrollProgress] = useState(0);
-    const { isDark, toggleTheme } = useTheme();
-
-    const handleScrolling = () => {
-        const currY = window.scrollY;
-        if (currY > scrollY) {
-            setShowNav(true);
-        } else {
-            setShowNav(false);
-        }
-        setScrollY(currY);
-        
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = (currY / scrollHeight) * 100;
-        setScrollProgress(progress);
-    };
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScrolling);
-        return () => {
-            window.removeEventListener("scroll", handleScrolling);
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
         };
-    }, [scrollY]);
 
-    const linkedinLink = () => {
-        window.open("https://www.linkedin.com/in/mann-talati-017gvffgh")
-    }
-
-    const githubLink = () => {
-        window.open("https://github.com/manntalati")
-    }
-
-    const emailLink = () => {
-        window.open("mailto: mann.talati@gmail.com")
-    }
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <>
-            <div 
-                className="scroll-progress" 
-                style={{ width: `${scrollProgress}%` }}
-            />
-            
-            {!showNav && (
-                <div className={`navbar ${scrollY > 100 ? 'scrolled' : ''}`}>
-                    <div className="navbar-left">
-                        <ul className="list">
-                            <li className="navbar-item">
-                                <FaLinkedin 
-                                    className="navbar-image" 
-                                    onClick={linkedinLink} 
-                                    title="LinkedIn"
-                                />
-                            </li>
-                            <li className="navbar-item">
-                                <FaGithub 
-                                    className="navbar-image" 
-                                    onClick={githubLink} 
-                                    title="GitHub"
-                                />
-                            </li>
-                            <li className="navbar-item">
-                                <MdOutlineEmail 
-                                    className="navbar-image" 
-                                    onClick={emailLink} 
-                                    title="Email"
-                                />
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="navbar-right">
-                        <ul className="list">
-                            <li className="navbar-item">
-                                <HashLink className="link" smooth to="#About">About</HashLink>
-                            </li>
-                            <li className="navbar-item">
-                                <HashLink className="link" smooth to="#Experience">Experience</HashLink>
-                            </li>
-                            <li className="navbar-item">
-                                <HashLink className="link" smooth to="#Projects">Projects</HashLink>
-                            </li>
-                            <li className="navbar-item">
-                                <HashLink className="link" smooth to="#Technologies">Technologies</HashLink>
-                            </li>
-                            <li className="navbar-item">
-                                <button 
-                                    onClick={toggleTheme}
-                                    className="theme-toggle"
-                                    title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                                >
-                                    {isDark ? <FaSun /> : <FaMoon />}
-                                </button>
-                            </li>
-                        </ul>
+        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+            <div className="navbar-container">
+                <div className="navbar-left">
+                    <HashLink smooth to="/#top" className="navbar-logo">
+                        MANN
+                    </HashLink>
+
+                    <div className="navbar-links">
+                        <HashLink smooth to="/#top" className="nav-item">Home</HashLink>
+                        <HashLink smooth to="/#About" className="nav-item">About</HashLink>
+                        <HashLink smooth to="/#Experience" className="nav-item">Experience</HashLink>
+                        <HashLink smooth to="/#Projects" className="nav-item">Projects</HashLink>
+                        <HashLink smooth to="/#Technologies" className="nav-item">Tech</HashLink>
+                        <HashLink smooth to="/#Contact" className="nav-item">Contact</HashLink>
                     </div>
                 </div>
-            )}
-        </>
-    )
+
+                <div className="navbar-right">
+                    <div className="social-icons">
+                        <a href="https://github.com/manntalati" target="_blank" rel="noreferrer" className="icon">
+                            <FaGithub />
+                        </a>
+                        <a href="https://www.linkedin.com/in/mann-talati-017gvffgh" target="_blank" rel="noreferrer" className="icon">
+                            <FaLinkedin />
+                        </a>
+                        <a href="mailto:mann.talati@gmail.com" className="icon">
+                            <MdOutlineEmail />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    );
 }

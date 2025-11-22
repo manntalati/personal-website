@@ -1,30 +1,8 @@
 import './Experience.css'
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { FaPlay } from 'react-icons/fa';
 
 export default function Experience() {
-    const [visibleItems, setVisibleItems] = useState<number[]>([]);
-    const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const index = parseInt(entry.target.getAttribute('data-index') || '0');
-                        setVisibleItems(prev => [...new Set([...prev, index])]);
-                    }
-                });
-            },
-            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-        );
-
-        itemRefs.current.forEach((ref) => {
-            if (ref) observer.observe(ref);
-        });
-
-        return () => observer.disconnect();
-    }, []);
-
     type Experience = {
         title: string;
         bullets: string[];
@@ -32,6 +10,7 @@ export default function Experience() {
         urlLink: string;
         company: string;
         duration: string;
+        themes: string[];
     }
 
     const experiences: Experience[] = [
@@ -46,6 +25,7 @@ export default function Experience() {
             ],
             imageUrl: "ameren.png",
             urlLink: "https://www.ameren.com/",
+            themes: ["Forecasting", "Optimization", "Cloud"],
         },
         {
             title: "Senior Consultant",
@@ -57,6 +37,7 @@ export default function Experience() {
             ],
             imageUrl: "cube.png",
             urlLink: "https://www.cubeconsulting.org/",
+            themes: ["Strategy", "Leadership", "Analytics"],
         },
         {
             title: "Data Science Intern",
@@ -68,6 +49,7 @@ export default function Experience() {
             ],
             imageUrl: "preceptor.jpg",
             urlLink: "https://ppbds.github.io/primer/",
+            themes: ["Education", "Statistics", "Publishing"],
         },
         {
             title: "SWE & Web Dev Intern",
@@ -79,6 +61,7 @@ export default function Experience() {
             ],
             imageUrl: "silverline.png",
             urlLink: "http://silverlineadvisory.org",
+            themes: ["Fullstack", "Automation", "Impact"],
         },
         {
             title: "User Interface & User Experience Intern",
@@ -90,42 +73,72 @@ export default function Experience() {
             ],
             imageUrl: "oppti.png",
             urlLink: "https://getoppti.com/",
+            themes: ["Design", "Frontend", "Collaboration"],
         },
     ]
 
+    const [selectedEpisode, setSelectedEpisode] = useState<number | null>(null);
+
+    const toggleEpisode = (index: number) => {
+        if (selectedEpisode === index) {
+            setSelectedEpisode(null);
+        } else {
+            setSelectedEpisode(index);
+        }
+    }
+
     return (
-        <section id="Experience" className="experience">
-        <h2 className="experience-heading">Experience</h2>
-        {experiences.map((exp, idx) => (
-            <div 
-                key={idx} 
-                ref={(el) => itemRefs.current[idx] = el}
-                data-index={idx}
-                className={`experience-row ${idx % 2 === 1 ? 'reverse' : ''} ${
-                    visibleItems.includes(idx) ? 'visible' : ''
-                }`}
-            >
-            <div className="experience-text">
-                <div className="experience-header">
-                    <h3 className="title_header">{exp.title}</h3>
-                    <div className="experience-meta">
-                        <span className="company">{exp.company}</span>
-                        <span className="duration">{exp.duration}</span>
+        <section id="Experience" className="experience-section">
+            <div className="experience-header-container">
+                <h2 className="section-title">Episodes</h2>
+                <span className="season-info">Season 1: The Journey</span>
+            </div>
+
+            <div className="episodes-list">
+                {experiences.map((exp, idx) => (
+                    <div
+                        key={idx}
+                        className={`episode-item ${selectedEpisode === idx ? 'active' : ''}`}
+                        onClick={() => toggleEpisode(idx)}
+                    >
+                        <div className="episode-number">{idx + 1}</div>
+
+                        <div className="episode-thumbnail-wrapper">
+                            <img src={exp.imageUrl} alt={exp.company} className="episode-thumbnail" />
+                            <div className="play-overlay">
+                                <FaPlay className="play-icon" />
+                            </div>
+                        </div>
+
+                        <div className="episode-content">
+                            <div className="episode-header-row">
+                                <h3 className="episode-title">{exp.title}</h3>
+                                <span className="episode-duration">{exp.duration}</span>
+                            </div>
+                            <h4 className="episode-company">{exp.company}</h4>
+
+                            {selectedEpisode !== idx && (
+                                <div className="episode-tags">
+                                    {exp.themes.map((theme, i) => (
+                                        <span key={i} className="episode-tag">{theme}</span>
+                                    ))}
+                                </div>
+                            )}
+
+                            <div className={`episode-details ${selectedEpisode === idx ? 'expanded' : ''}`}>
+                                <ul className="episode-bullets">
+                                    {exp.bullets.map((b, i) => (
+                                        <li key={i}>{b}</li>
+                                    ))}
+                                </ul>
+                                <a href={exp.urlLink} target="_blank" rel="noreferrer" className="episode-link">
+                                    Visit Company
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <ul className="dashed">
-                {exp.bullets.map((b, i) => (
-                    <li key={i}>{b}</li>
                 ))}
-                </ul>
             </div>
-            <div className="experience-image">
-                <a href={exp.urlLink} target="_blank" rel="noreferrer">
-                <img src={exp.imageUrl} alt={exp.title} />
-                </a>
-            </div>
-            </div>
-        ))}
         </section>
     );
 }

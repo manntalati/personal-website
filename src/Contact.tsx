@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import './Contact.css';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 export default function Contact() {
     const formRef = useRef<HTMLFormElement>(null);
@@ -24,19 +25,19 @@ export default function Contact() {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitStatus('idle');
-        
+
         try {
             const result = await emailjs.sendForm(
-                'service_wieg4kk', 
-                'template_iu7qc9f', 
+                'service_wieg4kk',
+                'template_iu7qc9f',
                 formRef.current!,
                 'uQEcJvzf1MVPOLQ9n'
             );
-            
+
             if (result.status === 200) {
                 setSubmitStatus('success');
                 setFormData({ name: '', email: '', subject: '', message: '' });
-            
+
                 setTimeout(() => setSubmitStatus('idle'), 5000);
             } else {
                 setSubmitStatus('error');
@@ -49,130 +50,107 @@ export default function Contact() {
         }
     };
 
-    const linkedinLink = () => {
-        window.open("https://www.linkedin.com/in/mann-talati-017gvffgh")
-    }
-
-    const githubLink = () => {
-        window.open("https://github.com/manntalati")
-    }
-
-    const emailLink = () => {
-        window.open("mailto: mann.talati@gmail.com")
-    }
-
     return (
-        <section id="Contact" className="contact">
-            <h2 className="contact-heading">Get In Touch</h2>
-            <p className="contact-subtitle">
-                I'm always interested in hearing about new opportunities and interesting projects.
-            </p>
-            
-            <div className="contact-content">
-                <div className="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>Feel free to reach out if you'd like to discuss potential collaborations, 
-                    have questions about my work, or just want to say hello!</p>
-                    
-                    <div className="contact-methods">
-                        <div className="contact-method" onClick={emailLink}>
-                            <span className="contact-icon">📧</span>
-                            <div>
-                                <h4>Email</h4>
-                                <p>mann.talati@gmail.com</p>
-                            </div>
-                        </div>
-                        <div className="contact-method" onClick={linkedinLink}>
-                            <span className="contact-icon">💼</span>
-                            <div>
-                                <h4>LinkedIn</h4>
-                                <p>in/mann-talati</p>
-                            </div>
-                        </div>
-                        <div className="contact-method" onClick={githubLink}>
-                            <span className="contact-icon">🐙</span>
-                            <div>
-                                <h4>GitHub</h4>
-                                <p>manntalati</p>
-                            </div>
-                        </div>
+        <section id="Contact" className="contact-section">
+            <h2 className="section-title">Contact Agent</h2>
+
+            <div className="contact-container">
+                <div className="contact-info-panel">
+                    <h3 className="panel-title">Get in Touch</h3>
+                    <p className="panel-description">
+                        Interested in casting me for your next project?
+                        Reach out via email or connect on social media.
+                    </p>
+
+                    <div className="social-links-large">
+                        <a href="mailto:mann.talati@gmail.com" className="social-link-item">
+                            <FaEnvelope className="social-icon" />
+                            <span>Email</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/mann-talati-017gvffgh" target="_blank" rel="noreferrer" className="social-link-item">
+                            <FaLinkedin className="social-icon" />
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/manntalati" target="_blank" rel="noreferrer" className="social-link-item">
+                            <FaGithub className="social-icon" />
+                            <span>GitHub</span>
+                        </a>
                     </div>
                 </div>
-                
-                <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                            placeholder="Your name"
-                        />
-                    </div>
-                    
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                            placeholder="your.email@example.com"
-                        />
-                    </div>
-                    
-                    <div className="form-group">
-                        <label htmlFor="subject">Subject</label>
-                        <input
-                            type="text"
-                            id="subject"
-                            name="subject"
-                            value={formData.subject}
-                            onChange={handleChange}
-                            required
-                            placeholder="What's this about?"
-                        />
-                    </div>
-                    
-                    <div className="form-group">
-                        <label htmlFor="message">Message</label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            value={formData.message}
-                            onChange={handleChange}
-                            required
-                            rows={5}
-                            placeholder="Tell me more about your project or opportunity..."
-                        />
-                    </div>
-                    
-                    <button 
-                        type="submit" 
-                        className="submit-button"
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                    </button>
-                    
-                    {submitStatus === 'success' && (
-                        <div className="success-message">
-                            ✅ Message sent successfully! I'll get back to you soon.
+
+                <div className="contact-form-panel">
+                    <form ref={formRef} className="netflix-form" onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                                placeholder="Name"
+                                className="netflix-input"
+                            />
                         </div>
-                    )}
-                    
-                    {submitStatus === 'error' && (
-                        <div className="error-message">
-                            ❌ Something went wrong. Please try again or email me directly at mann.talati@gmail.com
+
+                        <div className="form-group">
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                placeholder="Email"
+                                className="netflix-input"
+                            />
                         </div>
-                    )}
-                </form>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="subject"
+                                value={formData.subject}
+                                onChange={handleChange}
+                                required
+                                placeholder="Subject"
+                                className="netflix-input"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <textarea
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                required
+                                rows={4}
+                                placeholder="Message"
+                                className="netflix-input"
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="netflix-submit-btn"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? 'Sending...' : 'Send Message'}
+                        </button>
+
+                        {submitStatus === 'success' && (
+                            <div className="form-status success">
+                                Message sent successfully!
+                            </div>
+                        )}
+
+                        {submitStatus === 'error' && (
+                            <div className="form-status error">
+                                Failed to send. Please try again.
+                            </div>
+                        )}
+                    </form>
+                </div>
             </div>
         </section>
     );
 }
+
