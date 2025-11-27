@@ -1,67 +1,73 @@
 .experience-section {
-    padding: var(--space-8) var(--space-6);
-    max-width: 1200px;
+    padding: var(--space-8) var(--space-12);
+    max-width: 100%;
     margin: 0 auto;
+    padding: var(--space-8) 0;
     margin-bottom: var(--space-12);
 }
 
 .experience-header-container {
+    padding: 0 var(--space-12);
+    margin-bottom: var(--space-6);
     display: flex;
     align-items: baseline;
     gap: var(--space-4);
-    margin-bottom: var(--space-6);
-    border-bottom: 1px solid #404040;
-    padding-bottom: var(--space-2);
 }
 
 .season-info {
     color: var(--color-text-secondary);
     font-size: 1.1rem;
     font-weight: 500;
+    border: 1px solid var(--color-text-secondary);
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
 }
 
 .episodes-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: 0;
+    /* Remove gap for seamless list */
+    border-top: 1px solid #333;
 }
 
 .episode-item {
     display: flex;
     align-items: flex-start;
-    padding: var(--space-4);
-    border-bottom: 1px solid #404040;
+    /* Align to top */
+    padding: var(--space-6) var(--space-12);
+    border-bottom: 1px solid #333;
     cursor: pointer;
     transition: background-color var(--transition-fast);
-    border-radius: 4px;
+    position: relative;
 }
 
 .episode-item:hover {
-    background-color: #2f2f2f;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .episode-item.active {
-    background-color: #2f2f2f;
+    background-color: #1a1a1a;
+    border-left: 4px solid #e50914;
+    /* Red accent for active */
 }
 
 .episode-number {
     font-size: 1.5rem;
     color: var(--color-text-secondary);
-    width: 40px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: var(--space-4);
-    align-self: center;
+    margin-right: var(--space-6);
+    font-weight: 300;
+    width: 30px;
+    /* Fixed width for alignment */
+    text-align: center;
 }
 
 .episode-thumbnail-wrapper {
     position: relative;
     width: 160px;
+    min-width: 160px;
     height: 90px;
-    flex-shrink: 0;
-    margin-right: var(--space-4);
+    margin-right: var(--space-6);
     border-radius: 4px;
     overflow: hidden;
 }
@@ -70,7 +76,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--transition-fast);
+    transition: transform var(--transition-normal);
+}
+
+.episode-item:hover .episode-thumbnail {
+    transform: scale(1.05);
 }
 
 .play-overlay {
@@ -87,7 +97,8 @@
     transition: opacity var(--transition-fast);
 }
 
-.episode-item:hover .play-overlay {
+.episode-item:hover .play-overlay,
+.episode-item.active .play-overlay {
     opacity: 1;
 }
 
@@ -97,13 +108,11 @@
     border: 2px solid #fff;
     border-radius: 50%;
     padding: 8px;
-    width: 40px;
-    height: 40px;
     background: rgba(0, 0, 0, 0.5);
 }
 
 .episode-content {
-    flex-grow: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -127,70 +136,84 @@
 }
 
 .episode-company {
-    font-size: 0.9rem;
-    color: var(--color-accent);
+    font-size: 0.95rem;
+    color: #ccc;
     margin-bottom: var(--space-2);
-    font-weight: 600;
+    font-weight: 500;
 }
 
-.episode-description {
-    font-size: 0.9rem;
+.episode-tags {
+    display: flex;
+    gap: var(--space-2);
+    font-size: 0.8rem;
     color: var(--color-text-secondary);
-    line-height: 1.5;
-    margin-bottom: var(--space-2);
+}
+
+.episode-tag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 2px;
 }
 
 .episode-details {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.4s ease;
+    opacity: 0;
+    margin-top: 0;
 }
 
 .episode-details.expanded {
     max-height: 500px;
     /* Arbitrary large height */
-    margin-top: var(--space-2);
+    opacity: 1;
+    margin-top: var(--space-3);
 }
 
 .episode-bullets {
     list-style: none;
     padding: 0;
     margin: 0 0 var(--space-3) 0;
+    color: #d2d2d2;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 .episode-bullets li {
+    margin-bottom: var(--space-2);
     position: relative;
     padding-left: var(--space-4);
-    margin-bottom: var(--space-2);
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.5;
 }
 
 .episode-bullets li::before {
     content: "•";
     position: absolute;
     left: 0;
-    color: var(--color-accent);
+    color: var(--color-text-secondary);
 }
 
 .episode-link {
     display: inline-block;
     color: #fff;
-    font-size: 0.85rem;
-    text-decoration: underline;
-    transition: color var(--transition-fast);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition-fast);
 }
 
 .episode-link:hover {
-    color: var(--color-accent);
+    border-bottom-color: #fff;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+    .experience-header-container {
+        padding: 0 var(--space-4);
+    }
+
     .episode-item {
+        padding: var(--space-4);
         flex-direction: column;
-        align-items: flex-start;
     }
 
     .episode-number {
@@ -201,6 +224,7 @@
     .episode-thumbnail-wrapper {
         width: 100%;
         height: 180px;
+        /* Larger thumbnail on mobile */
         margin-right: 0;
         margin-bottom: var(--space-3);
     }
@@ -210,29 +234,4 @@
         align-items: flex-start;
         gap: var(--space-1);
     }
-
-    .section-title {
-        font-size: 1.5rem;
-    }
-}
-
-.episode-tags {
-    display: flex;
-    gap: var(--space-2);
-    margin-top: var(--space-2);
-    flex-wrap: wrap;
-}
-
-.episode-tag {
-    color: #fff;
-    font-size: 0.85rem;
-    position: relative;
-    padding-right: var(--space-3);
-}
-
-.episode-tag:not(:last-child)::after {
-    content: "•";
-    position: absolute;
-    right: 0;
-    color: var(--color-text-secondary);
 }

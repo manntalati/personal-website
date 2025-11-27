@@ -1,9 +1,15 @@
 import { createPortal } from 'react-dom';
 import './Projects.css';
-import { useState, useEffect, useRef } from 'react';
-import { FaChevronLeft, FaChevronRight, FaGithub } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaGithub } from 'react-icons/fa';
+import Row from './components/Row';
+import MovieCard from './components/MovieCard';
 
-export default function Projects() {
+interface ProjectsProps {
+    searchQuery?: string;
+}
+
+export default function Projects({ searchQuery = '' }: ProjectsProps) {
     type Project = {
         id: string;
         title: string;
@@ -22,14 +28,22 @@ export default function Projects() {
     const projects: Project[] = [
         {
             id: "1",
+            title: "PR Assistant",
+            imageUrl: "/pr-assistant-cli.png",
+            summary: "PR Assistant is an AI-powered CLI tool designed to help developers streamline their workflow. It understands your codebase and automatically generates Pull Requests based on high-level instructions.",
+            githubUrl: "https://github.com/manntalati/pr-assistant",
+            year: "November 2025-Present",
+        },
+        {
+            id: "2",
             title: "Google Calendar Agent",
             imageUrl: "/coming_soon.png",
-            summary: "Developing an AI agent to easily handle google calendar events",
+            summary: "Developing an AI agent to easily handle google calendar events. A Computer Science project.",
             githubUrl: "https://github.com/manntalati/google-calendar-agent",
             year: "Aug 2025-Present",
         },
         {
-            id: "2",
+            id: "3",
             title: "Trading Assistant",
             imageUrl: "/coming_soon.png",
             summary: "Developing an stock trading assistant integrated with LangChain to make more informed decisions with voice commands",
@@ -37,7 +51,7 @@ export default function Projects() {
             year: "Aug 2025-Present",
         },
         {
-            id: "3",
+            id: "4",
             title: "SnapScoutShop",
             imageUrl: "/coming_soon.png",
             summary: "Developing an easy way to shop the best prices by simply snapping a picture of the item",
@@ -45,7 +59,7 @@ export default function Projects() {
             year: "Jul 2025-Present",
         },
         {
-            id: "4",
+            id: "5",
             title: "AI Recycling Assistant",
             imageUrl: "/recycling.HEIC",
             summary: "Developing an AI recycling assistant featuring a custom CNN and deployment on AWS SageMaker to classify waste materials with ≥ 70% target accuracy",
@@ -53,7 +67,7 @@ export default function Projects() {
             year: "Jun 2025-Aug 2025",
         },
         {
-            id: "5",
+            id: "6",
             title: "Resume Recommender",
             imageUrl: "/resume_recommender.png",
             summary: "Constructing the best way to optimize resumes to apply to all jobs & internships",
@@ -61,7 +75,7 @@ export default function Projects() {
             year: "Jul 2025",
         },
         {
-            id: "6",
+            id: "7",
             title: "Personal Website",
             imageUrl: '/portfolio.png',
             summary: "This website!!",
@@ -69,7 +83,7 @@ export default function Projects() {
             year: "Jun 2025",
         },
         {
-            id: "7",
+            id: "8",
             title: "UIUC Lifestyle",
             imageUrl: "/uiuc.png",
             summary: "Developing full-stack platform delivering ideal campus lifestyle: study spots, transit, deals",
@@ -77,7 +91,7 @@ export default function Projects() {
             year: "May 2025-Present",
         },
         {
-            id: "8",
+            id: "9",
             title: "MacroMasters",
             imageUrl: '/macro-master.jpg',
             summary: "Combat issues that users may face with tracking calories and staying on par with their nutrition goals",
@@ -85,7 +99,7 @@ export default function Projects() {
             year: "Jan 2025-May 2025",
         },
         {
-            id: "9",
+            id: "10",
             title: "Metea Hackathon",
             imageUrl: '/hackathon.png',
             summary: "Addressing the growing demand for secure data transfer in light of the increased prevalence of malicious intenders",
@@ -93,7 +107,7 @@ export default function Projects() {
             year: "May 2023",
         },
         {
-            id: "10",
+            id: "11",
             title: "NCAA Women's Volleyball",
             imageUrl: '/ncaa.png',
             summary: "The project aims to analyze the statistics for all players and teams in hopes of establishing the leaders and stronger teams",
@@ -101,7 +115,7 @@ export default function Projects() {
             year: "Aug 2022",
         },
         {
-            id: "11",
+            id: "12",
             title: "Drainiacs",
             imageUrl: "/lidar.jpg",
             summary: "Constructed a solution to detect drain blockages with the LIDAR technology to alert the Stormwater Management Department",
@@ -112,19 +126,6 @@ export default function Projects() {
 
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [languages, setLanguages] = useState<Record<string, string[]>>({})
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-    const scroll = (direction: 'left' | 'right') => {
-        if (scrollContainerRef.current) {
-            const { current } = scrollContainerRef;
-            const scrollAmount = window.innerWidth * 0.8;
-            if (direction === 'left') {
-                current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            } else {
-                current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            }
-        }
-    };
 
     useEffect(() => {
         projects.forEach((p) => {
@@ -159,39 +160,52 @@ export default function Projects() {
         document.body.style.overflow = 'unset';
     };
 
+    const filteredProjects = projects.filter(p => {
+        const query = searchQuery.toLowerCase();
+        const tags = languages[p.id] || [];
+        return (
+            p.title.toLowerCase().includes(query) ||
+            p.summary.toLowerCase().includes(query) ||
+            tags.some(tag => tag.toLowerCase().includes(query))
+        );
+    });
+
+    const trendingProjects = filteredProjects.slice(0, 6);
+    const newReleases = filteredProjects.slice(6);
+
+    if (filteredProjects.length === 0) return null;
+
     return (
         <section id="Projects" className="project-section">
-            <h2 className="section-title">Trending Projects</h2>
-
-            <div className="carousel-container">
-                <button className="carousel-btn left" onClick={() => scroll('left')}>
-                    <FaChevronLeft />
-                </button>
-
-                <div className="projects-row no-scrollbar" ref={scrollContainerRef}>
-                    {projects.map((p) => (
-                        <div key={p.id} className="project-card" onClick={() => handleProjectClick(p)}>
-                            <div className="card-image-wrapper">
-                                <img
-                                    src={p.imageUrl}
-                                    className="card-image"
-                                    alt={p.title}
-                                    onError={(e) => {
-                                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x170?text=Project';
-                                    }}
-                                />
-                                <div className="card-overlay-title">
-                                    <h3>{p.title}</h3>
-                                </div>
-                            </div>
-                        </div>
+            {trendingProjects.length > 0 && (
+                <Row title="Trending Projects">
+                    {trendingProjects.map((p) => (
+                        <MovieCard
+                            key={p.id}
+                            title={p.title}
+                            image={p.imageUrl}
+                            description={p.summary}
+                            tags={languages[p.id]}
+                            onClick={() => handleProjectClick(p)}
+                        />
                     ))}
-                </div>
+                </Row>
+            )}
 
-                <button className="carousel-btn right" onClick={() => scroll('right')}>
-                    <FaChevronRight />
-                </button>
-            </div>
+            {newReleases.length > 0 && (
+                <Row title="New Releases">
+                    {newReleases.map((p) => (
+                        <MovieCard
+                            key={p.id}
+                            title={p.title}
+                            image={p.imageUrl}
+                            description={p.summary}
+                            tags={languages[p.id]}
+                            onClick={() => handleProjectClick(p)}
+                        />
+                    ))}
+                </Row>
+            )}
 
             {selectedProject && createPortal(
                 <div className="project-modal-overlay" onClick={closeProject}>

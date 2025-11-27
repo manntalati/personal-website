@@ -1,0 +1,68 @@
+.top-10-posters {
+    align-items: center;
+    padding-top: var(--space-8);
+    /* Add padding for hover scale */
+    padding-bottom: var(--space-8);
+}
+
+.top-10-card {
+    position: relative;
+    min-width: 200px;
+    /* Slightly narrower */
+    height: 150px;
+    /* Slightly shorter */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-right: var(--space-3);
+}
+
+.top-10-card:hover {
+    transform: scale(1.05);
+    /* Subtle scale */
+    z-index: 10;
+}
+
+.rank-number {
+    width: 50%;
+    /* Give it half the width */
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 1;
+}
+
+.rank-svg {
+    height: 100%;
+    width: 100%;
+    overflow: visible;
+}
+
+.rank-text {
+    fill: #000;
+    stroke: #595959;
+    stroke-width: 4px;
+    font-size: 10rem;
+    /* Slightly reduced from 12rem if needed, but 10rem is probably fine if container is wider */
+    font-weight: 900;
+    font-family: 'Impact', sans-serif;
+    letter-spacing: -10px;
+}
+
+.top-10-image {
+    width: 50%;
+    /* The other half */
+    height: 100%;
+    object-fit: contain;
+    /* Changed to contain to prevent cropping */
+    background-color: #2f2f2f;
+    /* Dark background for transparent icons */
+    border-radius: 4px;
+    padding: 10px;
+    /* Add padding to make the icon look smaller/better fitted */
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}

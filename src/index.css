@@ -3,6 +3,10 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   background-color: var(--color-background);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 :root {
@@ -20,6 +24,8 @@ body {
   --color-shadow-hover: rgba(0, 0, 0, 0.9);
   --font-family-primary: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+
+  /* Font Sizes */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -30,6 +36,8 @@ body {
   --text-4xl: 2.25rem;
   --text-5xl: 3rem;
   --text-6xl: 4rem;
+
+  /* Spacing */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -42,32 +50,27 @@ body {
   --space-16: 4rem;
   --space-20: 5rem;
   --space-24: 6rem;
+
+  /* Radius */
   --radius-sm: 2px;
   --radius-md: 4px;
   --radius-lg: 6px;
   --radius-xl: 8px;
   --radius-2xl: 12px;
+
+  /* Transitions */
   --transition-fast: 150ms ease;
   --transition-normal: 300ms ease;
   --transition-slow: 500ms ease;
+
+  /* Z-Index */
   --z-dropdown: 1000;
   --z-sticky: 1020;
   --z-fixed: 1030;
   --z-modal: 1050;
 }
 
-:root.light {
-  --color-background: #f5f5f1;
-  --color-surface: #ffffff;
-  --color-surface-secondary: #e5e5e5;
-  --color-text-primary: #000000;
-  --color-text-secondary: #4c4c4c;
-  --color-text-tertiary: #737373;
-  --color-accent: #e50914;
-  --color-border: #cccccc;
-  --color-shadow: rgba(0, 0, 0, 0.1);
-}
-
+/* Reset & Base Styles */
 * {
   box-sizing: border-box;
 }
@@ -78,14 +81,11 @@ html {
 }
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: var(--font-family-primary);
   font-size: var(--text-base);
   line-height: 1.6;
   color: var(--color-text-primary);
   background-color: var(--color-background);
-  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -98,6 +98,8 @@ h6 {
   font-weight: 700;
   line-height: 1.2;
   color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  /* Enforce font family */
 }
 
 h1 {
@@ -129,6 +131,7 @@ button {
   outline: none;
 }
 
+/* Utility Classes */
 .app {
   min-height: 100vh;
   background: var(--color-background);
@@ -138,9 +141,12 @@ button {
 
 .container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 100%;
+  /* Netflix is full width mostly */
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding: 0;
+  /* Remove default padding, handle in sections */
+  overflow-x: hidden;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -152,6 +158,7 @@ button {
   scrollbar-width: none;
 }
 
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -166,16 +173,95 @@ button {
   animation: fadeIn 0.8s ease-out;
 }
 
+/* Footer (Netflix Style) */
 .footer {
   background-color: #141414;
-  padding: var(--space-4) 0;
+  padding: var(--space-12) var(--space-4);
   margin-top: auto;
-  border-top: 1px solid #333;
   color: #808080;
   font-size: 0.8rem;
-  text-align: center;
+  text-align: left;
 }
 
+.footer .container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  /* Center the icons */
+  gap: var(--space-6);
+  margin-bottom: var(--space-4);
+  font-size: 1.5rem;
+}
+
+.footer-socials a {
+  color: #fff;
+  transition: color var(--transition-fast);
+}
+
+.footer-socials a:hover {
+  color: var(--color-text-secondary);
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-6);
+  font-size: 0.8rem;
+}
+
+.footer-links li {
+  margin-bottom: var(--space-2);
+}
+
+.footer-links a {
+  color: #808080;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.service-code-btn {
+  background: transparent;
+  border: 1px solid #808080;
+  color: #808080;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-bottom: var(--space-4);
+  transition: color var(--transition-fast);
+}
+
+.service-code-btn:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+.footer-bottom {
+  margin-top: var(--space-4);
+  font-size: 1rem;
+  /* Increased from 0.7rem */
+  text-align: center;
+  /* Center aligned */
+  color: #808080;
+}
+
+@media (max-width: 768px) {
+  .footer-links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* FAB */
 .fab {
   position: fixed;
   bottom: var(--space-8);

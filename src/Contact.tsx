@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import './Contact.css';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { MdOutlineEmail } from "react-icons/md";
 
 export default function Contact() {
     const formRef = useRef<HTMLFormElement>(null);
@@ -52,7 +53,7 @@ export default function Contact() {
 
     return (
         <section id="Contact" className="contact-section">
-            <h2 className="section-title">Contact Agent</h2>
+
 
             <div className="contact-container">
                 <div className="contact-info-panel">
@@ -64,7 +65,7 @@ export default function Contact() {
 
                     <div className="social-links-large">
                         <a href="mailto:mann.talati@gmail.com" className="social-link-item">
-                            <FaEnvelope className="social-icon" />
+                            <MdOutlineEmail className="social-icon" />
                             <span>Email</span>
                         </a>
                         <a href="https://www.linkedin.com/in/mann-talati-017gvffgh" target="_blank" rel="noreferrer" className="social-link-item">

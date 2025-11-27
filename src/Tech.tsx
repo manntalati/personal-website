@@ -1,6 +1,13 @@
 import './Tech.css'
+import Top10Row from './components/Top10Row';
+import Row from './components/Row';
+import MovieCard from './components/MovieCard';
 
-export default function Tech() {
+interface TechProps {
+    searchQuery?: string;
+}
+
+export default function Tech({ searchQuery = '' }: TechProps) {
     const techStack = [
         {
             category: "Languages",
@@ -37,34 +44,48 @@ export default function Tech() {
         }
     ];
 
+    // Create a Top 10 list from all items
+    const top10Items = [
+        ...techStack[0].items.slice(0, 4),
+        ...techStack[1].items.slice(0, 4),
+        ...techStack[2].items.slice(0, 2)
+    ].map((item, index) => ({
+        id: index,
+        title: item.name,
+        image: item.icon // Using icon as image for now, might need better images
+    }));
+
+    const filteredTechStack = techStack.map(genre => ({
+        ...genre,
+        items: genre.items.filter(item =>
+            item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            genre.category.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+    })).filter(genre => genre.items.length > 0);
+
+    if (filteredTechStack.length === 0 && searchQuery) return null;
+
     return (
         <section id="Technologies" className="tech-section">
-            <h2 className="section-title">Technologies & Genres</h2>
+            {!searchQuery && <Top10Row title="Top 10 Technologies Today" items={top10Items} />}
 
-            <div className="tech-genres">
-                {techStack.map((genre, idx) => (
-                    <div key={idx} className="genre-row">
-                        <h3 className="genre-title">{genre.category}</h3>
-                        <div className="genre-list">
-                            {genre.items.map((item, i) => (
-                                <a
-                                    key={i}
-                                    href={item.url}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="tech-item"
-                                    title={item.name}
-                                >
-                                    <div className="tech-icon-wrapper">
-                                        <img src={item.icon} alt={item.name} className="tech-icon" />
-                                    </div>
-                                    <span className="tech-name">{item.name}</span>
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                ))}
-            </div>
+            {filteredTechStack.map((genre, idx) => (
+                <Row key={idx} title={genre.category}>
+                    {genre.items.map((item, i) => (
+                        <MovieCard
+                            key={i}
+                            title={item.name}
+                            image={item.icon}
+                            description="Tech Stack"
+                            match={95}
+                            duration="Tool"
+                            isLarge={false}
+                            onClick={() => window.open(item.url, '_blank')}
+                            className="tech-card"
+                        />
+                    ))}
+                </Row>
+            ))}
         </section>
     )
 }

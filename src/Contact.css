@@ -7,9 +7,11 @@
 
 .contact-container {
     display: flex;
-    gap: var(--space-12);
-    padding: 0 var(--space-6);
+    gap: var(--space-8);
+    padding: 0 var(--space-12);
     align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .contact-info-panel {
@@ -48,8 +50,8 @@
     background: rgba(255, 255, 255, 0.05);
     border-radius: 4px;
     transition: background-color var(--transition-fast);
-    width: fit-content;
-    min-width: 200px;
+    width: 100%;
+    max-width: 300px;
 }
 
 .social-link-item:hover {
@@ -62,10 +64,17 @@
 }
 
 .contact-form-panel {
-    flex: 1;
+    flex: 1.5;
     background: rgba(0, 0, 0, 0.75);
     padding: var(--space-8);
     border-radius: 4px;
+}
+
+.contact-description {
+    color: #fff;
+    text-align: center;
+    margin-bottom: var(--space-6);
+    font-size: 1.1rem;
 }
 
 .netflix-form {
@@ -109,7 +118,6 @@
 
 .netflix-submit-btn:hover:not(:disabled) {
     background: #c11119;
-    /* Darker red */
 }
 
 .netflix-submit-btn:disabled {
@@ -135,11 +143,11 @@
     color: #e50914;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
     .contact-container {
         flex-direction: column;
         gap: var(--space-8);
+        padding: 0 var(--space-4);
     }
 
     .contact-info-panel {
@@ -152,11 +160,6 @@
 
     .social-link-item {
         width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .contact-container {
-        padding: 0 var(--space-4);
+        max-width: none;
     }
 }

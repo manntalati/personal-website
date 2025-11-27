@@ -2,7 +2,11 @@ import './Experience.css'
 import { useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
 
-export default function Experience() {
+interface ExperienceProps {
+    searchQuery?: string;
+}
+
+export default function Experience({ searchQuery = '' }: ExperienceProps) {
     type Experience = {
         title: string;
         bullets: string[];
@@ -25,7 +29,7 @@ export default function Experience() {
             ],
             imageUrl: "ameren.png",
             urlLink: "https://www.ameren.com/",
-            themes: ["Forecasting", "Optimization", "Cloud"],
+            themes: ["Forecasting", "Optimization", "Cloud", "Computer Science"],
         },
         {
             title: "Senior Consultant",
@@ -52,7 +56,7 @@ export default function Experience() {
             themes: ["Education", "Statistics", "Publishing"],
         },
         {
-            title: "SWE & Web Dev Intern",
+            title: "Software Engineering & Web Development Intern",
             company: "Silverline Educational Advisory Services",
             duration: "Jul 2022 - Mar 2024",
             bullets: [
@@ -87,6 +91,18 @@ export default function Experience() {
         }
     }
 
+    const filteredExperiences = experiences.filter(exp => {
+        const query = searchQuery.toLowerCase();
+        return (
+            exp.title.toLowerCase().includes(query) ||
+            exp.company.toLowerCase().includes(query) ||
+            exp.themes.some(theme => theme.toLowerCase().includes(query)) ||
+            exp.bullets.some(bullet => bullet.toLowerCase().includes(query))
+        );
+    });
+
+    if (filteredExperiences.length === 0) return null;
+
     return (
         <section id="Experience" className="experience-section">
             <div className="experience-header-container">
@@ -95,7 +111,7 @@ export default function Experience() {
             </div>
 
             <div className="episodes-list">
-                {experiences.map((exp, idx) => (
+                {filteredExperiences.map((exp, idx) => (
                     <div
                         key={idx}
                         className={`episode-item ${selectedEpisode === idx ? 'active' : ''}`}

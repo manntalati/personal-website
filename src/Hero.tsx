@@ -14,22 +14,24 @@ export default function Hero() {
         <section className="hero" id="top">
             <div className={`hero-background ${showBackground ? 'visible' : ''}`}>
                 <div className="hero-overlay"></div>
-                { }
-                <div className="hero-image-placeholder"></div>
+                {/* Placeholder for video/image background */}
+                <img
+                    src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Hero Background"
+                    className="hero-image"
+                />
             </div>
 
-            <div className="hero-overlay">
+            <div className="hero-content-wrapper">
                 <div className="hero-content">
                     <div className="hero-text-container">
-
-
-                        <h1 className="hero-title">MANN TALATI</h1>
+                        <div className="title-logo">
+                            MANN TALATI
+                        </div>
 
                         <div className="hero-meta">
                             <span className="match-score">98% Match</span>
                             <span className="year">2025</span>
-                            <span className="rating">U/A 13+</span>
-                            <span className="seasons">4 Seasons</span>
                         </div>
 
                         <p className="hero-synopsis">
@@ -41,7 +43,7 @@ export default function Hero() {
                         <div className="hero-actions">
                             <a href="#Projects" className="hero-button primary">
                                 <FaPlay className="button-icon" />
-                                <span>Projects</span>
+                                <span>Play</span>
                             </a>
                             <a href="#About" className="hero-button secondary">
                                 <FaInfoCircle className="button-icon" />
@@ -51,6 +53,8 @@ export default function Hero() {
                     </div>
                 </div>
             </div>
+
+            <div className="hero-bottom-gradient"></div>
         </section>
     );
 }
