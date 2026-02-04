@@ -1,6 +1,7 @@
 import './Navbar.css'
 import { useState, useEffect, useRef } from 'react';
-import { FaSearch, FaBell, FaCaretDown } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
 import { HashLink } from 'react-router-hash-link';
 
 interface NavbarProps {
@@ -15,11 +16,7 @@ export default function Navbar({ onSearch }: NavbarProps) {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
+            setScrolled(window.scrollY > 50);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -33,10 +30,13 @@ export default function Navbar({ onSearch }: NavbarProps) {
     }, [isSearchOpen]);
 
     const handleSearchClick = () => {
-        setIsSearchOpen(!isSearchOpen);
-        if (isSearchOpen) {
+        if (isSearchOpen && searchText) {
+            // If search is open with text, close and clear
             setSearchText('');
             onSearch('');
+            setIsSearchOpen(false);
+        } else {
+            setIsSearchOpen(!isSearchOpen);
         }
     };
 
@@ -55,53 +55,42 @@ export default function Navbar({ onSearch }: NavbarProps) {
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="navbar-container">
                 <div className="navbar-left">
-                    <HashLink smooth to="/#top" className="navbar-logo">
-                        MANN
+                    <HashLink smooth to="/#top" className="navbar-logo serif-heading">
+                        Mann Talati
                     </HashLink>
-
-                    <ul className="navbar-links">
-                        <li><HashLink smooth to="/#top">Home</HashLink></li>
-                        <li><HashLink smooth to="/#Experience">Experience</HashLink></li>
-                        <li><HashLink smooth to="/#Projects">Projects</HashLink></li>
-                        <li><HashLink smooth to="/#Technologies">Tech</HashLink></li>
-                        <li><HashLink smooth to="/#Contact">Contact</HashLink></li>
-                    </ul>
                 </div>
+
+                <ul className="navbar-links">
+                    <li><HashLink smooth to="/#About">About</HashLink></li>
+                    <li><HashLink smooth to="/#Experience">Experience</HashLink></li>
+                    <li><HashLink smooth to="/#Projects">Projects</HashLink></li>
+                    <li><HashLink smooth to="/#Technologies">Skills</HashLink></li>
+                    <li><HashLink smooth to="/#Contact">Contact</HashLink></li>
+                </ul>
 
                 <div className="navbar-right">
                     <div className={`search-box ${isSearchOpen ? 'open' : ''}`}>
-                        <FaSearch className="icon search-icon" onClick={handleSearchClick} />
                         <input
                             ref={searchInputRef}
                             type="text"
-                            placeholder="Titles, people, genres"
+                            placeholder="Search..."
                             value={searchText}
                             onChange={handleSearchChange}
                             onBlur={handleBlur}
                             className="search-input"
                         />
+                        <button
+                            className="search-btn"
+                            onClick={handleSearchClick}
+                            aria-label={isSearchOpen ? 'Close search' : 'Open search'}
+                        >
+                            {isSearchOpen ? <IoClose /> : <FaSearch />}
+                        </button>
                     </div>
-                    <HashLink smooth to="/#Contact" className="icon-wrapper">
-                        <FaBell className="icon" />
+
+                    <HashLink smooth to="/#Contact" className="navbar-cta">
+                        Get in Touch
                     </HashLink>
-                    <div className="profile-menu-container">
-                        <div className="profile-menu">
-                            <div className="profile-icon">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Profile" />
-                            </div>
-                            <FaCaretDown className="icon caret" />
-                        </div>
-                        <div className="profile-dropdown">
-                            <div className="profile-dropdown-item">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Mann" />
-                                <span>Mann</span>
-                            </div>
-                            <div className="profile-dropdown-item">
-                                <div className="guest-icon"></div>
-                                <span>Guest</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </nav>

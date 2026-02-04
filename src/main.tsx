@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client'
-import { useState } from 'react';
 import About from './About.tsx'
 import Hero from './Hero.tsx'
 import Navbar from './Navbar.tsx'
@@ -10,31 +9,38 @@ import Contact from './Contact.tsx'
 import './index.css'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext';
+import { useState } from 'react';
 
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { MdOutlineEmail } from "react-icons/md";
+import { FiMail, FiArrowUp } from 'react-icons/fi';
 
 function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
         <footer className="footer">
-            <div className="container">
+            <div className="footer-container">
                 <div className="footer-socials">
-                    <a href="https://github.com/manntalati" target="_blank" rel="noreferrer"><FaGithub /></a>
-                    <a href="https://www.linkedin.com/in/mann-talati-017gvffgh" target="_blank" rel="noreferrer"><FaLinkedin /></a>
-                    <a href="mailto:mann.talati@gmail.com"><MdOutlineEmail /></a>
+                    <a href="https://github.com/manntalati" target="_blank" rel="noreferrer" aria-label="GitHub">
+                        <FaGithub />
+                    </a>
+                    <a href="https://www.linkedin.com/in/mann-talati-017gvffgh" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                        <FaLinkedin />
+                    </a>
+                    <a href="mailto:mann.talati@gmail.com" aria-label="Email">
+                        <FiMail />
+                    </a>
                 </div>
 
                 <div className="footer-bottom">
-                    <p>&copy; {currentYear} Mann Talati. All rights reserved.</p>
+                    <p>© {currentYear} Mann Talati. All rights reserved.</p>
                 </div>
             </div>
         </footer>
     );
 }
 
-function FloatingActionButton() {
+function ScrollToTop() {
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -45,9 +51,7 @@ function FloatingActionButton() {
             className="fab"
             aria-label="Scroll to top"
         >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="m18 15-6-6-6 6" />
-            </svg>
+            <FiArrowUp />
         </button>
     );
 }
@@ -60,16 +64,14 @@ function App() {
             <Navbar onSearch={setSearchQuery} />
             <main>
                 <Hero />
-                <div className="container">
-                    <About />
-                    <Experience searchQuery={searchQuery} />
-                    <Projects searchQuery={searchQuery} />
-                    <Tech searchQuery={searchQuery} />
-                    <Contact />
-                </div>
+                <About />
+                <Experience searchQuery={searchQuery} />
+                <Projects searchQuery={searchQuery} />
+                <Tech searchQuery={searchQuery} />
+                <Contact />
             </main>
             <Footer />
-            <FloatingActionButton />
+            <ScrollToTop />
         </div>
     );
 }
