@@ -9,8 +9,6 @@ import Contact from './Contact.tsx'
 import './index.css'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext';
-import { useState } from 'react';
-
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FiMail, FiArrowUp } from 'react-icons/fi';
 
@@ -57,17 +55,15 @@ function ScrollToTop() {
 }
 
 function App() {
-    const [searchQuery, setSearchQuery] = useState('');
-
     return (
         <div className="app">
-            <Navbar onSearch={setSearchQuery} />
+            <Navbar />
             <main>
                 <Hero />
                 <About />
-                <Experience searchQuery={searchQuery} />
-                <Projects searchQuery={searchQuery} />
-                <Tech searchQuery={searchQuery} />
+                <Experience />
+                <Projects />
+                <Tech />
                 <Contact />
             </main>
             <Footer />

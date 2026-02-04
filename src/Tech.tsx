@@ -28,6 +28,7 @@ export default function Tech({ searchQuery = '' }: TechProps) {
                 { name: "NumPy", url: "https://numpy.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/numpy/numpy-original.svg" },
                 { name: "OpenCV", url: "https://opencv.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg" },
                 { name: "Apache Spark", url: "https://spark.apache.org/docs/latest/api/python/index.html", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachespark/apachespark-original-wordmark.svg" },
+                { name: "PyTorch", url: "https://pytorch.org/", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" },
             ]
         },
         {
@@ -37,6 +38,8 @@ export default function Tech({ searchQuery = '' }: TechProps) {
                 { name: "Git", url: "https://git-scm.com/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" },
                 { name: "Terraform", url: "https://developer.hashicorp.com/terraform", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" },
                 { name: "Jenkins", url: "https://www.jenkins.io/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" },
+                { name: "Databricks", url: "https://databricks.com/", icon: "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/databricks.svg" },
+                { name: "PowerBI", url: "https://powerbi.microsoft.com/", icon: "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/powerbi.svg" },
             ]
         }
     ];

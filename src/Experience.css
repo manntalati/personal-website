@@ -11,7 +11,7 @@
 }
 
 .experience-header {
-    margin-bottom: var(--space-16);
+    margin-bottom: var(--space-8);
     padding-bottom: var(--space-6);
     border-bottom: 3px solid var(--color-lapis-blue);
 }
