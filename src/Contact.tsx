@@ -81,7 +81,7 @@ export default function Contact() {
                                 </a>
 
                                 <a
-                                    href="https://www.linkedin.com/in/mann-talati-017gvffgh"
+                                    href="https://www.linkedin.com/in/mann-talati"
                                     target="_blank"
                                     rel="noreferrer"
                                     className="contact-link"
