@@ -22,7 +22,7 @@ function Footer() {
                     <a href="https://github.com/manntalati" target="_blank" rel="noreferrer" aria-label="GitHub">
                         <FaGithub />
                     </a>
-                    <a href="https://www.linkedin.com/in/mann-talati-017gvffgh" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/in/mann-talati" target="_blank" rel="noreferrer" aria-label="LinkedIn">
                         <FaLinkedin />
                     </a>
                     <a href="mailto:mann.talati@gmail.com" aria-label="Email">
