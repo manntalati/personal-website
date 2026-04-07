@@ -93,7 +93,7 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
             <div className="projects-container">
                 <div className="projects-header">
                     <span className="section-label">Selected Works</span>
-                    <h2 className="section-heading">Innovation & Research</h2>
+                    <h2 className="section-heading">Innovation</h2>
                 </div>
 
                 <div className="projects-list">
