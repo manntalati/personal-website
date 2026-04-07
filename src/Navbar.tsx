@@ -26,6 +26,7 @@ export default function Navbar() {
                 <ul className="navbar-links">
                     <li><HashLink smooth to="/#About">About</HashLink></li>
                     <li><HashLink smooth to="/#Experience">Experience</HashLink></li>
+                    <li><HashLink smooth to="/#Research">Research</HashLink></li>
                     <li><HashLink smooth to="/#Projects">Projects</HashLink></li>
                     <li><HashLink smooth to="/#Technologies">Skills</HashLink></li>
                     <li><HashLink smooth to="/#Contact">Contact</HashLink></li>

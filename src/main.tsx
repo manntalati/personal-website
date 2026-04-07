@@ -4,6 +4,7 @@ import Hero from './Hero.tsx'
 import Navbar from './Navbar.tsx'
 import Experience from './Experience.tsx'
 import Projects from './Projects.tsx'
+import Research from './Research.tsx'
 import Tech from './Tech.tsx'
 import Contact from './Contact.tsx'
 import './index.css'
@@ -62,6 +63,7 @@ function App() {
                 <Hero />
                 <About />
                 <Experience />
+                <Research />
                 <Projects />
                 <Tech />
                 <Contact />

@@ -22,13 +22,13 @@ export default function Tech({ searchQuery = '' }: TechProps) {
         {
             category: "Frameworks & Libraries",
             items: [
+                { name: "PyTorch", url: "https://pytorch.org/", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" },
+                { name: "TensorFlow", url: "https://www.tensorflow.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" },
                 { name: "React", url: "https://reactjs.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" },
                 { name: "Pandas", url: "https://pandas.pydata.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/pandas/pandas-original.svg" },
-                { name: "TensorFlow", url: "https://www.tensorflow.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" },
                 { name: "NumPy", url: "https://numpy.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/numpy/numpy-original.svg" },
                 { name: "OpenCV", url: "https://opencv.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg" },
                 { name: "Apache Spark", url: "https://spark.apache.org/docs/latest/api/python/index.html", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachespark/apachespark-original-wordmark.svg" },
-                { name: "PyTorch", url: "https://pytorch.org/", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" },
             ]
         },
         {

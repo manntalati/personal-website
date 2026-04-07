@@ -25,11 +25,11 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
     const projects: Project[] = [
         {
             id: "1",
-            title: "PR Assistant",
+            title: "Autonomous Driving",
             imageUrl: "/pr-assistant-cli.png",
-            summary: "AI-powered CLI tool that understands your codebase and automatically generates Pull Requests based on high-level instructions.",
-            githubUrl: "https://github.com/manntalati/pr-assistant",
-            year: "Nov 2025 - Present",
+            summary: "A full autonomous driving perception pipeline built from scratch in PyTorch. Implements the core vision system that self-driving cars use to understand the world: object detection, instance segmentation, and more.",
+            githubUrl: "https://github.com/manntalati/autonomous-driving",
+            year: "Mar 2026 - Present",
         },
         {
             id: "5",
