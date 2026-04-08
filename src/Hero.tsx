@@ -17,7 +17,7 @@ export default function Hero() {
 
                 <div className="hero-image-wrapper">
                     <img src="/IMG_8202.png" alt="Hero Image" className="hero-main-image" />
-                    <span className="image-overlay-text">Carpe Diem</span>
+                    <span className="image-overlay-text">Carpe Diem.</span>
                 </div>
 
                 <div className="hero-footer">

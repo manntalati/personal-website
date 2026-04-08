@@ -84,40 +84,41 @@ export default function Research({ searchQuery = '' }: ResearchProps) {
             </div>
 
             {selectedPaper && (
-                <div className="project-modal-overlay" onClick={() => setSelectedPaper(null)}>
-                    <div className="project-modal" onClick={(e) => e.stopPropagation()}>
-                        <button className="modal-close-btn" onClick={() => setSelectedPaper(null)}>×</button>
+                <div className="research-modal-backdrop" onClick={() => setSelectedPaper(null)}>
+                    <div className="research-modal-card" onClick={(e) => e.stopPropagation()}>
+                        <button className="research-modal-close" onClick={() => setSelectedPaper(null)}>×</button>
 
-                        <div className="modal-header">
-                            <h2 className="modal-title">{selectedPaper.title}</h2>
-                        </div>
-
-                        <div className="modal-body research-modal-body">
-                            <div className="modal-main">
-                                <p className="research-modal-label">Abstract</p>
-                                <p className="modal-description">{selectedPaper.summary}</p>
-
-                                <p className="research-modal-label" style={{ marginTop: '2rem' }}>Authors</p>
-                                <p className="modal-description">
-                                    {selectedPaper.authors.map((a, i) => (
-                                        <span key={i} className={a === 'Mann Talati' ? 'author-highlight' : ''}>
-                                            {a}{i < selectedPaper.authors.length - 1 ? ', ' : ''}
-                                        </span>
-                                    ))}
-                                </p>
-                            </div>
-
-                            <div className="modal-meta">
-                                <a
-                                    href={selectedPaper.arxivUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="modal-btn"
-                                >
-                                    <FiExternalLink /> View on arXiv →
-                                </a>
+                        <div className="research-modal-meta-row">
+                            <span className="research-modal-year">{selectedPaper.year}</span>
+                            <div className="research-modal-tags">
+                                {selectedPaper.tags.map((tag) => (
+                                    <span key={tag} className="project-tag">{tag}</span>
+                                ))}
                             </div>
                         </div>
+
+                        <h2 className="research-modal-title">{selectedPaper.title}</h2>
+
+                        <p className="research-modal-label">Abstract</p>
+                        <p className="research-modal-abstract">{selectedPaper.summary}</p>
+
+                        <p className="research-modal-label">Authors</p>
+                        <p className="research-modal-authors">
+                            {selectedPaper.authors.map((a, i) => (
+                                <span key={i} className={a === 'Mann Talati' ? 'author-highlight' : ''}>
+                                    {a}{i < selectedPaper.authors.length - 1 ? ', ' : ''}
+                                </span>
+                            ))}
+                        </p>
+
+                        <a
+                            href={selectedPaper.arxivUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="research-modal-btn"
+                        >
+                            <FiExternalLink /> View on arXiv
+                        </a>
                     </div>
                 </div>
             )}
