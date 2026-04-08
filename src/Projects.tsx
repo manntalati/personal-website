@@ -123,34 +123,36 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
             </div>
 
             {selectedProject && (
-                <div className="project-modal-overlay" onClick={() => setSelectedProject(null)}>
-                    <div className="project-modal" onClick={(e) => e.stopPropagation()}>
-                        <button className="modal-close-btn" onClick={() => setSelectedProject(null)}>×</button>
+                <div className="pm-backdrop" onClick={() => setSelectedProject(null)}>
+                    <div className="pm-card" onClick={(e) => e.stopPropagation()}>
+                        <button className="pm-close" onClick={() => setSelectedProject(null)}>×</button>
 
-                        <div className="modal-header">
-                            <h2 className="modal-title">{selectedProject.title}</h2>
-                        </div>
-
-                        <div className="modal-image-wrapper">
-                            <img src={selectedProject.imageUrl} alt={selectedProject.title} className="modal-image" />
-                        </div>
-
-                        <div className="modal-body">
-                            <div className="modal-main">
-                                <p className="modal-description">{selectedProject.summary}</p>
-                            </div>
-
-                            <div className="modal-meta">
-                                <a
-                                    href={selectedProject.githubUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="modal-btn"
-                                >
-                                    <FaGithub /> Source Repository →
-                                </a>
+                        <div className="pm-meta-row">
+                            <span className="pm-year">{selectedProject.year.split(' - ').pop()}</span>
+                            <div className="pm-tags">
+                                {(languages[selectedProject.id] || []).map((lang) => (
+                                    <span key={lang} className="project-tag">{lang}</span>
+                                ))}
                             </div>
                         </div>
+
+                        <h2 className="pm-title">{selectedProject.title}</h2>
+
+                        <div className="pm-image-wrapper">
+                            <img src={selectedProject.imageUrl} alt={selectedProject.title} className="pm-image" />
+                        </div>
+
+                        <p className="pm-label">Description</p>
+                        <p className="pm-description">{selectedProject.summary}</p>
+
+                        <a
+                            href={selectedProject.githubUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="pm-btn"
+                        >
+                            <FaGithub /> Source Repository
+                        </a>
                     </div>
                 </div>
             )}
