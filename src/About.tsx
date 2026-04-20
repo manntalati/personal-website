@@ -32,7 +32,7 @@ export default function About() {
                             <div className="interests-tags">
                                 <span className="interest-tag">Machine Learning</span>
                                 <span className="interest-tag">Scalable Systems</span>
-                                <span className="interest-tag">Artificial Intelligenc</span>
+                                <span className="interest-tag">Artificial Intelligence</span>
                             </div>
                         </div>
 
