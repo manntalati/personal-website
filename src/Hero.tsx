@@ -25,6 +25,14 @@ export default function Hero() {
                         <a href="#Projects" className="hero-btn">
                             View Work →
                         </a>
+                        <a
+                            href="/talati_mann_resume.pdf"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="hero-btn hero-btn-primary"
+                        >
+                            Resume ↓
+                        </a>
                         <a href="#Contact" className="hero-btn">
                             Contact Me →
                         </a>

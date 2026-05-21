@@ -7,11 +7,14 @@ import Projects from './Projects.tsx'
 import Research from './Research.tsx'
 import Tech from './Tech.tsx'
 import Contact from './Contact.tsx'
+import Stats from './Stats.tsx'
+import CommandPalette from './CommandPalette.tsx'
 import './index.css'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FiMail, FiArrowUp } from 'react-icons/fi';
+import { Analytics } from '@vercel/analytics/react';
 
 function Footer() {
     const currentYear = new Date().getFullYear();
@@ -61,6 +64,7 @@ function App() {
             <Navbar />
             <main>
                 <Hero />
+                <Stats />
                 <About />
                 <Experience />
                 <Research />
@@ -70,6 +74,8 @@ function App() {
             </main>
             <Footer />
             <ScrollToTop />
+            <CommandPalette />
+            <Analytics />
         </div>
     );
 }

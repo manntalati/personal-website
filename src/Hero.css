@@ -105,6 +105,20 @@
   transform: translateX(4px);
 }
 
+.hero-btn-primary {
+  background-color: var(--color-text-primary);
+  color: #ffffff;
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 4px solid #333333;
+}
+
+.hero-btn-primary:hover {
+  color: #ffffff;
+  background-color: var(--color-text-primary);
+  border-bottom-color: #333333;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 1024px) {
   .hero-header {
     grid-template-columns: 1fr;
