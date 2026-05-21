@@ -93,7 +93,7 @@
 }
 
 .research-modal-card {
-    background: #ffffff;
+    background: var(--color-background);
     max-width: 680px;
     width: 100%;
     max-height: 85vh;
@@ -180,8 +180,8 @@
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #ffffff;
-    background-color: var(--color-text-primary);
+    color: var(--color-inverse-text);
+    background-color: var(--color-inverse-bg);
     text-decoration: none;
     padding: var(--space-3) var(--space-6);
     transition: opacity var(--transition-fast);

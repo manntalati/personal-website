@@ -1,55 +1,21 @@
 import './Projects.css';
 import { useState, useEffect } from 'react';
 import { FaGithub } from 'react-icons/fa';
+import { projects, type Project } from './content';
 
 interface ProjectsProps {
     searchQuery?: string;
 }
 
 export default function Projects({ searchQuery = '' }: ProjectsProps) {
-    type Project = {
-        id: string;
-        title: string;
-        imageUrl: string;
-        summary: string;
-        githubUrl: string;
-        year: string;
-    };
-
     const token = import.meta.env.VITE_GITHUB_KEY;
     const headers = {
         Accept: 'application/vnd.github.v3+json',
         Authorization: `token ${token}`,
     };
 
-    const projects: Project[] = [
-        {
-            id: "1",
-            title: "Autonomous Driving",
-            imageUrl: "/coming_soon.png",
-            summary: "A full autonomous driving perception pipeline built from scratch in PyTorch. Implements the core vision system that self-driving cars use to understand the world: object detection, instance segmentation, and more.",
-            githubUrl: "https://github.com/manntalati/autonomous-driving",
-            year: "Mar 2026 - Present",
-        },
-        {
-            id: "5",
-            title: "AI Recycling Assistant",
-            imageUrl: "/recycling.HEIC",
-            summary: "AI recycling assistant with custom CNN deployed on AWS SageMaker to classify waste materials with ≥ 70% accuracy.",
-            githubUrl: "https://github.com/manntalati/ai_recycling_assistant",
-            year: "Jun 2025 - Aug 2025",
-        },
-        {
-            id: "6",
-            title: "Resume Recommender",
-            imageUrl: "/resume_recommender.png",
-            summary: "Tool to optimize resumes for job and internship applications.",
-            githubUrl: "https://github.com/manntalati/resume-recommender",
-            year: "Jul 2025",
-        },
-    ];
-
     const [languages, setLanguages] = useState<Record<string, string[]>>({})
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     useEffect(() => {
         projects.forEach((p) => {
@@ -74,6 +40,19 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
         });
     }, []);
 
+    useEffect(() => {
+        const handler = (e: Event) => {
+            const detail = (e as CustomEvent<{ id: string }>).detail;
+            const project = projects.find(p => p.id === detail.id);
+            if (!project) return;
+            const section = document.getElementById('Projects');
+            section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => setSelectedProject(project), 400);
+        };
+        window.addEventListener('cmdk:open-project', handler);
+        return () => window.removeEventListener('cmdk:open-project', handler);
+    }, []);
+
     const filteredProjects = projects.filter(p => {
         const query = searchQuery.toLowerCase();
         const tags = languages[p.id] || [];
@@ -85,8 +64,6 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
     });
 
     if (filteredProjects.length === 0) return null;
-
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     return (
         <section id="Projects" className="projects-section">

@@ -153,8 +153,8 @@
 
 .form-submit {
     padding: var(--space-4) var(--space-10);
-    background-color: var(--color-lapis-blue);
-    color: white;
+    background-color: var(--color-inverse-bg);
+    color: var(--color-inverse-text);
     border: none;
     font-size: var(--text-sm);
     font-weight: 800;
@@ -163,7 +163,7 @@
     cursor: pointer;
     transition: all var(--transition-fast);
     align-self: flex-start;
-    border-bottom: 4px solid #333333;
+    border-bottom: 4px solid var(--color-inverse-border);
 }
 
 .form-submit:hover {

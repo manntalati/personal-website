@@ -26,6 +26,12 @@ body {
   --color-border: #e2e2e2;
   --color-border-subtle: #f0f0f0;
   --color-shadow: rgba(0, 0, 0, 0.05);
+  --color-navbar-bg: rgba(255, 255, 255, 0.9);
+
+  /* Inverse — flips between modes (for stats band, primary buttons) */
+  --color-inverse-bg: #000000;
+  --color-inverse-text: #ffffff;
+  --color-inverse-border: #333333;
 
   /* Z-index scale */
   --z-dropdown: 1000;
@@ -79,6 +85,36 @@ body {
 
   /* Container widths */
   --container-xl: 1200px;
+}
+
+html.dark {
+  --color-background: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-secondary: #1c1c1c;
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #b8b8b8;
+  --color-text-tertiary: #7a7a7a;
+  --color-lapis-blue: #f5f5f5;
+  --color-accent: #f5f5f5;
+  --color-accent-hover: #d4d4d4;
+  --color-border: #2a2a2a;
+  --color-border-subtle: #1f1f1f;
+  --color-shadow: rgba(0, 0, 0, 0.45);
+  --color-navbar-bg: rgba(10, 10, 10, 0.85);
+
+  --color-inverse-bg: #f5f5f5;
+  --color-inverse-text: #0a0a0a;
+  --color-inverse-border: #d4d4d4;
+}
+
+html.dark img {
+  filter: brightness(0.92);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) {
+    color-scheme: dark;
+  }
 }
 
 /* Reset & Base Styles */
@@ -267,8 +303,8 @@ img {
   right: var(--space-8);
   width: 48px;
   height: 48px;
-  background-color: var(--color-text-primary);
-  color: var(--color-background);
+  background-color: var(--color-inverse-bg);
+  color: var(--color-inverse-text);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
