@@ -21,6 +21,10 @@ export default function Navbar() {
                     <HashLink smooth to="/#top" className="navbar-logo serif-heading">
                         Mann Talati
                     </HashLink>
+                    <span className="navbar-status" aria-label="Currently at Oracle">
+                        <span className="navbar-status-dot" />
+                        <span className="navbar-status-text">Currently @ Oracle</span>
+                    </span>
                 </div>
 
                 <ul className="navbar-links">
