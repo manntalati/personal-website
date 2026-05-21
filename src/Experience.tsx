@@ -18,6 +18,17 @@ export default function Experience({ searchQuery = '' }: ExperienceProps) {
 
     const experiences: Experience[] = [
         {
+            title: "Software Engineer Intern",
+            company: "Oracle",
+            duration: "May 2026 - Present",
+            bullets: [
+                "Oracle Cloud Data Science Service - Model Building Team",
+            ],
+            imageUrl: "cube.png",
+            urlLink: "https://www.oracle.com/",
+            themes: ["Model Building", "Software Engineering", "Cloud Infrastructure"],
+        },
+        {
             title: "Research Assistant",
             company: "ASTRAL Lab (Assured Trustworthy AI Research Lab) @ UIUC",
             duration: "Jan 2026 - Present",
@@ -30,7 +41,7 @@ export default function Experience({ searchQuery = '' }: ExperienceProps) {
             themes: ["LLM", "Chain of Thought", "Research"],
         },
         {
-            title: "Technical Project Manager",
+            title: "Chief Technology Officer",
             company: "CUBE Consulting",
             duration: "Sep 2024 - Present",
             bullets: [
@@ -44,7 +55,7 @@ export default function Experience({ searchQuery = '' }: ExperienceProps) {
         {
             title: "Course Assistant",
             company: "University of Illinois at Urbana-Champaign",
-            duration: "Sep 2025 - Present",
+            duration: "Sep 2025 - May 2026",
             bullets: [
                 "Mentor 8 students through the SDLC by standardizing Git workflows, pull requests, code reviews, and CI/CD pipelines",
                 "Leading bi-weekly design/code reviews and implementing issue tracking and sprint cadences",
