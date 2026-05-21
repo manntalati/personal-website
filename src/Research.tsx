@@ -1,35 +1,27 @@
 import './Research.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
+import { papers, type Paper } from './content';
 
 interface ResearchProps {
     searchQuery?: string;
 }
 
-type Paper = {
-    id: string;
-    title: string;
-    summary: string;
-    authors: string[];
-    arxivUrl: string;
-    year: string;
-    tags: string[];
-};
-
-const papers: Paper[] = [
-    {
-        id: "1",
-        title: "MonitorBench: A Comprehensive Benchmark for Chain-of-Thought Monitorability in Large Language Models",
-        summary: "Large language models (LLMs) can generate chains of thought (CoTs) that are not always causally responsible for their final outputs. When such a mismatch occurs, the CoT no longer faithfully reflects the actual reasons driving the model's behavior, leading to the reduced CoT monitorability problem. We propose MonitorBench, a systematic benchmark for evaluating CoT monitorability in LLMs — providing 1,514 test instances across 19 tasks spanning 7 categories, plus two stress-test settings to quantify the extent to which CoT monitorability can be degraded.",
-        authors: ["Han Wang", "Yifan Sun", "Brian Ko", "Mann Talati", "Jiawen Gong", "Zimeng Li", "Naicheng Yu", "Xucheng Yu", "Wei Shen", "Vedant Jolly", "Huan Zhang"],
-        arxivUrl: "https://arxiv.org/abs/2603.28590",
-        year: "Mar 2026",
-        tags: ["LLM", "Benchmark", "CoT"],
-    },
-];
-
 export default function Research({ searchQuery = '' }: ResearchProps) {
     const [selectedPaper, setSelectedPaper] = useState<Paper | null>(null);
+
+    useEffect(() => {
+        const handler = (e: Event) => {
+            const detail = (e as CustomEvent<{ id: string }>).detail;
+            const paper = papers.find(p => p.id === detail.id);
+            if (!paper) return;
+            const section = document.getElementById('Research');
+            section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => setSelectedPaper(paper), 400);
+        };
+        window.addEventListener('cmdk:open-paper', handler);
+        return () => window.removeEventListener('cmdk:open-paper', handler);
+    }, []);
 
     const filteredPapers = papers.filter(p => {
         const query = searchQuery.toLowerCase();
