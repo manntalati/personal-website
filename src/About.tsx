@@ -1,8 +1,13 @@
 import './About.css'
 
 export default function About() {
-    const interestOne = "Weightlifting";
-    const interestTwo = "Drumming";
+    const interests = ["Weightlifting", "Drumming"];
+
+    const nowItems = [
+        { role: "SWE Intern", org: "Oracle Cloud · Model Building" },
+        { role: "Research Assistant", org: "ASTRAL Lab · UIUC" },
+        { role: "CTO", org: "CUBE Consulting" },
+    ];
 
     return (
         <section id="About" className="about-section">
@@ -24,10 +29,15 @@ export default function About() {
                             Currently, I'm involved with CUBE Consulting and conducting research at ASTRAL Lab UIUC.
                             A lot of my work is centered around translating complex data into actionable insights through automation and robust backend systems.
                         </p>
+
+                        <div className="about-signature">
+                            <span className="signature-dot" aria-hidden="true" />
+                            <span className="signature-text">Based in Urbana, IL · Statistics + CS @ UIUC</span>
+                        </div>
                     </div>
 
                     <div className="about-meta">
-                        <div className="about-interests-group">
+                        <div className="about-meta-group">
                             <span className="meta-label">Expertise</span>
                             <div className="interests-tags">
                                 <span className="interest-tag">Machine Learning</span>
@@ -36,16 +46,31 @@ export default function About() {
                             </div>
                         </div>
 
-                        <div className="about-interests-group">
-                            <span className="meta-label">Current Interests</span>
-                            <div className="current-interests">
-                                <div className="interest-placeholder">
-                                    <span className="placeholder-value">{interestOne || "TBD"}</span>
-                                </div>
-                                <div className="interest-placeholder">
-                                    <span className="placeholder-value">{interestTwo || "TBD"}</span>
-                                </div>
-                            </div>
+                        <div className="about-meta-group">
+                            <span className="meta-label">
+                                Now
+                                <span className="live-dot" aria-hidden="true" />
+                            </span>
+                            <ul className="now-list">
+                                {nowItems.map((item) => (
+                                    <li key={item.role} className="now-item">
+                                        <span className="now-role">{item.role}</span>
+                                        <span className="now-org">{item.org}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="about-meta-group">
+                            <span className="meta-label">Outside of Work</span>
+                            <ul className="outside-list">
+                                {interests.map((interest, i) => (
+                                    <li key={interest} className="outside-item">
+                                        <span className="outside-index">{String(i + 1).padStart(2, '0')}</span>
+                                        <span className="outside-name">{interest}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>

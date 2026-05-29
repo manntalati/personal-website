@@ -53,6 +53,15 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
         return () => window.removeEventListener('cmdk:open-project', handler);
     }, []);
 
+    useEffect(() => {
+        if (!selectedProject) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setSelectedProject(null);
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [selectedProject]);
+
     const filteredProjects = projects.filter(p => {
         const query = searchQuery.toLowerCase();
         const tags = languages[p.id] || [];
@@ -79,6 +88,15 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
                             key={project.id}
                             className="project-item"
                             onClick={() => setSelectedProject(project)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setSelectedProject(project);
+                                }
+                            }}
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`Open details for ${project.title}`}
                         >
                             <span className="project-year">{project.year.split(' ').pop()}</span>
 
@@ -101,8 +119,14 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
 
             {selectedProject && (
                 <div className="pm-backdrop" onClick={() => setSelectedProject(null)}>
-                    <div className="pm-card" onClick={(e) => e.stopPropagation()}>
-                        <button className="pm-close" onClick={() => setSelectedProject(null)}>×</button>
+                    <div
+                        className="pm-card"
+                        onClick={(e) => e.stopPropagation()}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={`${selectedProject.title} details`}
+                    >
+                        <button className="pm-close" onClick={() => setSelectedProject(null)} aria-label="Close dialog">×</button>
 
                         <div className="pm-meta-row">
                             <span className="pm-year">{selectedProject.year.split(' - ').pop()}</span>
@@ -116,7 +140,7 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
                         <h2 className="pm-title">{selectedProject.title}</h2>
 
                         <div className="pm-image-wrapper">
-                            <img src={selectedProject.imageUrl} alt={selectedProject.title} className="pm-image" />
+                            <img src={selectedProject.imageUrl} alt={selectedProject.title} className="pm-image" loading="lazy" decoding="async" />
                         </div>
 
                         <p className="pm-label">Description</p>

@@ -16,7 +16,15 @@ export default function Hero() {
                 </div>
 
                 <div className="hero-image-wrapper">
-                    <img src="/IMG_8202.png" alt="Hero Image" className="hero-main-image" />
+                    <img
+                        src="/hero.webp"
+                        alt="Mann Talati"
+                        className="hero-main-image"
+                        width={1600}
+                        height={2133}
+                        fetchPriority="high"
+                        decoding="async"
+                    />
                     <span className="image-overlay-text">Carpe Diem.</span>
                 </div>
 
