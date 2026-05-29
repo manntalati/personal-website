@@ -2,7 +2,6 @@ export type Experience = {
     id: string;
     title: string;
     bullets: string[];
-    imageUrl: string;
     urlLink: string;
     company: string;
     duration: string;
@@ -37,7 +36,6 @@ export const experiences: Experience[] = [
         bullets: [
             "Oracle Cloud Data Science Service - Model Building Team",
         ],
-        imageUrl: "cube.png",
         urlLink: "https://www.oracle.com/",
         themes: ["Model Building", "Software Engineering", "Cloud Infrastructure"],
     },
@@ -50,7 +48,6 @@ export const experiences: Experience[] = [
             "Building dual-objective CoT monitorability benchmarks for ASTRAL Lab, based on OpenAI's work",
             "Curating datasets and benchmark specifications to test hidden-objective detection to effectively monitor monitorability",
         ],
-        imageUrl: "ameren.png",
         urlLink: "https://github.com/ASTRAL-Group",
         themes: ["LLM", "Chain of Thought", "Research"],
     },
@@ -63,7 +60,6 @@ export const experiences: Experience[] = [
             "Leading 4+ consultants to design AI-enabled workflows for Amazon AWS for educators, sales, and others",
             "Implemented Framer website redesign boosting engagement by 25%; built web-based 3D aircraft simulation",
         ],
-        imageUrl: "cube.png",
         urlLink: "https://www.cubeconsulting.org/",
         themes: ["Strategy", "Leadership", "Analytics"],
     },
@@ -76,7 +72,6 @@ export const experiences: Experience[] = [
             "Mentor 8 students through the SDLC by standardizing Git workflows, pull requests, code reviews, and CI/CD pipelines",
             "Leading bi-weekly design/code reviews and implementing issue tracking and sprint cadences",
         ],
-        imageUrl: "cube.png",
         urlLink: "https://www.cubeconsulting.org/",
         themes: ["Strategy", "Leadership", "Analytics"],
     },
@@ -90,7 +85,6 @@ export const experiences: Experience[] = [
             "Hyperparameter-tuned neural forecasting models to enhance model accuracy by ≥ 1% with Ray Tune",
             "Developed a Jenkins CI/CD pipeline using Terraform to deploy code across several environments and productionize it",
         ],
-        imageUrl: "ameren.png",
         urlLink: "https://www.ameren.com/",
         themes: ["Forecasting", "ML", "Cloud"],
     },
@@ -103,7 +97,6 @@ export const experiences: Experience[] = [
             "Developed 10+ data science tutorials from R for Data Science (2e) in RStudio by collaborating with Harvard preceptor to enhance educational resources for students",
             "Drafted and contributed to fundamental chapters on statistical methods, predictive models, and mathematical expressions in the book (Preceptor's Primer) offered in Kane's Data Science Course to strengthen the course curriculum",
         ],
-        imageUrl: "preceptor.jpg",
         urlLink: "https://ppbds.github.io/primer/",
         themes: ["Education", "Statistics", "Publishing"],
     },
@@ -113,7 +106,7 @@ export const projects: Project[] = [
     {
         id: "1",
         title: "Autonomous Driving",
-        imageUrl: "/coming_soon.png",
+        imageUrl: "/coming_soon.webp",
         summary: "A full autonomous driving perception pipeline built from scratch in PyTorch. Implements the core vision system that self-driving cars use to understand the world: object detection, instance segmentation, and more.",
         githubUrl: "https://github.com/manntalati/autonomous-driving",
         year: "Mar 2026 - Present",
@@ -121,7 +114,7 @@ export const projects: Project[] = [
     {
         id: "5",
         title: "AI Recycling Assistant",
-        imageUrl: "/recycling.HEIC",
+        imageUrl: "/recycling.webp",
         summary: "AI recycling assistant with custom CNN deployed on AWS SageMaker to classify waste materials with ≥ 70% accuracy.",
         githubUrl: "https://github.com/manntalati/ai_recycling_assistant",
         year: "Jun 2025 - Aug 2025",
@@ -129,7 +122,7 @@ export const projects: Project[] = [
     {
         id: "6",
         title: "Resume Recommender",
-        imageUrl: "/resume_recommender.png",
+        imageUrl: "/resume_recommender.webp",
         summary: "Tool to optimize resumes for job and internship applications.",
         githubUrl: "https://github.com/manntalati/resume-recommender",
         year: "Jul 2025",

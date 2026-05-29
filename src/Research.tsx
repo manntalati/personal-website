@@ -23,6 +23,15 @@ export default function Research({ searchQuery = '' }: ResearchProps) {
         return () => window.removeEventListener('cmdk:open-paper', handler);
     }, []);
 
+    useEffect(() => {
+        if (!selectedPaper) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setSelectedPaper(null);
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [selectedPaper]);
+
     const filteredPapers = papers.filter(p => {
         const query = searchQuery.toLowerCase();
         return (
@@ -49,6 +58,15 @@ export default function Research({ searchQuery = '' }: ResearchProps) {
                             key={paper.id}
                             className="research-item"
                             onClick={() => setSelectedPaper(paper)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setSelectedPaper(paper);
+                                }
+                            }}
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`Open details for ${paper.title}`}
                         >
                             <span className="research-year">{paper.year.split(' ').pop()}</span>
 
@@ -77,8 +95,14 @@ export default function Research({ searchQuery = '' }: ResearchProps) {
 
             {selectedPaper && (
                 <div className="research-modal-backdrop" onClick={() => setSelectedPaper(null)}>
-                    <div className="research-modal-card" onClick={(e) => e.stopPropagation()}>
-                        <button className="research-modal-close" onClick={() => setSelectedPaper(null)}>×</button>
+                    <div
+                        className="research-modal-card"
+                        onClick={(e) => e.stopPropagation()}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={`${selectedPaper.title} details`}
+                    >
+                        <button className="research-modal-close" onClick={() => setSelectedPaper(null)} aria-label="Close dialog">×</button>
 
                         <div className="research-modal-meta-row">
                             <span className="research-modal-year">{selectedPaper.year}</span>

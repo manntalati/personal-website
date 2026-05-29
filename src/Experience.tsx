@@ -54,7 +54,20 @@ export default function Experience({ searchQuery = '' }: ExperienceProps) {
                             key={exp.id}
                             className={`experience-card ${expandedIndex === idx ? 'expanded' : ''}`}
                         >
-                            <div className="experience-item" onClick={() => toggleExpand(idx)}>
+                            <div
+                                className="experience-item"
+                                onClick={() => toggleExpand(idx)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        toggleExpand(idx);
+                                    }
+                                }}
+                                role="button"
+                                tabIndex={0}
+                                aria-expanded={expandedIndex === idx}
+                                aria-label={`${exp.title} at ${exp.company}, ${expandedIndex === idx ? 'collapse' : 'expand'} details`}
+                            >
                                 <div className="experience-meta">
                                     <span className="experience-duration">{exp.duration.split(' - ').pop()}</span>
                                 </div>

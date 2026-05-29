@@ -38,6 +38,7 @@ export default function Tech({ searchQuery = '' }: TechProps) {
                 { name: "Git", url: "https://git-scm.com/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg" },
                 { name: "Terraform", url: "https://developer.hashicorp.com/terraform", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/terraform/terraform-original.svg" },
                 { name: "Jenkins", url: "https://www.jenkins.io/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/jenkins/jenkins-original.svg" },
+                { name: "Docker", url: "https://www.docker.com/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" },
                 { name: "Databricks", url: "https://databricks.com/", icon: "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/databricks.svg" },
                 { name: "PowerBI", url: "https://powerbi.microsoft.com/", icon: "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/powerbi.svg" },
             ]
@@ -54,18 +55,27 @@ export default function Tech({ searchQuery = '' }: TechProps) {
 
     if (filteredTechStack.length === 0 && searchQuery) return null;
 
+    const totalCount = filteredTechStack.reduce((sum, c) => sum + c.items.length, 0);
+
     return (
         <section id="Technologies" className="tech-section">
             <div className="tech-container">
                 <div className="tech-header">
                     <span className="section-label">Skills</span>
                     <h2 className="section-heading">Technologies & Tools</h2>
+                    <span className="tech-total">{String(totalCount).padStart(2, '0')} Tracked</span>
                 </div>
 
                 <div className="tech-categories">
                     {filteredTechStack.map((category, idx) => (
                         <div key={idx} className="tech-category">
-                            <h3 className="category-title">{category.category}</h3>
+                            <div className="tech-rail">
+                                <span className="tech-rail-number">{String(idx + 1).padStart(2, '0')}</span>
+                                <h3 className="tech-rail-title">{category.category}</h3>
+                                <span className="tech-rail-count">
+                                    {category.items.length} {category.items.length === 1 ? 'skill' : 'skills'}
+                                </span>
+                            </div>
                             <div className="tech-grid">
                                 {category.items.map((item, i) => (
                                     <a
@@ -80,9 +90,12 @@ export default function Tech({ searchQuery = '' }: TechProps) {
                                                 src={item.icon}
                                                 alt={item.name}
                                                 className="tech-icon"
+                                                loading="lazy"
+                                                decoding="async"
                                             />
                                         </div>
                                         <span className="tech-name">{item.name}</span>
+                                        <span className="tech-index">{String(i + 1).padStart(2, '0')}</span>
                                     </a>
                                 ))}
                             </div>
