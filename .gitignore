@@ -26,3 +26,6 @@ dist-ssr
 
 .env
 .claude
+
+# Original photos — the optimized .webp copies in public/photography/ are committed and shipped.
+photos/

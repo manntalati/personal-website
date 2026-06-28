@@ -7,11 +7,15 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "optimize:photos": "node scripts/optimize-photos.mjs",
+    "predev": "node scripts/optimize-photos.mjs",
+    "prebuild": "node scripts/optimize-photos.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@react-pdf/renderer": "^4.3.0",
+    "@types/react-simple-maps": "^3.0.6",
     "@vercel/analytics": "^2.0.1",
     "bootstrap": "^5.3.6",
     "pdfjs-dist": "^5.1.91",
@@ -20,7 +24,8 @@
     "react-icons": "^5.5.0",
     "react-pdf": "^9.2.1",
     "react-router-dom": "^7.5.0",
-    "react-router-hash-link": "^2.4.3"
+    "react-router-hash-link": "^2.4.3",
+    "react-simple-maps": "^3.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -33,6 +38,7 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "sharp": "^0.35.2",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.18"

@@ -1,6 +1,7 @@
 import './Navbar.css'
 import { useState, useEffect } from 'react';
 import { HashLink } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -33,6 +34,7 @@ export default function Navbar() {
                     <li><HashLink smooth to="/#Research">Research</HashLink></li>
                     <li><HashLink smooth to="/#Projects">Projects</HashLink></li>
                     <li><HashLink smooth to="/#Technologies">Skills</HashLink></li>
+                    <li><Link to="/photography">Photography</Link></li>
                     <li><HashLink smooth to="/#Contact">Contact</HashLink></li>
                 </ul>
 
