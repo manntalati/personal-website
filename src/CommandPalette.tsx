@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {
     FiSearch,
     FiUser,
@@ -17,7 +17,9 @@ import {
     FiMoon,
     FiMonitor,
     FiCheck,
+    FiCamera,
 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import './CommandPalette.css';
 import { experiences, projects, papers } from './content';
 import { useTheme, type ThemeMode } from './ThemeContext';
@@ -77,6 +79,7 @@ function scoreAction(a: Action, q: string): number {
 
 export default function CommandPalette() {
     const { mode, setMode } = useTheme();
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const [activeIndex, setActiveIndex] = useState(0);
@@ -119,13 +122,24 @@ export default function CommandPalette() {
         ];
     }, [mode, setMode]);
 
+    // Section links must work from any route: if we're not on home, navigate there first, then scroll.
+    const goToSection = useCallback((hash: string) => {
+        if (window.location.pathname !== '/') {
+            navigate('/');
+            setTimeout(() => scrollToHash(hash), 90);
+        } else {
+            scrollToHash(hash);
+        }
+    }, [navigate]);
+
     const baseActions: Action[] = useMemo(() => [
-        { id: 'about', label: 'About', hint: 'Background & focus', group: 'Navigate', icon: <FiUser />, keywords: ['bio', 'background'], run: () => scrollToHash('#About') },
-        { id: 'experience', label: 'Experience', hint: 'Roles & internships', group: 'Navigate', icon: <FiBriefcase />, keywords: ['work', 'jobs', 'timeline'], run: () => scrollToHash('#Experience') },
-        { id: 'research', label: 'Research', hint: 'Publications', group: 'Navigate', icon: <FiBookOpen />, keywords: ['paper', 'arxiv'], run: () => scrollToHash('#Research') },
-        { id: 'projects', label: 'Projects', hint: 'Selected works', group: 'Navigate', icon: <FiCode />, keywords: ['work', 'portfolio'], run: () => scrollToHash('#Projects') },
-        { id: 'skills', label: 'Skills', hint: 'Tech stack', group: 'Navigate', icon: <FiCpu />, keywords: ['stack', 'tools', 'languages'] , run: () => scrollToHash('#Technologies') },
-        { id: 'contact', label: 'Contact', hint: 'Get in touch', group: 'Navigate', icon: <FiMail />, keywords: ['email', 'reach'], run: () => scrollToHash('#Contact') },
+        { id: 'about', label: 'About', hint: 'Background & focus', group: 'Navigate', icon: <FiUser />, keywords: ['bio', 'background'], run: () => goToSection('#About') },
+        { id: 'experience', label: 'Experience', hint: 'Roles & internships', group: 'Navigate', icon: <FiBriefcase />, keywords: ['work', 'jobs', 'timeline'], run: () => goToSection('#Experience') },
+        { id: 'research', label: 'Research', hint: 'Publications', group: 'Navigate', icon: <FiBookOpen />, keywords: ['paper', 'arxiv'], run: () => goToSection('#Research') },
+        { id: 'projects', label: 'Projects', hint: 'Selected works', group: 'Navigate', icon: <FiCode />, keywords: ['work', 'portfolio'], run: () => goToSection('#Projects') },
+        { id: 'skills', label: 'Skills', hint: 'Tech stack', group: 'Navigate', icon: <FiCpu />, keywords: ['stack', 'tools', 'languages'] , run: () => goToSection('#Technologies') },
+        { id: 'contact', label: 'Contact', hint: 'Get in touch', group: 'Navigate', icon: <FiMail />, keywords: ['email', 'reach'], run: () => goToSection('#Contact') },
+        { id: 'photography', label: 'Photography', hint: 'Travel photos & map', group: 'Navigate', icon: <FiCamera />, keywords: ['photos', 'travel', 'gallery', 'map', 'cities', 'trips'], run: () => navigate('/photography') },
 
         ...experiences.map((exp): Action => ({
             id: `exp-${exp.id}`,
@@ -187,7 +201,7 @@ export default function CommandPalette() {
         },
 
         ...themeActions,
-    ], [themeActions]);
+    ], [themeActions, navigate, goToSection]);
 
     const totalCommandCount = baseActions.length;
 

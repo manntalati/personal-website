@@ -1,0 +1,3 @@
+# Drop travel photos here, grouped by city id: public/photography/<city-id>/<file>
+# e.g. public/photography/tokyo/2025-08-12-shibuya.webp
+# Then reference them from src/content.ts (the `cities` array). External URLs work too.

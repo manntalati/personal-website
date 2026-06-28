@@ -99,7 +99,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: var(--space-10);
+    gap: var(--space-6);
 }
 
 .navbar-links li a {
@@ -156,7 +156,14 @@
     border-bottom-width: 6px;
 }
 
-@media (max-width: 900px) {
+/* Drop the status pill first so the nav links keep room before they wrap. */
+@media (max-width: 1120px) {
+    .navbar-status {
+        display: none;
+    }
+}
+
+@media (max-width: 1024px) {
 
     .navbar-links,
     .navbar-cta,

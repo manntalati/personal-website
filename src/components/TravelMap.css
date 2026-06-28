@@ -1,0 +1,134 @@
+.travel-map {
+    width: 100%;
+}
+
+.travel-map-frame {
+    position: relative;
+    width: 100%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    /* The ocean is just the frame background; countries are filled a touch darker. */
+}
+
+.travel-map-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* d3-zoom binds touch gestures; keep vertical page scrolling possible on touch devices. */
+    touch-action: pan-y;
+}
+
+/* Drags should feel grabbable. */
+.travel-map-svg:active {
+    cursor: grabbing;
+}
+
+/* --- City markers --- */
+.travel-marker {
+    cursor: pointer;
+    outline: none;
+}
+
+.travel-marker-dot {
+    fill: var(--color-text-primary);
+    stroke: var(--color-background);
+    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform var(--transition-fast), fill var(--transition-fast);
+}
+
+.travel-marker:hover .travel-marker-dot,
+.travel-marker:focus-visible .travel-marker-dot {
+    transform: scale(1.35);
+}
+
+.travel-marker.active .travel-marker-dot {
+    fill: var(--color-text-primary);
+    transform: scale(1.2);
+}
+
+/* Pulsing ring around the currently expanded city. */
+.travel-marker-ring {
+    fill: none;
+    stroke: var(--color-text-primary);
+    stroke-width: 1.5;
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0.55;
+    animation: travel-marker-pulse 2.1s ease-out infinite;
+}
+
+@keyframes travel-marker-pulse {
+    0% {
+        transform: scale(0.55);
+        opacity: 0.6;
+    }
+    70% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+.travel-marker-label {
+    fill: var(--color-text-primary);
+    font-family: var(--font-family-primary);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    /* White (theme bg) halo so labels stay legible over country fills. */
+    paint-order: stroke;
+    stroke: var(--color-background);
+    stroke-width: 3.5px;
+    stroke-linejoin: round;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* --- Zoom controls --- */
+.travel-map-controls {
+    position: absolute;
+    bottom: var(--space-3);
+    right: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 2px 10px var(--color-shadow);
+}
+
+.travel-map-controls button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    transition: background var(--transition-fast);
+}
+
+.travel-map-controls button:hover {
+    background: var(--color-surface-secondary);
+}
+
+.travel-map-controls button svg {
+    width: 16px;
+    height: 16px;
+}
+
+@media (max-width: 768px) {
+    .travel-map-controls button {
+        width: 38px;
+        height: 38px;
+    }
+}

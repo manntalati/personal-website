@@ -1,3 +1,5 @@
+import cityCoordinates from './cityCoordinates';
+
 export type Experience = {
     id: string;
     title: string;
@@ -140,3 +142,82 @@ export const papers: Paper[] = [
         tags: ["LLM", "Benchmark", "CoT"],
     },
 ];
+
+export type Photo = {
+    id: string;
+    src: string;          // local path under /public (e.g. "/photography/tokyo/01.webp") OR a full URL
+    date: string;         // ISO date "YYYY-MM-DD" — used to sort & group photos day-by-day
+    caption?: string;
+    alt?: string;
+    width?: number;       // optional intrinsic size (lets the grid reserve space / avoid layout shift)
+    height?: number;
+};
+
+export type City = {
+    id: string;
+    name: string;
+    country?: string;
+    coordinates?: [number, number]; // optional override; usually auto-resolved from `name` via cityCoords()
+    blurb?: string;
+    photos: Photo[];
+};
+
+/**
+ * Travel photography, grouped by city.
+ *
+ * HOW TO ADD A PHOTO
+ *   1. Drop the original image in `photos/<city-id>/` (any format), then run `npm run optimize:photos`
+ *      (this also runs on `npm run dev` / `npm run build`). It writes a web-sized .webp to
+ *      `public/photography/<city-id>/` — reference THAT path in `src`. A full external URL also works.
+ *   2. Add a `{ id, src, date, caption }` line to that city's `photos` array:
+ *        - id:      any unique string,         e.g. "chicago-2"
+ *        - src:     "/photography/chicago/02.webp"   OR   "https://…"
+ *        - date:    "YYYY-MM-DD"  ← drives day-by-day sorting/grouping (newest day shown first)
+ *        - caption: optional — shown on hover and in the photo viewer (omit or "" for none)
+ *      Listing order doesn't matter; photos are auto-sorted by `date`.
+ *   3. New city? Add a City with a unique `id` and `name`. Its map pin is placed automatically by
+ *      looking the `name` up in `cityCoordinates.ts` (e.g. "San Francisco" → its lng/lat). Only if a
+ *      place isn't in that list, add `coordinates: [longitude, latitude]` to override.
+ */
+export const cities: City[] = [
+    {
+        id: "chicago",
+        name: "Chicago",
+        country: "United States",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "chicago-1", src: "/photography/chicago/01.webp", date: "2026-02-04", caption: "Chicago Downtown" },
+        ],
+    },
+    {
+        id: "sf",
+        name: "San Francisco",
+        country: "United States",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "sf-1", src: "/photography/sf/IMG_5682.webp", date: "2026-06-27", caption: "Ghirardelli Square" },
+            { id: "sf-2", src: "/photography/sf/IMG_5664.webp", date: "2026-06-27", caption: "Alcatraz Island" },
+            { id: "sf-3", src: "/photography/sf/IMG_5654.webp", date: "2026-06-27", caption: "Pier 39" },
+        ],
+    },
+    {
+        id: "punta",
+        name: "Punta Cana",
+        country: "Dominican Republic",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "punta-1", src: "/photography/punta/IMG_5603.webp", date: "2024-11-24", caption: "Beach" },
+        ],
+    },
+];
+
+/**
+ * Resolve a city's map position: the inline `coordinates` override if present, otherwise a lookup
+ * by name in `cityCoordinates` (see cityCoordinates.ts). Returns null if the name isn't found —
+ * in that case add it to cityCoordinates.ts or set `coordinates` inline on the city.
+ */
+export function cityCoords(city: City): [number, number] | null {
+    if (city.coordinates) return city.coordinates;
+    const key = city.name.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    return cityCoordinates[key] ?? null;
+}

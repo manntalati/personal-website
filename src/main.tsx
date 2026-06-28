@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client'
+import { useEffect } from 'react'
 import About from './About.tsx'
 import Hero from './Hero.tsx'
 import Navbar from './Navbar.tsx'
@@ -9,8 +10,9 @@ import Tech from './Tech.tsx'
 import Contact from './Contact.tsx'
 import Stats from './Stats.tsx'
 import CommandPalette from './CommandPalette.tsx'
+import Photography from './Photography.tsx'
 import './index.css'
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FiMail, FiArrowUp } from 'react-icons/fi';
@@ -58,19 +60,40 @@ function ScrollToTop() {
     );
 }
 
+function Home() {
+    return (
+        <>
+            <Hero />
+            <Stats />
+            <About />
+            <Experience />
+            <Research />
+            <Projects />
+            <Tech />
+            <Contact />
+        </>
+    );
+}
+
+// Reset scroll to the top on route changes, but leave hash navigation (HashLink) alone.
+function ScrollToTopOnNavigate() {
+    const { pathname, hash } = useLocation();
+    useEffect(() => {
+        if (!hash) window.scrollTo(0, 0);
+    }, [pathname, hash]);
+    return null;
+}
+
 function App() {
     return (
         <div className="app">
             <Navbar />
+            <ScrollToTopOnNavigate />
             <main>
-                <Hero />
-                <Stats />
-                <About />
-                <Experience />
-                <Research />
-                <Projects />
-                <Tech />
-                <Contact />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/photography" element={<Photography />} />
+                </Routes>
             </main>
             <Footer />
             <ScrollToTop />

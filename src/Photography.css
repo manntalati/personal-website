@@ -1,0 +1,424 @@
+/* ===== Page shell ===== */
+.photography {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: calc(80px + var(--space-12)) var(--space-8) var(--space-24);
+}
+
+.photography .travel-map {
+    margin-bottom: var(--space-6);
+}
+
+/* ===== Header ===== */
+.photo-hero {
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-8);
+    border-bottom: 3px solid var(--color-lapis-blue);
+}
+
+.photo-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--space-8);
+    transition: color var(--transition-fast);
+}
+
+.photo-back:hover {
+    color: var(--color-text-primary);
+    opacity: 1;
+}
+
+.photo-back svg {
+    width: 14px;
+    height: 14px;
+}
+
+.photo-title {
+    font-size: var(--text-5xl);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    text-transform: none;
+    color: var(--color-text-primary);
+    margin: var(--space-2) 0 var(--space-6);
+}
+
+.photo-intro {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    max-width: 62ch;
+    margin: 0 0 var(--space-8);
+}
+
+.photo-stats {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.photo-stats strong {
+    color: var(--color-text-primary);
+    font-weight: 800;
+    font-size: var(--text-lg);
+    margin-right: var(--space-1);
+}
+
+.photo-stats-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--color-border);
+}
+
+/* ===== City gallery modal (opens on pin click) ===== */
+.city-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1900;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8);
+    animation: fadeIn 0.2s ease;
+}
+
+.city-modal {
+    position: relative;
+    background: var(--color-background);
+    width: 100%;
+    max-width: 1000px;
+    max-height: 88vh;
+    overflow-y: auto;
+    border-top: 4px solid var(--color-lapis-blue);
+    border-radius: var(--radius-lg);
+    padding: var(--space-12) var(--space-10) var(--space-10);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    animation: city-modal-in 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes city-modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.city-modal-close {
+    position: absolute;
+    top: var(--space-5);
+    right: var(--space-5);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    transition: color var(--transition-fast), background var(--transition-fast);
+    z-index: 1;
+}
+
+.city-modal-close:hover {
+    color: var(--color-text-primary);
+    background: var(--color-surface-secondary);
+    opacity: 1;
+}
+
+.city-modal-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+.city-modal-head {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.city-modal-title {
+    font-size: var(--text-3xl);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--color-text-primary);
+    margin: var(--space-2) 0 var(--space-3);
+}
+
+.city-modal-count {
+    font-family: var(--font-family-mono);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+}
+
+.city-empty {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+}
+
+/* ===== Date groups + photo grid (shared by modal) ===== */
+.photo-day + .photo-day {
+    margin-top: var(--space-10);
+}
+
+.photo-day-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-family-mono);
+    font-size: var(--text-xs);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--space-5);
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-4);
+}
+
+.photo-thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    padding: 0;
+    overflow: hidden;
+    background: var(--color-surface-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.photo-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-normal);
+}
+
+.photo-thumb:hover img,
+.photo-thumb:focus-visible img {
+    transform: scale(1.05);
+}
+
+.photo-caption {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: var(--space-6) var(--space-3) var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: #fff;
+    text-align: left;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.photo-thumb:hover .photo-caption,
+.photo-thumb:focus-visible .photo-caption {
+    opacity: 1;
+}
+
+/* ===== Lightbox (single photo, over the city modal) ===== */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8);
+    animation: fadeIn 0.2s ease;
+}
+
+.lightbox-figure {
+    margin: 0;
+    max-width: min(1100px, 92vw);
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: var(--radius-sm);
+    /* Keep the focused photo at true brightness even in dark mode (overrides global img dimming). */
+    filter: none;
+}
+
+.lightbox-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-6);
+}
+
+.lightbox-caption-main {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.lightbox-city {
+    font-size: var(--text-xs);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.lightbox-text {
+    font-size: var(--text-base);
+    color: #fff;
+}
+
+.lightbox-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+    font-family: var(--font-family-mono);
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.65);
+    white-space: nowrap;
+}
+
+.lightbox-close,
+.lightbox-nav {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: var(--radius-full);
+    transition: background var(--transition-fast);
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.22);
+    opacity: 1;
+}
+
+.lightbox-close {
+    top: var(--space-6);
+    right: var(--space-6);
+    width: 48px;
+    height: 48px;
+}
+
+.lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+}
+
+.lightbox-nav.prev {
+    left: var(--space-6);
+}
+
+.lightbox-nav.next {
+    right: var(--space-6);
+}
+
+.lightbox-close svg,
+.lightbox-nav svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .photography {
+        padding: calc(72px + var(--space-8)) var(--space-4) var(--space-16);
+    }
+
+    .city-modal-backdrop {
+        padding: 0;
+        align-items: stretch;
+    }
+
+    .city-modal {
+        max-width: none;
+        max-height: 100vh;
+        height: 100%;
+        border-radius: 0;
+        border-top: none;
+        padding: var(--space-10) var(--space-5) var(--space-8);
+    }
+
+    .photo-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: var(--space-3);
+    }
+
+    .lightbox {
+        padding: var(--space-4);
+    }
+
+    .lightbox-close {
+        top: var(--space-3);
+        right: var(--space-3);
+        width: 42px;
+        height: 42px;
+    }
+
+    .lightbox-nav {
+        width: 42px;
+        height: 42px;
+    }
+
+    .lightbox-nav.prev {
+        left: var(--space-2);
+    }
+
+    .lightbox-nav.next {
+        right: var(--space-2);
+    }
+
+    .lightbox-caption {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+    }
+
+    .lightbox-meta {
+        align-items: flex-start;
+        flex-direction: row;
+        gap: var(--space-4);
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
