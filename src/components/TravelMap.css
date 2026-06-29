@@ -29,6 +29,17 @@
 .travel-marker {
     cursor: pointer;
     outline: none;
+    transition: opacity var(--transition-normal);
+}
+
+/* When one city is focused, fade the rest back so the selection reads clearly. */
+.travel-marker.dimmed {
+    opacity: 0.3;
+}
+
+.travel-marker.dimmed:hover,
+.travel-marker.dimmed:focus-visible {
+    opacity: 0.75;
 }
 
 .travel-marker-dot {

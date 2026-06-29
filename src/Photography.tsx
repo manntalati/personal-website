@@ -34,9 +34,15 @@ function thumbSrc(src: string): string {
     return /^\/photography\/.+\.webp$/.test(src) ? src.replace(/\.webp$/, '.thumb.webp') : src;
 }
 
+// Match the panel's close transition so its contents stay mounted while it slides shut.
+const PANEL_EXIT_MS = 450;
+
 export default function Photography() {
-    // Nothing is shown until the user picks a pin — then that city's gallery opens in a modal.
+    // Nothing is shown until the user picks a pin — then the map flies to that city and its
+    // gallery slides in beside it.
     const [openCityId, setOpenCityId] = useState<string | null>(null);
+    // `displayCityId` trails `openCityId` so the panel keeps its content while it animates closed.
+    const [displayCityId, setDisplayCityId] = useState<string | null>(null);
     const [lightbox, setLightbox] = useState<{ cityId: string; index: number } | null>(null);
 
     const totalPhotos = useMemo(() => cities.reduce((n, c) => n + c.photos.length, 0), []);
@@ -54,10 +60,23 @@ export default function Photography() {
         return () => { document.title = prev; };
     }, []);
 
-    const closeCity = () => { setLightbox(null); setOpenCityId(null); };
+    // Keep the panel mounted through its slide-out so the close animation has content to show.
+    useEffect(() => {
+        if (openCityId) {
+            setDisplayCityId(openCityId);
+            return;
+        }
+        const t = setTimeout(() => setDisplayCityId(null), PANEL_EXIT_MS);
+        return () => clearTimeout(t);
+    }, [openCityId]);
 
-    // Centralized keyboard control + body-scroll lock while either overlay is open.
-    // Escape closes the lightbox first (if open), otherwise the city modal; arrows page the lightbox.
+    // Clicking a pin toggles its city; clicking the active pin again closes the panel.
+    const selectCity = (id: string) => setOpenCityId((prev) => (prev === id ? null : id));
+    const closeCity = () => setOpenCityId(null);
+
+    // Keyboard control: Escape closes the lightbox first (if open), otherwise the gallery;
+    // arrows page the lightbox. Only the fullscreen lightbox locks body scroll — the side
+    // panel is part of the page layout, so the page keeps scrolling normally.
     useEffect(() => {
         if (!openCityId && !lightbox) return;
         const count = lightbox ? (sortedByCity[lightbox.cityId] ?? []).length : 0;
@@ -71,20 +90,22 @@ export default function Photography() {
             }
         };
         window.addEventListener('keydown', onKey);
-        const prevOverflow = document.body.style.overflow;
-        document.body.style.overflow = 'hidden';
-        return () => {
-            window.removeEventListener('keydown', onKey);
-            document.body.style.overflow = prevOverflow;
-        };
+        return () => window.removeEventListener('keydown', onKey);
     }, [openCityId, lightbox, sortedByCity]);
 
-    const openCity = openCityId ? cities.find((c) => c.id === openCityId) ?? null : null;
-    const openCityPhotos = useMemo(
-        () => (openCityId ? sortedByCity[openCityId] ?? [] : []),
-        [openCityId, sortedByCity],
+    useEffect(() => {
+        if (!lightbox) return;
+        const prevOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = prevOverflow; };
+    }, [lightbox]);
+
+    const panelCity = displayCityId ? cities.find((c) => c.id === displayCityId) ?? null : null;
+    const panelPhotos = useMemo(
+        () => (displayCityId ? sortedByCity[displayCityId] ?? [] : []),
+        [displayCityId, sortedByCity],
     );
-    const openCityGroups = useMemo(() => groupByDate(openCityPhotos), [openCityPhotos]);
+    const panelGroups = useMemo(() => groupByDate(panelPhotos), [panelPhotos]);
 
     const lbCity = lightbox ? cities.find((c) => c.id === lightbox.cityId) ?? null : null;
     const lbPhotos = lightbox ? sortedByCity[lightbox.cityId] ?? [] : [];
@@ -109,78 +130,75 @@ export default function Photography() {
                 </div>
             </header>
 
-            <TravelMap cities={cities} activeCityId={openCityId} onSelectCity={setOpenCityId} />
-
-            {/* City gallery — appears only when a pin is clicked */}
-            {openCity && (
-                <div
-                    className="city-modal-backdrop"
-                    onClick={closeCity}
-                    role="dialog"
-                    aria-modal="true"
-                    aria-label={`${openCity.name} photos`}
-                >
-                    <div className="city-modal" onClick={(e) => e.stopPropagation()}>
-                        <button className="city-modal-close" onClick={closeCity} aria-label="Close gallery">
-                            <FiX />
-                        </button>
-
-                        <div className="city-modal-head">
-                            {openCity.country && <span className="section-label">{openCity.country}</span>}
-                            <h2 className="city-modal-title">{openCity.name}</h2>
-                            <span className="city-modal-count">
-                                {openCityPhotos.length} {openCityPhotos.length === 1 ? 'photo' : 'photos'}
-                            </span>
-                        </div>
-
-                        <div className="city-modal-body">
-                            {openCityPhotos.length === 0 && (
-                                <p className="city-empty">No photos here yet — check back soon.</p>
-                            )}
-                            {openCityGroups.map((g) => (
-                                <div className="photo-day" key={g.date}>
-                                    <div className="photo-day-label">
-                                        {formatDate(g.date)}
-                                    </div>
-                                    <div className="photo-grid">
-                                        {g.items.map((photo) => {
-                                            const index = openCityPhotos.indexOf(photo);
-                                            return (
-                                                <button
-                                                    type="button"
-                                                    key={photo.id}
-                                                    className="photo-thumb"
-                                                    onClick={() => setLightbox({ cityId: openCity.id, index })}
-                                                    aria-label={`Open photo${photo.caption ? `: ${photo.caption}` : ''}`}
-                                                >
-                                                    <img
-                                                        src={thumbSrc(photo.src)}
-                                                        alt={photo.alt || photo.caption || `${openCity.name} photo`}
-                                                        loading="lazy"
-                                                        decoding="async"
-                                                        onError={(e) => {
-                                                            const img = e.currentTarget;
-                                                            if (!img.dataset.fallback) {
-                                                                img.dataset.fallback = '1';
-                                                                img.src = photo.src;
-                                                            }
-                                                        }}
-                                                    />
-                                                    {photo.caption && (
-                                                        <span className="photo-caption">{photo.caption}</span>
-                                                    )}
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+            {/* The map stays on screen; selecting a pin flies to it and the gallery slides in beside it. */}
+            <div className={`photo-stage ${openCityId ? 'has-panel' : ''}`}>
+                <div className="photo-stage-map">
+                    <TravelMap cities={cities} activeCityId={openCityId} onSelectCity={selectCity} />
                 </div>
-            )}
 
-            {/* Single-photo fullscreen viewer (opens over the city gallery) */}
+                <aside className="city-panel" aria-hidden={!openCityId}>
+                    {panelCity && (
+                        <div className="city-panel-inner" key={panelCity.id}>
+                            <div className="city-panel-head">
+                                <div className="city-panel-headings">
+                                    {panelCity.country && <span className="section-label">{panelCity.country}</span>}
+                                    <h2 className="city-panel-title">{panelCity.name}</h2>
+                                    <span className="city-panel-count">
+                                        {panelPhotos.length} {panelPhotos.length === 1 ? 'photo' : 'photos'}
+                                    </span>
+                                </div>
+                                <button className="city-panel-close" onClick={closeCity} aria-label="Close gallery">
+                                    <FiX />
+                                </button>
+                            </div>
+
+                            <div className="city-panel-body">
+                                {panelPhotos.length === 0 && (
+                                    <p className="city-empty">No photos here yet — check back soon.</p>
+                                )}
+                                {panelGroups.map((g) => (
+                                    <div className="photo-day" key={g.date}>
+                                        <div className="photo-day-label">{formatDate(g.date)}</div>
+                                        <div className="photo-grid">
+                                            {g.items.map((photo) => {
+                                                const index = panelPhotos.indexOf(photo);
+                                                return (
+                                                    <button
+                                                        type="button"
+                                                        key={photo.id}
+                                                        className="photo-thumb"
+                                                        onClick={() => setLightbox({ cityId: panelCity.id, index })}
+                                                        aria-label={`Open photo${photo.caption ? `: ${photo.caption}` : ''}`}
+                                                    >
+                                                        <img
+                                                            src={thumbSrc(photo.src)}
+                                                            alt={photo.alt || photo.caption || `${panelCity.name} photo`}
+                                                            loading="lazy"
+                                                            decoding="async"
+                                                            onError={(e) => {
+                                                                const img = e.currentTarget;
+                                                                if (!img.dataset.fallback) {
+                                                                    img.dataset.fallback = '1';
+                                                                    img.src = photo.src;
+                                                                }
+                                                            }}
+                                                        />
+                                                        {photo.caption && (
+                                                            <span className="photo-caption">{photo.caption}</span>
+                                                        )}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </aside>
+            </div>
+
+            {/* Single-photo fullscreen viewer (opens over the gallery) */}
             {lightbox && lbPhoto && lbCity && (
                 <div
                     className="lightbox"
