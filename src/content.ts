@@ -240,6 +240,7 @@ export const cities: City[] = [
             { id: "bigsur-2", src: "/photography/bigsur/IMG_6197.webp", date: "2026-07-04", caption: "Bixby Bridge" },
             { id: "bigsur-3", src: "/photography/bigsur/IMG_6243.webp", date: "2026-07-04", caption: "Pfeiffer Beach" },
             { id: "bigsur-4", src: "/photography/bigsur/IMG_6282.webp", date: "2026-07-04", caption: "Pfeiffer Beach" },
+            { id: "bigsur-5", src: "/photography/bigsur/image.png", date: "2026-07-04", caption: "Pfeiffer Beach" },
         ],
     },
     {
