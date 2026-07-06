@@ -22,12 +22,11 @@ const FLY_MS = 800;
 const FOCUS_SOLO = 4.5;
 const FOCUS_CLUSTER = 8;
 
-// Cluster + fan tuning. Cities within CLUSTER_DEG of one another are drawn as a fanned rosette so
-// no pin hides beneath another; FAN_RADIUS is that rosette's radius in the 900×420 viewBox.
-// PX_PER_DEG calibrates viewBox px per degree of longitude at zoom 1 (≈ 900px across 360°).
+// Cluster + fan tuning. Cities within CLUSTER_DEG of one another share a spot on the map and stay
+// stacked at the overview; as you zoom in they fan out into a rosette so no pin hides beneath
+// another. FAN_RADIUS is that rosette's radius in the 900×420 viewBox.
 const CLUSTER_DEG = 0.75;
 const FAN_RADIUS = 20;
-const PX_PER_DEG = 2.56;
 
 // Country fills/strokes use CSS variables so the map follows the light/dark theme automatically.
 const COUNTRY_STYLE = {
@@ -224,11 +223,12 @@ export default function TravelMap({ cities, activeCityId, onSelectCity }: Travel
                             const showLabel = isActive || hoveredId === city.id;
                             const count = city.photos.length;
 
-                            // Fan clustered pins apart in constant screen space; ease the offset back to
-                            // zero once the tightest pair would separate on its own at this zoom.
+                            // Keep clustered pins stacked on their true location at the overview, then fan
+                            // them apart in constant screen space as you zoom in — so a tight cluster reads
+                            // as one place on the map, yet separates for selection once you fly in deeper.
                             const f = layout.get(city.id);
                             const spread = f && f.minSepDeg !== Infinity
-                                ? Math.max(0, Math.min(1, 1 - (PX_PER_DEG * f.minSepDeg * position.zoom) / (2 * FAN_RADIUS)))
+                                ? Math.max(0, Math.min(1, (position.zoom - MIN_ZOOM) / (FOCUS_CLUSTER - MIN_ZOOM)))
                                 : 0;
                             const ox = f ? f.fanX * spread : 0;
                             const oy = f ? f.fanY * spread : 0;
