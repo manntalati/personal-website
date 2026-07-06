@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, memo } from 'react';
+import { useEffect, useMemo, useRef, useState, memo } from 'react';
 import {
     ComposableMap,
     Geographies,
@@ -14,9 +14,20 @@ import './TravelMap.css';
 const GEO_URL = '/geo/countries-110m.json';
 const INITIAL = { coordinates: [0, 8] as [number, number], zoom: 1 };
 const MIN_ZOOM = 1;
-const MAX_ZOOM = 8;
-const FOCUS_ZOOM = 4.5; // how far the map flies in when a city is selected
+const MAX_ZOOM = 16;
 const FLY_MS = 800;
+
+// How far the map flies in when a city is selected: an isolated city gets a comfortable overview,
+// while a city inside a tight cluster (e.g. the Monterey peninsula) flies in deeper for context.
+const FOCUS_SOLO = 4.5;
+const FOCUS_CLUSTER = 8;
+
+// Cluster + fan tuning. Cities within CLUSTER_DEG of one another are drawn as a fanned rosette so
+// no pin hides beneath another; FAN_RADIUS is that rosette's radius in the 900×420 viewBox.
+// PX_PER_DEG calibrates viewBox px per degree of longitude at zoom 1 (≈ 900px across 360°).
+const CLUSTER_DEG = 0.75;
+const FAN_RADIUS = 20;
+const PX_PER_DEG = 2.56;
 
 // Country fills/strokes use CSS variables so the map follows the light/dark theme automatically.
 const COUNTRY_STYLE = {
@@ -27,7 +38,19 @@ const COUNTRY_STYLE = {
 
 const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
+// Rough gap in degrees between two [lng, lat] points, compressing longitude by latitude so the
+// clustering threshold behaves consistently north–south and east–west.
+function angDist(a: [number, number], b: [number, number]) {
+    const latMean = (((a[1] + b[1]) / 2) * Math.PI) / 180;
+    return Math.hypot((a[0] - b[0]) * Math.cos(latMean), a[1] - b[1]);
+}
+
 type Position = { coordinates: [number, number]; zoom: number };
+
+// Per-city layout derived from how close its neighbours are: the screen-space fan offset that keeps
+// clustered pins apart, the cluster's tightest pairwise gap (which relaxes the fan as you zoom in),
+// and the zoom the map flies to on select.
+type CityLayout = { fanX: number; fanY: number; minSepDeg: number; focusZoom: number };
 
 // The world outlines never change, so render them once and skip re-rendering on every fly-to frame.
 const Countries = memo(function Countries() {
@@ -55,6 +78,70 @@ export default function TravelMap({ cities, activeCityId, onSelectCity }: Travel
     // Markers live inside the zoom group, so counter-scale them to keep a constant on-screen size.
     const inv = 1 / position.zoom;
 
+    // Group cities that sit within CLUSTER_DEG of each other and fan them out around the cluster
+    // centre so none hides beneath another (they can be only a few km apart in the real world).
+    const layout = useMemo(() => {
+        const pts = cities
+            .map((c) => ({ id: c.id, coords: cityCoords(c) }))
+            .filter((p): p is { id: string; coords: [number, number] } => p.coords !== null);
+
+        // Union-find: join every pair closer than CLUSTER_DEG into a single cluster.
+        const parent = new Map(pts.map((p) => [p.id, p.id] as const));
+        const find = (x: string): string => {
+            let root = x;
+            while (parent.get(root) !== root) root = parent.get(root)!;
+            while (parent.get(x) !== root) { const next = parent.get(x)!; parent.set(x, root); x = next; }
+            return root;
+        };
+        for (let i = 0; i < pts.length; i++)
+            for (let j = i + 1; j < pts.length; j++)
+                if (angDist(pts[i].coords, pts[j].coords) < CLUSTER_DEG)
+                    parent.set(find(pts[i].id), find(pts[j].id));
+
+        const clusters = new Map<string, typeof pts>();
+        for (const p of pts) {
+            const root = find(p.id);
+            const group = clusters.get(root);
+            if (group) group.push(p);
+            else clusters.set(root, [p]);
+        }
+
+        const info = new Map<string, CityLayout>();
+        for (const members of clusters.values()) {
+            if (members.length < 2) {
+                info.set(members[0].id, { fanX: 0, fanY: 0, minSepDeg: Infinity, focusZoom: FOCUS_SOLO });
+                continue;
+            }
+            // Cluster centre + each member's on-screen bearing from it (SVG y points down → negate lat).
+            const cx = members.reduce((s, m) => s + m.coords[0], 0) / members.length;
+            const cy = members.reduce((s, m) => s + m.coords[1], 0) / members.length;
+            const cosLat = Math.cos((cy * Math.PI) / 180);
+            const ordered = members
+                .map((m) => ({ id: m.id, bearing: Math.atan2(-(m.coords[1] - cy), (m.coords[0] - cx) * cosLat) }))
+                .sort((a, b) => a.bearing - b.bearing);
+
+            // Tightest pair in the cluster: the fan stays open until even this pair would separate on its own.
+            let minSep = Infinity;
+            for (let i = 0; i < members.length; i++)
+                for (let j = i + 1; j < members.length; j++)
+                    minSep = Math.min(minSep, angDist(members[i].coords, members[j].coords));
+
+            // Space the pins evenly around the ring while keeping their geographic order.
+            const n = ordered.length;
+            const base = ordered[0].bearing;
+            ordered.forEach((m, k) => {
+                const angle = base + (k * 2 * Math.PI) / n;
+                info.set(m.id, {
+                    fanX: Math.cos(angle) * FAN_RADIUS,
+                    fanY: Math.sin(angle) * FAN_RADIUS,
+                    minSepDeg: minSep,
+                    focusZoom: FOCUS_CLUSTER,
+                });
+            });
+        }
+        return info;
+    }, [cities]);
+
     // Keep a live ref to the rendered position so a fly-to can start from wherever we currently are
     // (even mid-flight, or after a manual drag/zoom).
     const posRef = useRef(position);
@@ -65,7 +152,8 @@ export default function TravelMap({ cities, activeCityId, onSelectCity }: Travel
     useEffect(() => {
         const active = activeCityId ? cities.find((c) => c.id === activeCityId) : null;
         const coords = active ? cityCoords(active) : null;
-        const target: Position = coords ? { coordinates: coords, zoom: FOCUS_ZOOM } : INITIAL;
+        const focusZoom = active ? layout.get(active.id)?.focusZoom ?? FOCUS_SOLO : FOCUS_SOLO;
+        const target: Position = coords ? { coordinates: coords, zoom: focusZoom } : INITIAL;
         const start = posRef.current;
 
         const same =
@@ -96,7 +184,7 @@ export default function TravelMap({ cities, activeCityId, onSelectCity }: Travel
         return () => {
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
         };
-    }, [activeCityId, cities]);
+    }, [activeCityId, cities, layout]);
 
     const zoomBy = (factor: number) =>
         setPosition((p) => ({ ...p, zoom: Math.min(Math.max(p.zoom * factor, MIN_ZOOM), MAX_ZOOM) }));
@@ -135,6 +223,15 @@ export default function TravelMap({ cities, activeCityId, onSelectCity }: Travel
                             const dimmed = activeCityId !== null && !isActive;
                             const showLabel = isActive || hoveredId === city.id;
                             const count = city.photos.length;
+
+                            // Fan clustered pins apart in constant screen space; ease the offset back to
+                            // zero once the tightest pair would separate on its own at this zoom.
+                            const f = layout.get(city.id);
+                            const spread = f && f.minSepDeg !== Infinity
+                                ? Math.max(0, Math.min(1, 1 - (PX_PER_DEG * f.minSepDeg * position.zoom) / (2 * FAN_RADIUS)))
+                                : 0;
+                            const ox = f ? f.fanX * spread : 0;
+                            const oy = f ? f.fanY * spread : 0;
                             return (
                                 <Marker
                                     key={city.id}
@@ -155,7 +252,7 @@ export default function TravelMap({ cities, activeCityId, onSelectCity }: Travel
                                         }
                                     }}
                                 >
-                                    <g transform={`scale(${inv})`} style={{ transition: 'transform 250ms ease' }}>
+                                    <g transform={`scale(${inv}) translate(${ox}, ${oy})`} style={{ transition: 'transform 250ms ease' }}>
                                         {isActive && <circle r={11} className="travel-marker-ring" />}
                                         <circle r={5.5} className="travel-marker-dot" />
                                         {showLabel && (
