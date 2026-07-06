@@ -32,6 +32,11 @@ const cityCoordinates: Record<string, [number, number]> = {
     "portland": [-122.68, 45.52],
     "nashville": [-86.78, 36.16],
     "honolulu": [-157.86, 21.31],
+    // California — Monterey Peninsula / Big Sur coast
+    "monterey": [-121.90, 36.60],
+    "carmel": [-121.92, 36.55],
+    "big sur": [-121.81, 36.27],
+    "seaside": [-121.85, 36.61],
 
     // --- Canada ---
     "toronto": [-79.38, 43.65],

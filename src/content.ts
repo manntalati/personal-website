@@ -209,7 +209,51 @@ export const cities: City[] = [
             { id: "punta-1", src: "/photography/punta/IMG_5603.webp", date: "2024-11-24", caption: "Beach" },
         ],
     },
-];
+    {
+        id: "monterey",
+        name: "Monterey",
+        country: "United States",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "monterey-1", src: "/photography/monterey/IMG_5713.webp", date: "2026-07-03", caption: "Fisherman's Wharf" },
+        ],
+    },
+    {
+        id: "carmel",
+        name: "Carmel",
+        country: "United States",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "carmel-1", src: "/photography/carmel/IMG_5741.webp", date: "2026-07-04", caption: "Fisherman's Wharf" },
+            { id: "carmel-2", src: "/photography/carmel/IMG_6139.webp", date: "2026-07-05", caption: "Garrapata State Park" },
+            { id: "carmel-3", src: "/photography/carmel/IMG_6145.webp", date: "2026-07-05", caption: "Garrapata State Park" },
+            { id: "carmel-4", src: "/photography/carmel/IMG_6149.webp", date: "2026-07-05", caption: "Garrapata State Park" },
+        ],
+    },
+    {
+        id: "bigsur",
+        name: "Big Sur",
+        country: "United States",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "bigsur-1", src: "/photography/bigsur/IMG_6193.webp", date: "2026-07-04", caption: "Bixby Bridge" },
+            { id: "bigsur-2", src: "/photography/bigsur/IMG_6197.webp", date: "2026-07-04", caption: "Bixby Bridge" },
+            { id: "bigsur-3", src: "/photography/bigsur/IMG_6243.webp", date: "2026-07-04", caption: "Pfeiffer Beach" },
+            { id: "bigsur-4", src: "/photography/bigsur/IMG_6282.webp", date: "2026-07-04", caption: "Pfeiffer Beach" },
+        ],
+    },
+    {
+        id: "seaside",
+        name: "Seaside",
+        country: "United States",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "seaside-1", src: "/photography/seaside/IMG_6437.webp", date: "2026-07-05", caption: "Point Lobos" },
+            { id: "seaside-2", src: "/photography/seaside/IMG_6562.webp", date: "2026-07-05", caption: "Point Lobos" },
+            { id: "seaside-3", src: "/photography/seaside/IMG_6569.webp", date: "2026-07-05", caption: "Point Lobos" },
+        ],
+    },
+]
 
 /**
  * Resolve a city's map position: the inline `coordinates` override if present, otherwise a lookup
