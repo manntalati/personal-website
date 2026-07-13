@@ -254,6 +254,16 @@ export const cities: City[] = [
             { id: "seaside-3", src: "/photography/seaside/IMG_6569.webp", date: "2026-07-05", caption: "Point Lobos" },
         ],
     },
+    {
+        id: "pacifica",
+        name: "Pacifica",
+        country: "United States",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "pacifica-1", src: "/photography/pacifica/IMG_6680.webp", date: "2026-07-12", caption: "Montara State Beach"},
+            { id: "pacifica-2", src: "/photography/pacifica/IMG_6778.webp", date: "2026-07-12", caption: "Pillar Point Bluff"},
+        ],
+    },
 ]
 
 /**

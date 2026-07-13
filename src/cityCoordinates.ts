@@ -37,6 +37,7 @@ const cityCoordinates: Record<string, [number, number]> = {
     "carmel": [-121.92, 36.55],
     "big sur": [-121.81, 36.27],
     "seaside": [-121.85, 36.61],
+    "pacifica": [-122.49, 37.61],
 
     // --- Canada ---
     "toronto": [-79.38, 43.65],

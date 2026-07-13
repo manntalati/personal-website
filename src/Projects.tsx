@@ -26,7 +26,8 @@ export default function Projects({ searchQuery = '' }: ProjectsProps) {
             fetch(`https://api.github.com/repos/${owner}/${repo}/languages`, {
                 headers,
             })
-                .then((res) => res.json())
+                .then((res) => res.json
+                ())
                 .then((data: any) => {
                     if (data && typeof data === 'object') {
                         const top2 = Object.entries(data)
