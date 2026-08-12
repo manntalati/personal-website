@@ -198,6 +198,7 @@ export const cities: City[] = [
             { id: "sf-1", src: "/photography/sf/IMG_5682.webp", date: "2026-06-27", caption: "Ghirardelli Square" },
             { id: "sf-2", src: "/photography/sf/IMG_5664.webp", date: "2026-06-27", caption: "Alcatraz Island" },
             { id: "sf-3", src: "/photography/sf/IMG_5654.webp", date: "2026-06-27", caption: "Pier 39" },
+            { id: "sf-4", src: "/photography/sf/IMG_6863.webp", date: "2026-07-23", caption: "South of Market" },
         ],
     },
     {
