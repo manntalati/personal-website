@@ -31,15 +31,15 @@ export type Paper = {
 
 export const experiences: Experience[] = [
     {
-        id: "oracle",
-        title: "Software Engineer Intern",
-        company: "Oracle",
-        duration: "May 2026 - Present",
+        id: "dow",
+        title: "Data/Platform Engineer Intern",
+        company: "Dow",
+        duration: "Aug 2026 - Present",
         bullets: [
-            "Oracle Cloud Data Science Service - Model Building Team",
+            "Fall 2026",
         ],
-        urlLink: "https://www.oracle.com/",
-        themes: ["Model Building", "Software Engineering", "Cloud Infrastructure"],
+        urlLink: "https://www.dow.com/",
+        themes: [],
     },
     {
         id: "astral",
@@ -66,6 +66,17 @@ export const experiences: Experience[] = [
         themes: ["Strategy", "Leadership", "Analytics"],
     },
     {
+        id: "oracle",
+        title: "Software Engineer Intern",
+        company: "Oracle",
+        duration: "May 2026 - Aug 2026",
+        bullets: [
+            "Oracle Cloud Data Science Service - Model Building Team",
+        ],
+        urlLink: "https://www.oracle.com/",
+        themes: ["Model Building", "Software Engineering", "Cloud Infrastructure"],
+    },
+    {
         id: "uiuc-ca",
         title: "Course Assistant",
         company: "University of Illinois at Urbana-Champaign",
@@ -89,18 +100,6 @@ export const experiences: Experience[] = [
         ],
         urlLink: "https://www.ameren.com/",
         themes: ["Forecasting", "ML", "Cloud"],
-    },
-    {
-        id: "kane",
-        title: "Data Science Intern",
-        company: "Former Harvard Preceptor, David Kane",
-        duration: "Jun 2023 - Aug 2023",
-        bullets: [
-            "Developed 10+ data science tutorials from R for Data Science (2e) in RStudio by collaborating with Harvard preceptor to enhance educational resources for students",
-            "Drafted and contributed to fundamental chapters on statistical methods, predictive models, and mathematical expressions in the book (Preceptor's Primer) offered in Kane's Data Science Course to strengthen the course curriculum",
-        ],
-        urlLink: "https://ppbds.github.io/primer/",
-        themes: ["Education", "Statistics", "Publishing"],
     },
 ];
 

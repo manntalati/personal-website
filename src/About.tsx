@@ -32,7 +32,7 @@ export default function About() {
 
                         <div className="about-signature">
                             <span className="signature-dot" aria-hidden="true" />
-                            <span className="signature-text">Based in Urbana, IL · Statistics + CS @ UIUC</span>
+                            <span className="signature-text">Based in Champaign, IL · Statistics + CS @ UIUC</span>
                         </div>
                     </div>
 
