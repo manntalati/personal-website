@@ -4,9 +4,9 @@ export default function About() {
     const interests = ["Weightlifting", "Drumming"];
 
     const nowItems = [
-        { role: "SWE Intern", org: "Oracle Cloud · Model Building" },
-        { role: "Research Assistant", org: "ASTRAL Lab · UIUC" },
-        { role: "CTO", org: "CUBE Consulting" },
+        { role: "Data/Platform Engineer Intern", org: "Dow" },
+        { role: "AI Research Assistant", org: "ASTRAL Lab · UIUC" },
+        { role: "Chief Technology Officer", org: "CUBE Consulting" },
     ];
 
     return (
