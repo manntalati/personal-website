@@ -47,8 +47,9 @@ export const experiences: Experience[] = [
         company: "ASTRAL Lab (Assured Trustworthy AI Research Lab) @ UIUC",
         duration: "Jan 2026 - Present",
         bullets: [
-            "Building dual-objective CoT monitorability benchmarks for ASTRAL Lab, based on OpenAI's work",
-            "Curating datasets and benchmark specifications to test hidden-objective detection to effectively monitor monitorability",
+            "Building dual-objective CoT monitorability benchmarks for ASTRAL Lab, extending OpenAI’s published methodology",
+            "Curating datasets and benchmark specifications for hidden-objective detection across 19 tasks and 7 models",
+            "Designing follow-up experiments to isolate prompting techniques that reduce monitorability and characterize how evasion emerges"
         ],
         urlLink: "https://github.com/ASTRAL-Group",
         themes: ["LLM", "Chain of Thought", "Research"],
@@ -59,8 +60,9 @@ export const experiences: Experience[] = [
         company: "CUBE Consulting",
         duration: "Sep 2024 - Present",
         bullets: [
-            "Leading 4+ consultants to design AI-enabled workflows for Amazon AWS for educators, sales, and others",
-            "Implemented Framer website redesign boosting engagement by 25%; built web-based 3D aircraft simulation",
+            "Automating client acquisition with targeted outreach at 35-40+ emails weekly to source new consulting projects",
+            "Building a Next.js internal platform for 60+ members, unifying the point system, case resources, and project archives",
+            "Previously led 4+ consultants across cross-functional teams to design AI-enabled AWS workflows for client engagements"
         ],
         urlLink: "https://www.cubeconsulting.org/",
         themes: ["Strategy", "Leadership", "Analytics"],
@@ -71,7 +73,9 @@ export const experiences: Experience[] = [
         company: "Oracle",
         duration: "May 2026 - Aug 2026",
         bullets: [
-            "Oracle Cloud Data Science Service - Model Building Team",
+            "Built OCI Data Science notebook audit logging to deliver user-attributed notebook access and version history to OCI Logging",
+            "Instrumented and tested 20+ audit event types across ARM and x86 image builds, validating identical event coverage",
+            "Added 105+ automated tests across 4 repositories and completed end-to-end integration validation to prepare for production"
         ],
         urlLink: "https://www.oracle.com/",
         themes: ["Model Building", "Software Engineering", "Cloud Infrastructure"],
@@ -94,9 +98,9 @@ export const experiences: Experience[] = [
         company: "Ameren",
         duration: "Nov 2024 - Aug 2025",
         bullets: [
-            "Implemented short-term electric load forecasting models to achieve ≤ 4% MAPE, projected to save $50,000+",
-            "Hyperparameter-tuned neural forecasting models to enhance model accuracy by ≥ 1% with Ray Tune",
-            "Developed a Jenkins CI/CD pipeline using Terraform to deploy code across several environments and productionize it",
+            "Implemented load forecasting models at under 4% MAPE and $50K+ savings, tuned via Ray Tune for 1%+ accuracy",
+            "Built a Jenkins CI/CD pipeline with Terraform to promote notebooks and models across 3 environments into production",
+            "Added MLOps model and data drift monitoring with Databricks MLflow for the 3-model ensemble used in the final forecast"
         ],
         urlLink: "https://www.ameren.com/",
         themes: ["Forecasting", "ML", "Cloud"],
