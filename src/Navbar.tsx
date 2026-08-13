@@ -22,9 +22,9 @@ export default function Navbar() {
                     <HashLink smooth to="/#top" className="navbar-logo serif-heading">
                         Mann Talati
                     </HashLink>
-                    <span className="navbar-status" aria-label="Currently at Oracle">
+                    <span className="navbar-status" aria-label="Currently at Dow">
                         <span className="navbar-status-dot" />
-                        <span className="navbar-status-text">Currently @ Oracle</span>
+                        <span className="navbar-status-text">Currently @ Dow</span>
                     </span>
                 </div>
 
