@@ -19,6 +19,7 @@ import {
     FiCheck,
     FiCamera,
 } from 'react-icons/fi';
+import { FaUtensils } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './CommandPalette.css';
 import { experiences, projects, papers } from './content';
@@ -174,6 +175,7 @@ export default function CommandPalette() {
         { id: 'resume', label: 'Download Resume', hint: 'PDF', group: 'Links', icon: <FiFileText />, keywords: ['cv', 'pdf'], run: () => window.open('/talati_mann_resume.pdf', '_blank') },
         { id: 'github', label: 'GitHub', hint: 'github.com/manntalati', group: 'Links', icon: <FiGithub />, run: () => window.open('https://github.com/manntalati', '_blank') },
         { id: 'linkedin', label: 'LinkedIn', hint: 'linkedin.com/in/mann-talati', group: 'Links', icon: <FiLinkedin />, run: () => window.open('https://www.linkedin.com/in/mann-talati', '_blank') },
+        { id: 'beli', label: 'Beli', hint: '@manntalati', group: 'Links', icon: <FaUtensils />, keywords: ['food', 'restaurants', 'eating', 'reviews', 'dining'], run: () => window.open('https://beliapp.co/account/manntalati', '_blank') },
 
         {
             id: 'copy-email',
@@ -186,6 +188,22 @@ export default function CommandPalette() {
                 try {
                     await navigator.clipboard.writeText('mann.talati@gmail.com');
                     flashToast('Email copied');
+                } catch {
+                    flashToast('Copy failed');
+                }
+            },
+        },
+        {
+            id: 'copy-beli',
+            label: 'Copy Beli Handle',
+            hint: '@manntalati',
+            group: 'Actions',
+            icon: <FaUtensils />,
+            keywords: ['food', 'restaurants', 'clipboard'],
+            run: async () => {
+                try {
+                    await navigator.clipboard.writeText('@manntalati');
+                    flashToast('Beli handle copied');
                 } catch {
                     flashToast('Copy failed');
                 }
@@ -242,7 +260,7 @@ export default function CommandPalette() {
         a.run();
         const cleanId = a.id.replace(/^recent::/, '');
         pushRecent(cleanId);
-        if (cleanId !== 'copy-email' && !cleanId.startsWith('theme-')) setOpen(false);
+        if (!cleanId.startsWith('copy-') && !cleanId.startsWith('theme-')) setOpen(false);
     };
 
     useEffect(() => {

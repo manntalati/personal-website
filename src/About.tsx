@@ -1,7 +1,14 @@
+import { FiArrowUpRight } from 'react-icons/fi'
 import './About.css'
 
+type Interest = { name: string; handle?: string; href?: string };
+
 export default function About() {
-    const interests = ["Weightlifting", "Drumming"];
+    const interests: Interest[] = [
+        { name: "Weightlifting" },
+        { name: "Drumming" },
+        { name: "Food", handle: "@manntalati on Beli", href: "https://beliapp.co/account/manntalati" },
+    ];
 
     const nowItems = [
         { role: "Data/Platform Engineer Intern", org: "Dow" },
@@ -65,9 +72,23 @@ export default function About() {
                             <span className="meta-label">Outside of Work</span>
                             <ul className="outside-list">
                                 {interests.map((interest, i) => (
-                                    <li key={interest} className="outside-item">
+                                    <li key={interest.name} className="outside-item">
                                         <span className="outside-index">{String(i + 1).padStart(2, '0')}</span>
-                                        <span className="outside-name">{interest}</span>
+                                        {interest.href ? (
+                                            <a
+                                                href={interest.href}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="outside-link"
+                                                aria-label={`${interest.name} — ${interest.handle}`}
+                                            >
+                                                <span className="outside-name">{interest.name}</span>
+                                                <span className="outside-handle">{interest.handle}</span>
+                                                <FiArrowUpRight className="outside-arrow" aria-hidden="true" />
+                                            </a>
+                                        ) : (
+                                            <span className="outside-name">{interest.name}</span>
+                                        )}
                                     </li>
                                 ))}
                             </ul>

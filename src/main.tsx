@@ -14,7 +14,7 @@ import Photography from './Photography.tsx'
 import './index.css'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaUtensils } from 'react-icons/fa';
 import { FiMail, FiArrowUp } from 'react-icons/fi';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -33,6 +33,9 @@ function Footer() {
                     </a>
                     <a href="mailto:mann.talati@gmail.com" aria-label="Email">
                         <FiMail />
+                    </a>
+                    <a href="https://beliapp.co/account/manntalati" target="_blank" rel="noreferrer" aria-label="Beli (@manntalati)">
+                        <FaUtensils />
                     </a>
                 </div>
 
