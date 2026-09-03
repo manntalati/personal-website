@@ -268,6 +268,15 @@ export const cities: City[] = [
             { id: "pacifica-2", src: "/photography/pacifica/IMG_6778.webp", date: "2026-07-12", caption: "Pillar Point Bluff"},
         ],
     },
+    {
+        id: "egypt",
+        name: "Black Desert",
+        country: "Egypt",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "egypt-1", src: "/photography/egypt/egypt.webp", date: "2026-01-04", caption: "Black Desert" },
+        ],
+    },
 ]
 
 /**

@@ -100,6 +100,7 @@ const cityCoordinates: Record<string, [number, number]> = {
     "jerusalem": [35.21, 31.77],
     "amman": [35.93, 31.95],
     "cairo": [31.24, 30.04],
+    "black desert": [28.65, 27.95],
     "marrakech": [-7.98, 31.63],
     "cape town": [18.42, -33.92],
     "johannesburg": [28.05, -26.20],
