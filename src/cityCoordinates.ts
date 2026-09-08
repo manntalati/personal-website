@@ -10,6 +10,7 @@
 const cityCoordinates: Record<string, [number, number]> = {
     // --- United States ---
     "chicago": [-87.63, 41.88],
+    "champaign": [-88.24, 40.11],
     "new york": [-74.01, 40.71],
     "new york city": [-74.01, 40.71],
     "los angeles": [-118.24, 34.05],

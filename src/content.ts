@@ -269,6 +269,15 @@ export const cities: City[] = [
         ],
     },
     {
+        id: "champaign",
+        name: "Champaign",
+        country: "United States",
+        photos: [
+            // Edit `date` (YYYY-MM-DD) and `caption` below; add more photos as new lines.
+            { id: "champaign-1", src: "/photography/champaign/IMG_5074.webp", date: "2026-09-07", caption: "Campustown Sunset" },
+        ],
+    },
+    {
         id: "egypt",
         name: "Black Desert",
         country: "Egypt",

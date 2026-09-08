@@ -7,10 +7,15 @@
 // Run:  npm run optimize:photos   (also runs automatically on `npm run dev` / `npm run build`)
 // Idempotent: only (re)builds outputs that are missing or older than their source.
 
-import { readdir, mkdir, stat } from 'node:fs/promises';
+import { readdir, mkdir, stat, mkdtemp, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
+import { execFile } from 'node:child_process';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
+
+const run = promisify(execFile);
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC_DIR = path.join(root, 'photos');
@@ -18,7 +23,8 @@ const OUT_DIR = path.join(root, 'public', 'photography');
 
 const FULL = { width: 2000, quality: 80, suffix: '.webp' };
 const THUMB = { width: 700, quality: 72, suffix: '.thumb.webp' };
-const INPUT_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.tif', '.tiff']);
+const INPUT_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.tif', '.tiff', '.heic', '.heif']);
+const HEIC_EXT = new Set(['.heic', '.heif']);
 
 async function* walk(dir) {
     let entries;
@@ -32,6 +38,22 @@ async function* walk(dir) {
         if (entry.isDirectory()) yield* walk(full);
         else yield full;
     }
+}
+
+// sharp's prebuilt libvips can't decode iPhone HEICs (their multi-image HDR containers trip
+// libheif's reference limits), so hand those to macOS `sips` for a temp PNG sharp can read.
+async function decodable(file) {
+    if (!HEIC_EXT.has(path.extname(file).toLowerCase())) return { input: file, cleanup: () => {} };
+    const dir = await mkdtemp(path.join(tmpdir(), 'optimize-photos-'));
+    const png = path.join(dir, 'source.png');
+    const cleanup = () => rm(dir, { recursive: true, force: true });
+    try {
+        await run('sips', ['-s', 'format', 'png', file, '--out', png]);
+    } catch (err) {
+        await cleanup();
+        throw new Error(`cannot decode HEIC (needs macOS \`sips\`): ${err.message}`);
+    }
+    return { input: png, cleanup };
 }
 
 async function upToDate(outFile, srcMtime) {
@@ -81,15 +103,20 @@ async function main() {
             continue;
         }
 
+        let cleanup = () => {};
         try {
+            const decoded = await decodable(file);
+            cleanup = decoded.cleanup;
             await mkdir(path.dirname(fullOut), { recursive: true });
-            await sharp(file).rotate().resize({ width: FULL.width, withoutEnlargement: true }).webp({ quality: FULL.quality }).toFile(fullOut);
-            await sharp(file).rotate().resize({ width: THUMB.width, withoutEnlargement: true }).webp({ quality: THUMB.quality }).toFile(thumbOut);
+            await sharp(decoded.input).rotate().resize({ width: FULL.width, withoutEnlargement: true }).webp({ quality: FULL.quality }).toFile(fullOut);
+            await sharp(decoded.input).rotate().resize({ width: THUMB.width, withoutEnlargement: true }).webp({ quality: THUMB.quality }).toFile(thumbOut);
             optimized++;
             console.log(`[optimize-photos] ${rel}  ->  photography/${base.split(path.sep).join('/')}.webp (+ .thumb.webp)`);
         } catch (err) {
             failed++;
             console.error(`[optimize-photos] FAILED ${rel}: ${err.message}`);
+        } finally {
+            await cleanup();
         }
     }
 
