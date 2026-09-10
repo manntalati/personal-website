@@ -13,19 +13,14 @@ import {
     FiCopy,
     FiCornerDownLeft,
     FiClock,
-    FiSun,
-    FiMoon,
-    FiMonitor,
-    FiCheck,
     FiCamera,
 } from 'react-icons/fi';
 import { FaUtensils } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './CommandPalette.css';
 import { experiences, projects, papers } from './content';
-import { useTheme, type ThemeMode } from './ThemeContext';
 
-type ActionGroup = 'Navigate' | 'Experience' | 'Projects' | 'Research' | 'Links' | 'Actions' | 'Theme';
+type ActionGroup = 'Navigate' | 'Experience' | 'Projects' | 'Research' | 'Links' | 'Actions';
 
 type Action = {
     id: string;
@@ -46,7 +41,7 @@ const scrollToHash = (hash: string) => {
 const RECENT_KEY = 'cmdk:recent';
 const RECENT_LIMIT = 5;
 
-const SUGGESTIONS = ['Oracle', 'MonitorBench', 'ML', 'Resume', 'Dark mode'];
+const SUGGESTIONS = ['Oracle', 'MonitorBench', 'ML', 'Resume', 'Restaurants'];
 
 function loadRecent(): string[] {
     try {
@@ -79,7 +74,6 @@ function scoreAction(a: Action, q: string): number {
 }
 
 export default function CommandPalette() {
-    const { mode, setMode } = useTheme();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
@@ -102,27 +96,6 @@ export default function CommandPalette() {
         });
     };
 
-    const themeActions: Action[] = useMemo(() => {
-        const make = (target: ThemeMode, label: string, icon: React.ReactNode, hint: string, keywords: string[]): Action => ({
-            id: `theme-${target}`,
-            label,
-            hint,
-            group: 'Theme',
-            icon,
-            keywords,
-            trailing: mode === target ? <FiCheck className="cmdk-item-check" /> : null,
-            run: () => {
-                setMode(target);
-                flashToast(`Theme: ${target}`);
-            },
-        });
-        return [
-            make('light', 'Light theme', <FiSun />, 'Force light mode', ['light', 'theme', 'mode', 'dark']),
-            make('dark', 'Dark theme', <FiMoon />, 'Force dark mode', ['dark', 'theme', 'mode', 'night']),
-            make('system', 'Match system', <FiMonitor />, 'Follow OS preference', ['system', 'auto', 'theme', 'mode']),
-        ];
-    }, [mode, setMode]);
-
     // Section links must work from any route: if we're not on home, navigate there first, then scroll.
     const goToSection = useCallback((hash: string) => {
         if (window.location.pathname !== '/') {
@@ -139,6 +112,7 @@ export default function CommandPalette() {
         { id: 'research', label: 'Research', hint: 'Publications', group: 'Navigate', icon: <FiBookOpen />, keywords: ['paper', 'arxiv'], run: () => goToSection('#Research') },
         { id: 'projects', label: 'Projects', hint: 'Selected works', group: 'Navigate', icon: <FiCode />, keywords: ['work', 'portfolio'], run: () => goToSection('#Projects') },
         { id: 'skills', label: 'Skills', hint: 'Tech stack', group: 'Navigate', icon: <FiCpu />, keywords: ['stack', 'tools', 'languages'] , run: () => goToSection('#Technologies') },
+        { id: 'beli-top10', label: 'Top 10 Restaurants', hint: 'Ranked on Beli', group: 'Navigate', icon: <FaUtensils />, keywords: ['beli', 'food', 'eating', 'restaurants', 'dining', 'top 10'], run: () => goToSection('#Beli') },
         { id: 'contact', label: 'Contact', hint: 'Get in touch', group: 'Navigate', icon: <FiMail />, keywords: ['email', 'reach'], run: () => goToSection('#Contact') },
         { id: 'photography', label: 'Photography', hint: 'Travel photos & map', group: 'Navigate', icon: <FiCamera />, keywords: ['photos', 'travel', 'gallery', 'map', 'cities', 'trips'], run: () => navigate('/photography') },
 
@@ -217,9 +191,7 @@ export default function CommandPalette() {
             icon: <FiMail />,
             run: () => { window.location.href = 'mailto:mann.talati@gmail.com'; },
         },
-
-        ...themeActions,
-    ], [themeActions, navigate, goToSection]);
+    ], [navigate, goToSection]);
 
     const totalCommandCount = baseActions.length;
 
@@ -248,7 +220,7 @@ export default function CommandPalette() {
         if (recentItems.length > 0 && !query.trim()) {
             groups.push({ label: 'Recent', items: recentItems });
         }
-        const order: ActionGroup[] = ['Navigate', 'Experience', 'Projects', 'Research', 'Links', 'Actions', 'Theme'];
+        const order: ActionGroup[] = ['Navigate', 'Experience', 'Projects', 'Research', 'Links', 'Actions'];
         order.forEach(g => {
             const items = filtered.filter(a => a.group === g && !a.id.startsWith('recent::'));
             if (items.length > 0) groups.push({ label: g, items });
@@ -260,7 +232,7 @@ export default function CommandPalette() {
         a.run();
         const cleanId = a.id.replace(/^recent::/, '');
         pushRecent(cleanId);
-        if (!cleanId.startsWith('copy-') && !cleanId.startsWith('theme-')) setOpen(false);
+        if (!cleanId.startsWith('copy-')) setOpen(false);
     };
 
     useEffect(() => {

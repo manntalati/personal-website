@@ -8,37 +8,20 @@ interface ProjectsProps {
 }
 
 export default function Projects({ searchQuery = '' }: ProjectsProps) {
-    const token = import.meta.env.VITE_GITHUB_KEY;
-    const headers = {
-        Accept: 'application/vnd.github.v3+json',
-        Authorization: `token ${token}`,
-    };
-
     const [languages, setLanguages] = useState<Record<string, string[]>>({})
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+    // Top-2 languages are baked into /repo-languages.json at build time by
+    // scripts/fetch-languages.mjs, so no GitHub token ever reaches the browser.
     useEffect(() => {
-        projects.forEach((p) => {
-            const parts = p.githubUrl.split("github.com/");
-            if (parts.length < 2) return;
-
-            const [owner, repo] = parts[1].split("/");
-            fetch(`https://api.github.com/repos/${owner}/${repo}/languages`, {
-                headers,
+        let cancelled = false;
+        fetch('/repo-languages.json', { cache: 'no-cache' })
+            .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+            .then((data: Record<string, string[]>) => {
+                if (!cancelled) setLanguages(data);
             })
-                .then((res) => res.json
-                ())
-                .then((data: any) => {
-                    if (data && typeof data === 'object') {
-                        const top2 = Object.entries(data)
-                            .sort(([, a], [, b]) => (b as number) - (a as number))
-                            .slice(0, 2)
-                            .map(([lang]) => lang);
-                        setLanguages((prev) => ({ ...prev, [p.id]: top2 }));
-                    }
-                })
-                .catch(console.error);
-        });
+            .catch((err) => console.error('[projects] could not load /repo-languages.json', err));
+        return () => { cancelled = true; };
     }, []);
 
     useEffect(() => {

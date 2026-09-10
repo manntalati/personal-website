@@ -143,3 +143,74 @@
         height: 38px;
     }
 }
+
+/* ---- Hover preview card ---- */
+.travel-preview {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 32px var(--color-shadow-hover);
+    /* The card tracks the cursor; never let it swallow the pointer. */
+    pointer-events: none;
+    animation: travel-preview-in 140ms ease-out;
+}
+
+@keyframes travel-preview-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.travel-preview-img {
+    width: 100%;
+    height: 88px;
+    object-fit: cover;
+    display: block;
+    background-color: var(--color-surface-secondary);
+}
+
+.travel-preview-img-empty {
+    background-image: repeating-linear-gradient(45deg,
+            var(--color-surface) 0 6px,
+            var(--color-surface-secondary) 6px 12px);
+}
+
+.travel-preview-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-2) var(--space-3) var(--space-3);
+}
+
+.travel-preview-name {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+}
+
+.travel-preview-meta {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-tertiary);
+}
+
+/* Touch devices have no hover state — the card would stick after a tap. */
+@media (hover: none) {
+    .travel-preview {
+        display: none;
+    }
+}

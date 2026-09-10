@@ -294,8 +294,6 @@
     display: block;
     margin: 0 auto;
     border-radius: var(--radius-sm);
-    /* Keep the focused photo at true brightness even in dark mode (overrides global img dimming). */
-    filter: none;
 }
 
 .lightbox-caption {

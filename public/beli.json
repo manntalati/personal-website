@@ -1,0 +1,23 @@
+{
+  "handle": "manntalati",
+  "profileUrl": "https://beliapp.co/account/manntalati",
+  "updatedAt": "2026-09-09T00:00:00Z",
+  "metrics": {
+    "ranked": 283,
+    "wantToTry": 12,
+    "cities": 48,
+    "avgScore": 8.4
+  },
+  "top10": [
+    { "rank": 1,  "name": "Mirra",          "city": "Chicago",     "cuisine": "Indian, Mexican, Fusion",   "score": 10.0, "note": "" },
+    { "rank": 2,  "name": "Piccolo Buco by Cooper's Hawk",       "city": "Oakbrook",     "cuisine": "Italian", "score": 10.0 },
+    { "rank": 3,  "name": "Aba",  "city": "Chicago",     "cuisine": "Mediterranean, Middle Eastern",      "score": 10.0, "note": "" },
+    { "rank": 4,  "name": "The Desi Accent",       "city": "Lombard",     "cuisine": "Indian",    "score": 9.9 },
+    { "rank": 5,  "name": "ROOP Chicago Innovative Indian Restaurant & Cocktail Bar",           "city": "Chicago",   "cuisine": "Indian",    "score": 9.9 },
+    { "rank": 6,  "name": "Pago's Pizzeria and Italian Cuisine", "city": "Sedona",     "cuisine": "Italian", "score": 9.9 },
+    { "rank": 7,  "name": "Khazana by Chef Sanjeev Kapoor",       "city": "Palo Alto",      "cuisine": "Indian, North Indian",        "score": 9.9 },
+    { "rank": 8,  "name": "VAI's Italian Inspired Restaurant Kitchen + Bar", "city": "Naperville", "cuisine": "Italian", "score": 9.9 },
+    { "rank": 9,  "name": "Inchin's Bamboo Garden",       "city": "Naperville",     "cuisine": "Indian, Chinese, Fusion", "score": 9.8 },
+    { "rank": 10, "name": "Tandoori Pizza",   "city": "San Jose","cuisine": "Indian, Pizza",    "score": 9.8 }
+  ]
+}

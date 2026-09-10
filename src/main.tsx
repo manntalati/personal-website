@@ -11,9 +11,9 @@ import Contact from './Contact.tsx'
 import Stats from './Stats.tsx'
 import CommandPalette from './CommandPalette.tsx'
 import Photography from './Photography.tsx'
+import Beli from './Beli.tsx'
 import './index.css'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { ThemeProvider } from './ThemeContext';
 import { FaGithub, FaLinkedin, FaUtensils } from 'react-icons/fa';
 import { FiMail, FiArrowUp } from 'react-icons/fi';
 import { Analytics } from '@vercel/analytics/react';
@@ -73,6 +73,7 @@ function Home() {
             <Research />
             <Projects />
             <Tech />
+            <Beli />
             <Contact />
         </>
     );
@@ -108,8 +109,6 @@ function App() {
 
 createRoot(document.getElementById('root')!).render(
     <Router>
-        <ThemeProvider>
-            <App />
-        </ThemeProvider>
+        <App />
     </Router>
 )

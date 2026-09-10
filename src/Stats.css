@@ -41,7 +41,7 @@
     line-height: 1;
     color: var(--color-inverse-text);
     letter-spacing: -0.04em;
-    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
 }
 
 .stat-label {

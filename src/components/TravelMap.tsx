@@ -28,7 +28,12 @@ const FOCUS_CLUSTER = 8;
 const CLUSTER_DEG = 0.75;
 const FAN_RADIUS = 20;
 
-// Country fills/strokes use CSS variables so the map follows the light/dark theme automatically.
+// Hover preview card: sized here so it can be clamped inside the frame before it paints.
+const PREVIEW_W = 208;
+const PREVIEW_H = 132;
+const PREVIEW_GAP = 18;
+
+// Country fills/strokes use CSS variables so the map stays in sync with the palette.
 const COUNTRY_STYLE = {
     default: { fill: 'var(--color-surface-secondary)', stroke: 'var(--color-border)', strokeWidth: 0.4, outline: 'none' },
     hover: { fill: 'var(--color-surface-secondary)', stroke: 'var(--color-border)', strokeWidth: 0.4, outline: 'none' },
@@ -73,6 +78,9 @@ interface TravelMapProps {
 export default function TravelMap({ cities, activeCityId, onSelectCity }: TravelMapProps) {
     const [position, setPosition] = useState<Position>(INITIAL);
     const [hoveredId, setHoveredId] = useState<string | null>(null);
+    // Cursor-anchored preview, in coordinates relative to the map frame.
+    const [preview, setPreview] = useState<{ id: string; x: number; y: number } | null>(null);
+    const frameRef = useRef<HTMLDivElement>(null);
 
     // Markers live inside the zoom group, so counter-scale them to keep a constant on-screen size.
     const inv = 1 / position.zoom;
@@ -185,12 +193,33 @@ export default function TravelMap({ cities, activeCityId, onSelectCity }: Travel
         };
     }, [activeCityId, cities, layout]);
 
+    // Anchor the card to the cursor, then clamp it so it never spills outside the frame.
+    const placePreview = (id: string, e: { clientX: number; clientY: number }) => {
+        const frame = frameRef.current;
+        if (!frame) return;
+        const r = frame.getBoundingClientRect();
+        const rawX = e.clientX - r.left - PREVIEW_W / 2;
+        const rawY = e.clientY - r.top - PREVIEW_H - PREVIEW_GAP;
+        setPreview({
+            id,
+            x: Math.max(8, Math.min(rawX, r.width - PREVIEW_W - 8)),
+            // If there's no room above the cursor, flip the card below it.
+            y: rawY < 8 ? e.clientY - r.top + PREVIEW_GAP : rawY,
+        });
+    };
+
+    const previewCity = preview ? cities.find((c) => c.id === preview.id) ?? null : null;
+    // Thumbnail = the city's earliest photo, so the same pin always previews the same image.
+    const previewThumb = previewCity
+        ? [...previewCity.photos].sort((a, b) => a.date.localeCompare(b.date))[0] ?? null
+        : null;
+
     const zoomBy = (factor: number) =>
         setPosition((p) => ({ ...p, zoom: Math.min(Math.max(p.zoom * factor, MIN_ZOOM), MAX_ZOOM) }));
 
     return (
         <div className="travel-map">
-            <div className="travel-map-frame">
+            <div className="travel-map-frame" ref={frameRef}>
                 <ComposableMap
                     projection="geoEqualEarth"
                     projectionConfig={{ scale: 170 }}
@@ -238,8 +267,12 @@ export default function TravelMap({ cities, activeCityId, onSelectCity }: Travel
                                     coordinates={coords}
                                     className={`travel-marker ${isActive ? 'active' : ''} ${dimmed ? 'dimmed' : ''}`}
                                     onClick={() => onSelectCity(city.id)}
-                                    onMouseEnter={() => setHoveredId(city.id)}
-                                    onMouseLeave={() => setHoveredId((h) => (h === city.id ? null : h))}
+                                    onMouseEnter={(e) => { setHoveredId(city.id); placePreview(city.id, e); }}
+                                    onMouseMove={(e) => placePreview(city.id, e)}
+                                    onMouseLeave={() => {
+                                        setHoveredId((h) => (h === city.id ? null : h));
+                                        setPreview((p) => (p?.id === city.id ? null : p));
+                                    }}
                                     onFocus={() => setHoveredId(city.id)}
                                     onBlur={() => setHoveredId((h) => (h === city.id ? null : h))}
                                     tabIndex={0}
@@ -266,6 +299,27 @@ export default function TravelMap({ cities, activeCityId, onSelectCity }: Travel
                         })}
                     </ZoomableGroup>
                 </ComposableMap>
+
+                {previewCity && preview && (
+                    <div
+                        className="travel-preview"
+                        style={{ left: preview.x, top: preview.y, width: PREVIEW_W }}
+                        aria-hidden="true"
+                    >
+                        {previewThumb ? (
+                            <img className="travel-preview-img" src={previewThumb.src} alt="" loading="lazy" />
+                        ) : (
+                            <div className="travel-preview-img travel-preview-img-empty" />
+                        )}
+                        <div className="travel-preview-body">
+                            <span className="travel-preview-name">{previewCity.name}</span>
+                            <span className="travel-preview-meta">
+                                {previewCity.photos.length} photo{previewCity.photos.length === 1 ? '' : 's'}
+                                {previewCity.country ? ` · ${previewCity.country}` : ''}
+                            </span>
+                        </div>
+                    </div>
+                )}
 
                 <div className="travel-map-controls">
                     <button type="button" aria-label="Zoom in" onClick={() => zoomBy(1.6)}>

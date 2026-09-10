@@ -1,0 +1,40 @@
+name: Sync Beli top 10
+
+# Refreshes public/beli.json on a schedule. Does nothing until the BELI_API_URL
+# secret exists — sync-beli.mjs exits cleanly when no source is configured, so
+# an unconfigured repo just no-ops instead of failing or blanking the section.
+on:
+  schedule:
+    - cron: '0 7 * * *'   # daily, 07:00 UTC
+  workflow_dispatch:       # and on demand
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Pull latest rankings
+        env:
+          BELI_API_URL: ${{ secrets.BELI_API_URL }}
+          BELI_TOKEN: ${{ secrets.BELI_TOKEN }}
+        run: node scripts/sync-beli.mjs
+
+      - name: Commit if changed
+        run: |
+          if [[ -n "$(git status --porcelain public/beli.json)" ]]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add public/beli.json
+            git commit -m "chore: sync Beli top 10"
+            git push
+          else
+            echo "no change"
+          fi

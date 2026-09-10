@@ -218,11 +218,6 @@
     color: var(--color-text-tertiary);
 }
 
-.cmdk-item-check {
-    color: #16a34a;
-    font-size: 14px;
-}
-
 .cmdk-group-icon {
     font-size: 11px;
     margin-right: 4px;
