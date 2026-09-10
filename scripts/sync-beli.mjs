@@ -51,16 +51,14 @@ function mapPayload(raw) {
         note: r.note ?? r.comment ?? undefined,
     }));
 
-    const scored = top10.filter(r => typeof r.score === 'number');
+    // No average score: Beli doesn't surface one, and averaging just the top ten
+    // would be a number about this list rather than about the eating.
     const metrics = {
         ranked: raw.metrics?.ranked ?? raw.been_count ?? list.length,
         wantToTry: raw.metrics?.wantToTry ?? raw.want_to_try_count ?? undefined,
         cities: raw.metrics?.cities ?? (new Set(
             list.map(r => r.city ?? r.location?.city).filter(Boolean),
         ).size || undefined),
-        avgScore: raw.metrics?.avgScore ?? (scored.length
-            ? Number((scored.reduce((s, r) => s + r.score, 0) / scored.length).toFixed(1))
-            : undefined),
     };
 
     return { top10, metrics };
@@ -103,6 +101,8 @@ async function main() {
         throw new Error('source returned zero restaurants — refusing to overwrite');
     }
 
+    // Spreading `existing` first keeps the hand-curated bits — notably the
+    // `images` map, which is keyed by restaurant slug and never comes from Beli.
     const existing = JSON.parse(await readFile(OUT, 'utf8'));
     const next = {
         ...existing,

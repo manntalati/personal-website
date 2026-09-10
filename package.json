@@ -9,8 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "optimize:photos": "node scripts/optimize-photos.mjs",
-    "predev": "node scripts/optimize-photos.mjs && node scripts/fetch-languages.mjs",
-    "prebuild": "node scripts/optimize-photos.mjs && node scripts/fetch-languages.mjs",
+    "beli:images": "node scripts/build-beli-images.mjs",
+    "predev": "node scripts/optimize-photos.mjs && node scripts/build-beli-images.mjs && node scripts/fetch-languages.mjs",
+    "prebuild": "node scripts/optimize-photos.mjs && node scripts/build-beli-images.mjs && node scripts/fetch-languages.mjs",
     "fetch:languages": "node scripts/fetch-languages.mjs"
   },
   "dependencies": {

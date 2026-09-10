@@ -30,3 +30,6 @@ dist-ssr
 
 # Original photos — the optimized .webp copies in public/photography/ are committed and shipped.
 photos/
+
+# Original restaurant photos — the optimized .webp copies in public/beli/ are committed and shipped.
+restaurants/

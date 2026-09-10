@@ -1,7 +1,7 @@
 import './Beli.css';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useInView, useCountUp } from './hooks';
-import { FiChevronLeft, FiChevronRight, FiExternalLink } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiExternalLink, FiArrowUpRight } from 'react-icons/fi';
 import { FaUtensils } from 'react-icons/fa';
 
 type BeliRestaurant = {
@@ -11,13 +11,16 @@ type BeliRestaurant = {
     cuisine?: string;
     score?: number;
     note?: string;
+    /** Overrides the slug lookup in `images` for this one restaurant. */
+    image?: string;
+    /** Overrides the Google Maps fallback link. */
+    url?: string;
 };
 
 type BeliMetrics = {
     ranked?: number;
     wantToTry?: number;
     cities?: number;
-    avgScore?: number;
 };
 
 type BeliData = {
@@ -26,10 +29,26 @@ type BeliData = {
     updatedAt?: string;
     sample?: boolean;
     metrics?: BeliMetrics;
+    /** slug(name) -> image path. Kept outside top10 so a rankings sync can't drop it. */
+    images?: Record<string, string>;
     top10: BeliRestaurant[];
 };
 
 const FALLBACK_PROFILE = 'https://beliapp.co/account/manntalati';
+
+/** Must stay in sync with slugify() in scripts/build-beli-images.mjs. */
+const slugify = (s: string) =>
+    s.toLowerCase()
+        .normalize('NFKD')
+        .replace(/['’]/g, '')      // "Pago's" -> pagos, not pago-s
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+/** Beli has no per-restaurant public page, so "see the restaurant" means Maps. */
+const mapsUrl = (r: BeliRestaurant) =>
+    `https://www.google.com/maps/search/?api=1&query=${
+        encodeURIComponent([r.name, r.city].filter(Boolean).join(' '))
+    }`;
 
 function Metric({ value, label, decimals = 0, active }: {
     value: number;
@@ -60,6 +79,7 @@ function relativeTime(iso?: string): string | null {
 
 export default function Beli() {
     const [data, setData] = useState<BeliData | null>(null);
+    const [brokenImages, setBrokenImages] = useState<Record<string, true>>({});
     const railRef = useRef<HTMLDivElement>(null);
     const [atStart, setAtStart] = useState(true);
     const [atEnd, setAtEnd] = useState(false);
@@ -114,7 +134,7 @@ export default function Beli() {
                     </span>
                     <h2 className="beli-title" id="beli-heading">Top 10</h2>
                     <p className="beli-sub">
-                        Every restaurant I&rsquo;ve been to, ranked head-to-head. These are the ten that survived.
+                        Every restaurant I&rsquo;ve been to, ranked head-to-head.
                     </p>
                     {data.sample && (
                         <span className="beli-sample" title="Replace public/beli.json with your real data to remove this badge.">
@@ -128,7 +148,6 @@ export default function Beli() {
                         {metrics.ranked != null && <Metric value={metrics.ranked} label="Ranked" active={inView} />}
                         {metrics.wantToTry != null && <Metric value={metrics.wantToTry} label="Want to try" active={inView} />}
                         {metrics.cities != null && <Metric value={metrics.cities} label="Cities" active={inView} />}
-                        {metrics.avgScore != null && <Metric value={metrics.avgScore} label="Avg score" decimals={1} active={inView} />}
                     </div>
                 )}
 
@@ -151,23 +170,53 @@ export default function Beli() {
                         role="list"
                         aria-label="Top 10 restaurants"
                     >
-                        {data.top10.map((r) => (
-                            <article className="beli-card" key={`${r.rank}-${r.name}`} role="listitem">
-                                <span className="beli-rank" aria-hidden="true">{r.rank}</span>
-                                <div className="beli-card-body">
-                                    <h3 className="beli-name">
-                                        <span className="beli-rank-sr">#{r.rank}</span> {r.name}
-                                    </h3>
-                                    <p className="beli-meta">
-                                        {[r.city, r.cuisine].filter(Boolean).join(' · ')}
-                                    </p>
-                                    {r.note && <p className="beli-note">{r.note}</p>}
-                                    {r.score != null && (
-                                        <span className="beli-score">{r.score.toFixed(1)}</span>
+                        {data.top10.map((r) => {
+                            const candidate = r.image ?? data.images?.[slugify(r.name)];
+                            const photo = candidate && !brokenImages[candidate] ? candidate : null;
+                            const href = r.url || mapsUrl(r);
+
+                            return (
+                                <a
+                                    className={`beli-card${photo ? ' has-photo' : ''}`}
+                                    key={`${r.rank}-${r.name}`}
+                                    role="listitem"
+                                    href={href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    {photo && (
+                                        <>
+                                            <img
+                                                className="beli-photo"
+                                                src={photo}
+                                                alt=""
+                                                loading="lazy"
+                                                decoding="async"
+                                                onError={() => setBrokenImages(b => ({ ...b, [candidate!]: true }))}
+                                            />
+                                            <span className="beli-scrim" aria-hidden="true" />
+                                        </>
                                     )}
-                                </div>
-                            </article>
-                        ))}
+                                    <span className="beli-rank" aria-hidden="true">{r.rank}</span>
+                                    <div className="beli-card-body">
+                                        <h3 className="beli-name">
+                                            <span className="beli-sr-only">#{r.rank}</span> {r.name}
+                                        </h3>
+                                        <p className="beli-meta">
+                                            {[r.city, r.cuisine].filter(Boolean).join(' · ')}
+                                        </p>
+                                        {r.note && <p className="beli-note">{r.note}</p>}
+                                        {r.score != null && (
+                                            <span className="beli-score">{r.score.toFixed(1)}</span>
+                                        )}
+                                    </div>
+                                    <span className="beli-go" aria-hidden="true"><FiArrowUpRight /></span>
+                                    <span className="beli-sr-only">
+                                        {r.url ? ' — open restaurant page' : ' — find on Google Maps'}
+                                    </span>
+                                </a>
+                            );
+                        })}
                     </div>
 
                     <button
