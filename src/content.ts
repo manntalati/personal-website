@@ -32,14 +32,14 @@ export type Paper = {
 export const experiences: Experience[] = [
     {
         id: "dow",
-        title: "Data/Platform Engineer Intern",
+        title: "Data Engineer Intern",
         company: "Dow",
         duration: "Aug 2026 - Present",
         bullets: [
-            "Fall 2026",
+            "UAT Workflow Optimization",
         ],
         urlLink: "https://www.dow.com/",
-        themes: [],
+        themes: ["Data Engineering", "Databricks"],
     },
     {
         id: "astral",
@@ -117,20 +117,12 @@ export const projects: Project[] = [
         year: "Mar 2026 - Present",
     },
     {
-        id: "5",
+        id: "2",
         title: "AI Recycling Assistant",
         imageUrl: "/recycling.webp",
         summary: "AI recycling assistant with custom CNN deployed on AWS SageMaker to classify waste materials with ≥ 70% accuracy.",
         githubUrl: "https://github.com/manntalati/ai_recycling_assistant",
         year: "Jun 2025 - Aug 2025",
-    },
-    {
-        id: "6",
-        title: "Resume Recommender",
-        imageUrl: "/resume_recommender.webp",
-        summary: "Tool to optimize resumes for job and internship applications.",
-        githubUrl: "https://github.com/manntalati/resume-recommender",
-        year: "Jul 2025",
     },
 ];
 

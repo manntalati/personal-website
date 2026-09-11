@@ -133,9 +133,6 @@ export default function Beli() {
                         <FaUtensils aria-hidden="true" /> Beli · Eating
                     </span>
                     <h2 className="beli-title" id="beli-heading">Top 10</h2>
-                    <p className="beli-sub">
-                        Every restaurant I&rsquo;ve been to, ranked head-to-head.
-                    </p>
                     {data.sample && (
                         <span className="beli-sample" title="Replace public/beli.json with your real data to remove this badge.">
                             Sample data

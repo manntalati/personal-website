@@ -29,6 +29,7 @@ export default function Tech({ searchQuery = '' }: TechProps) {
                 { name: "NumPy", url: "https://numpy.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/numpy/numpy-original.svg" },
                 { name: "OpenCV", url: "https://opencv.org/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg" },
                 { name: "Apache Spark", url: "https://spark.apache.org/docs/latest/api/python/index.html", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachespark/apachespark-original-wordmark.svg" },
+                { name: "FastAPI", url: "https://fastapi.tiangolo.com/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/fastapi/fastapi-original.svg" },
             ]
         },
         {
@@ -41,6 +42,7 @@ export default function Tech({ searchQuery = '' }: TechProps) {
                 { name: "Docker", url: "https://www.docker.com/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" },
                 { name: "Databricks", url: "https://databricks.com/", icon: "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/databricks.svg" },
                 { name: "PowerBI", url: "https://powerbi.microsoft.com/", icon: "https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/powerbi.svg" },
+                { name: "Azure", url: "https://azure.microsoft.com/", icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg" },
             ]
         }
     ];

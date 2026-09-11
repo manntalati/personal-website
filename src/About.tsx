@@ -11,7 +11,7 @@ export default function About() {
     ];
 
     const nowItems = [
-        { role: "Data/Platform Engineer Intern", org: "Dow" },
+        { role: "Data Engineer Intern", org: "Dow" },
         { role: "AI Research Assistant", org: "ASTRAL Lab · UIUC" },
         { role: "Chief Technology Officer", org: "CUBE Consulting" },
     ];
@@ -22,7 +22,7 @@ export default function About() {
                 <div className="about-header">
                     <span className="about-label">Background</span>
                     <h2 className="about-title">
-                        Building tools at the intersection of the Cloud, Machine Learning, and Software Engineering.
+                        Building tools at the intersection of Computer Vision, Machine Learning, and Autonomy.
                     </h2>
                 </div>
 
@@ -30,11 +30,11 @@ export default function About() {
                     <div className="about-content">
                         <p>
                             I'm a Statistics & Computer Science student at the University of Illinois Urbana-Champaign (UIUC),
-                            focusing on machine learning and scalable software engineering.
+                            focusing on machine learning and artificial intelligence.
                         </p>
                         <p>
                             Currently, I'm involved with CUBE Consulting and conducting research at ASTRAL Lab UIUC.
-                            A lot of my work is centered around translating complex data into actionable insights through automation and robust backend systems.
+                            I'm super excited about the future of autonomous vehicles and computer vision!
                         </p>
 
                         <div className="about-signature">
@@ -48,8 +48,9 @@ export default function About() {
                             <span className="meta-label">Expertise</span>
                             <div className="interests-tags">
                                 <span className="interest-tag">Machine Learning</span>
-                                <span className="interest-tag">Scalable Systems</span>
+                                <span className="interest-tag">Computer Vision</span>
                                 <span className="interest-tag">Artificial Intelligence</span>
+                                <span className="interest-tag">Autonomous Vehicles</span>
                             </div>
                         </div>
 
