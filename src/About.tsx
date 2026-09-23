@@ -34,7 +34,7 @@ export default function About() {
                         </p>
                         <p>
                             Currently, I'm involved with CUBE Consulting and conducting research at ASTRAL Lab UIUC.
-                            I'm super excited about the future of autonomous vehicles and computer vision!
+                            I'm super excited about the future of autonomous vehicles, trading, and computer vision!
                         </p>
 
                         <div className="about-signature">

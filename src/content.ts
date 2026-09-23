@@ -31,6 +31,17 @@ export type Paper = {
 
 export const experiences: Experience[] = [
     {
+        id: "shopify",
+        title: "Machine Learning Engineer Intern",
+        company: "Shopify",
+        duration: "January 2027 - April 2027",
+        bullets: [
+            "Winter 2027",
+        ],
+        urlLink: "https://www.shopify.com/",
+        themes: ["Machine Learning"],
+    },
+    {
         id: "dow",
         title: "Data Engineer Intern",
         company: "Dow",
