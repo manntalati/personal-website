@@ -31,6 +31,17 @@ export type Paper = {
 
 export const experiences: Experience[] = [
     {
+        id: "drw",
+        title: "Platform Engineer Intern",
+        company: "DRW",
+        duration: "June 2027 - August 2027",
+        bullets: [
+            "Summer 2027",
+        ],
+        urlLink: "https://www.drw.com/",
+        themes: ["Platform Engineering"],
+    },
+    {
         id: "shopify",
         title: "Machine Learning Engineer Intern",
         company: "Shopify",
@@ -47,7 +58,7 @@ export const experiences: Experience[] = [
         company: "Dow",
         duration: "Aug 2026 - Present",
         bullets: [
-            "UAT Workflow Optimization",
+            "UAT Workflow Optimization & AI Agent Testing",
         ],
         urlLink: "https://www.dow.com/",
         themes: ["Data Engineering", "Databricks"],
@@ -90,18 +101,6 @@ export const experiences: Experience[] = [
         ],
         urlLink: "https://www.oracle.com/",
         themes: ["Model Building", "Software Engineering", "Cloud Infrastructure"],
-    },
-    {
-        id: "uiuc-ca",
-        title: "Course Assistant",
-        company: "University of Illinois at Urbana-Champaign",
-        duration: "Sep 2025 - May 2026",
-        bullets: [
-            "Mentor 8 students through the SDLC by standardizing Git workflows, pull requests, code reviews, and CI/CD pipelines",
-            "Leading bi-weekly design/code reviews and implementing issue tracking and sprint cadences",
-        ],
-        urlLink: "https://www.cubeconsulting.org/",
-        themes: ["Strategy", "Leadership", "Analytics"],
     },
     {
         id: "ameren",
